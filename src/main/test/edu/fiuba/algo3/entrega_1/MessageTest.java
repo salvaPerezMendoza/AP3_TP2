@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -20,13 +21,14 @@ public class MessageTest {
         Flujo flujoDeJuego = new Flujo();
         flujoDeJuego.agregarJugador(jugador1);
         flujoDeJuego.agregarJugador(jugador2);
-        flujoDeJuego.setPreguntaActual(new PreguntaVFClasico("La tierra es redonda", "V"));
+        Respuesta respuesta = new RespuestaV();
+        flujoDeJuego.setPreguntaActual(new PreguntaVFClasico("La tierra es redonda", respuesta));
 
         // Crear lista de respuestas (jugador1 responde correctamente, jugador2 incorrectamente)
-        String respuestaJugador1 = jugador1.responder("V");
-        flujoDeJuego.agregarRespuesta(respuestaJugador1);
-        String respuestaJugador2 = jugador2.responder("F");
-        flujoDeJuego.agregarRespuesta(respuestaJugador2);
+        Respuesta repsuestaJugador1 = new RespuestaV();
+        flujoDeJuego.agregarRespuesta(repsuestaJugador1);
+        Respuesta repsuestaJugador2 = new RespuestaF();
+        flujoDeJuego.agregarRespuesta(repsuestaJugador2);
 
         // Evaluar respuestas
         flujoDeJuego.devolverPuntajes();
@@ -47,12 +49,13 @@ public class MessageTest {
         flujoDeJuego.agregarJugador(jugador2);
 
         // Crear pregunta de Verdadero/Falso clásico con la respuesta correcta "Falso"
-        flujoDeJuego.setPreguntaActual(new PreguntaVFClasico("La tierra es redonda", "F"));
+        Respuesta respuesta = new RespuestaF();
+        flujoDeJuego.setPreguntaActual(new PreguntaVFClasico("La tierra es redonda", respuesta));
 
         // Simular respuestas de los jugadores (jugador1 responde incorrectamente, jugador2 correctamente)
-        String respuestaJugador1 = jugador1.responder("V");
+        Respuesta respuestaJugador1 = new RespuestaV();
         flujoDeJuego.agregarRespuesta(respuestaJugador1);
-        String respuestaJugador2 = jugador2.responder("F");
+        Respuesta respuestaJugador2 = new RespuestaF();
         flujoDeJuego.agregarRespuesta(respuestaJugador2);
 
         // Evaluar respuestas
@@ -77,17 +80,19 @@ public class MessageTest {
         respuestas.add("A");
         respuestas.add("B");
 
+        Respuesta respuesta = new RespuestaMultipleChoice(respuestas);
+
         ArrayList<String> opciones = new ArrayList<>();
         opciones.add("A");
         opciones.add("B");
         opciones.add("C");
         opciones.add("D");
 
-        flujoDeJuego.setPreguntaActual(new PreguntaMultipleChoiceClasico(respuestas, "Seleccione las opciones correctas",opciones));
+        flujoDeJuego.setPreguntaActual(new PreguntaMultipleChoiceClasico(respuesta, "Seleccione las opciones correctas",opciones));
 
         // Simular respuestas de los jugadores (jugador1 responde incorrectamente, jugador2 correctamente)}
-        String respuestaJugador1 = jugador1.responder("A,B");
-        String respuestaJugador2 = jugador2.responder("A,B");
+        Respuesta respuestaJugador1 = new RespuestaMultipleChoice(new ArrayList<>(Arrays.asList("A", "B")));
+        Respuesta respuestaJugador2 = new RespuestaMultipleChoice(new ArrayList<>(Arrays.asList("B", "A")));
 
         flujoDeJuego.agregarRespuesta(respuestaJugador1);
         flujoDeJuego.agregarRespuesta(respuestaJugador2);
@@ -112,17 +117,19 @@ public class MessageTest {
         respuestas.add("A");
         respuestas.add("B");
 
+        Respuesta respuesta = new RespuestaMultipleChoice(respuestas);
+
         ArrayList<String> opciones = new ArrayList<>();
         opciones.add("A");
         opciones.add("B");
         opciones.add("C");
         opciones.add("D");
 
-        flujoDeJuego.setPreguntaActual(new PreguntaMultipleChoiceClasico(respuestas, "Seleccione las opciones correctas",opciones));
+        flujoDeJuego.setPreguntaActual(new PreguntaMultipleChoiceClasico(respuesta, "Seleccione las opciones correctas",opciones));
 
         // Simular respuestas de los jugadores (jugador1 responde incorrectamente, jugador2 correctamente)}
-        String respuestaJugador1 = jugador1.responder("A,D");
-        String respuestaJugador2 = jugador2.responder("A,C");
+        Respuesta respuestaJugador1 = new RespuestaMultipleChoice(new ArrayList<>(Arrays.asList("A", "C")));
+        Respuesta respuestaJugador2 = new RespuestaMultipleChoice(new ArrayList<>(Arrays.asList("A", "B","C")));
 
         flujoDeJuego.agregarRespuesta(respuestaJugador1);
         flujoDeJuego.agregarRespuesta(respuestaJugador2);
@@ -133,6 +140,7 @@ public class MessageTest {
         assertEquals(0, jugador1.getPuntaje()); // Jugador que respondió incorrectamente no obtiene puntos
         assertEquals(0, jugador2.getPuntaje()); // Jugador que respondió incorrectamente no obtiene puntos
     }
+
     @Test
     public void Test05PreguntaVFClasicoConPenalidadBienRespondida() {
         // Crear jugadores
@@ -143,13 +151,14 @@ public class MessageTest {
         flujoDeJuego.agregarJugador(jugador1);
         flujoDeJuego.agregarJugador(jugador2);
 
+        Respuesta respuesta = new RespuestaV();
         // Crear pregunta de Verdadero/Falso clásico con la respuesta correcta "Falso"
-        flujoDeJuego.setPreguntaActual(new PreguntaVFClasicoConPenalidad("La tierra es redonda", "F"));
+        flujoDeJuego.setPreguntaActual(new PreguntaVFClasicoConPenalidad("La tierra es redonda", respuesta));
 
         // Simular respuestas de los jugadores (jugador1 responde incorrectamente, jugador2 correctamente)
-        String respuestaJugador1 = jugador1.responder("F");
+        Respuesta respuestaJugador1 = new RespuestaV();
         flujoDeJuego.agregarRespuesta(respuestaJugador1);
-        String respuestaJugador2 = jugador2.responder("F");
+        Respuesta respuestaJugador2 = new RespuestaV();
         flujoDeJuego.agregarRespuesta(respuestaJugador2);
 
         // Evaluar respuestas
@@ -169,13 +178,14 @@ public class MessageTest {
         flujoDeJuego.agregarJugador(jugador1);
         flujoDeJuego.agregarJugador(jugador2);
 
+        Respuesta respuesta = new RespuestaV();
         // Crear pregunta de Verdadero/Falso clásico con la respuesta correcta "Falso"
-        flujoDeJuego.setPreguntaActual(new PreguntaVFClasicoConPenalidad("La tierra es redonda", "F"));
+        flujoDeJuego.setPreguntaActual(new PreguntaVFClasicoConPenalidad("La tierra es redonda", respuesta));
 
         // Simular respuestas de los jugadores (jugador1 responde incorrectamente, jugador2 correctamente)
-        String respuestaJugador1 = jugador1.responder("V");
+        Respuesta respuestaJugador1 = new RespuestaF();
         flujoDeJuego.agregarRespuesta(respuestaJugador1);
-        String respuestaJugador2 = jugador2.responder("V");
+        Respuesta respuestaJugador2 = new RespuestaF();
         flujoDeJuego.agregarRespuesta(respuestaJugador2);
 
         // Evaluar respuestas
@@ -185,6 +195,7 @@ public class MessageTest {
         Assertions.assertEquals(-1, jugador1.getPuntaje()); // Jugador que respondió incorrectamente obtiene -1 puntos
         Assertions.assertEquals(-1, jugador2.getPuntaje()); // Jugador que respondió iccorrectamente obtiene -1 puntos
     }
+
     @Test
     public void Test07PreguntaMultipleChoiceClasicoConPenalidadBienRespondida() {
         // Crear jugadores
@@ -199,17 +210,19 @@ public class MessageTest {
         respuestas.add("A");
         respuestas.add("B");
 
+        Respuesta respuesta = new RespuestaMultipleChoice(respuestas);
+
         ArrayList<String> opciones = new ArrayList<>();
         opciones.add("A");
         opciones.add("B");
         opciones.add("C");
         opciones.add("D");
 
-        flujoDeJuego.setPreguntaActual(new PreguntaMultipleChoiceClasicoConPenalidad(respuestas, "Seleccione las opciones correctas",opciones));
+        flujoDeJuego.setPreguntaActual(new PreguntaMultipleChoiceClasicoConPenalidad(respuesta, "Seleccione las opciones correctas",opciones));
 
         // Simular respuestas de los jugadores (jugador1 responde incorrectamente, jugador2 correctamente)}
-        String respuestaJugador1 = jugador1.responder("A,B");
-        String respuestaJugador2 = jugador2.responder("A,B");
+        Respuesta respuestaJugador1 = new RespuestaMultipleChoice(new ArrayList<>(Arrays.asList("A", "B")));
+        Respuesta respuestaJugador2 = new RespuestaMultipleChoice(new ArrayList<>(Arrays.asList("B", "A")));
 
         flujoDeJuego.agregarRespuesta(respuestaJugador1);
         flujoDeJuego.agregarRespuesta(respuestaJugador2);
@@ -234,17 +247,19 @@ public class MessageTest {
         respuestas.add("A");
         respuestas.add("B");
 
+        Respuesta respuesta = new RespuestaMultipleChoice(respuestas);
+
         ArrayList<String> opciones = new ArrayList<>();
         opciones.add("A");
         opciones.add("B");
         opciones.add("C");
         opciones.add("D");
 
-        flujoDeJuego.setPreguntaActual(new PreguntaMultipleChoiceClasicoConPenalidad(respuestas, "Seleccione las opciones correctas",opciones));
+        flujoDeJuego.setPreguntaActual(new PreguntaMultipleChoiceClasicoConPenalidad(respuesta, "Seleccione las opciones correctas",opciones));
 
         // Simular respuestas de los jugadores (jugador1 responde incorrectamente, jugador2 correctamente)}
-        String respuestaJugador1 = jugador1.responder("A,D");
-        String respuestaJugador2 = jugador2.responder("A,C");
+        Respuesta respuestaJugador1 = new RespuestaMultipleChoice(new ArrayList<>(Arrays.asList("A","B","C")));
+        Respuesta respuestaJugador2 = new RespuestaMultipleChoice(new ArrayList<>(Arrays.asList("A","D")));
 
         flujoDeJuego.agregarRespuesta(respuestaJugador1);
         flujoDeJuego.agregarRespuesta(respuestaJugador2);

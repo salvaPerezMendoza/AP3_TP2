@@ -5,18 +5,18 @@ import java.util.stream.Collectors;
 
 public class PreguntaMultipleChoiceClasico implements Pregunta{
         private String enunciado;
-        private ArrayList<String> respuestas;
+        private Respuesta respuestas;
         private ArrayList<String> opciones;
 
-    public PreguntaMultipleChoiceClasico(ArrayList<String> respuestas, String enunciado, ArrayList<String> opciones) {
+    public PreguntaMultipleChoiceClasico(Respuesta respuestas, String enunciado, ArrayList<String> opciones) {
         this.respuestas = respuestas;
         this.enunciado = enunciado;
         this.opciones = opciones;
     }
 
     @Override
-    public int validarRespuesta(String respuestaJugador) {
-        if(respuestaJugador.equals(respuestas.stream().collect(Collectors.joining(",")))){
+    public int validarRespuesta(Respuesta respuestaJugador) {
+        if(respuestas.validarRespuesta(respuestaJugador)){
             return 1;
         }
         return 0;

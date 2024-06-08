@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Flujo {
     ArrayList<Jugador> jugadores;
     Pregunta preguntaActual;
-    ArrayList<String> respuestasPreguntaActual;
+    ArrayList<Respuesta> respuestasPreguntaActual;
 
     public Flujo() {
         this.jugadores = new ArrayList<>();
@@ -20,7 +20,7 @@ public class Flujo {
         this.jugadores.add(jugador);
     }
 
-    public void agregarRespuesta(String respuestaJugador){
+    public void agregarRespuesta(Respuesta respuestaJugador){
         respuestasPreguntaActual.add(respuestaJugador);
     }
 
@@ -28,7 +28,7 @@ public class Flujo {
         int puntajePregunta;
         for(int i = 0; i < jugadores.size(); i++){
             Jugador jugador = jugadores.get(i);
-            String respuestaJugador = respuestasPreguntaActual.get(i);
+            Respuesta respuestaJugador = respuestasPreguntaActual.get(i);
             puntajePregunta = preguntaActual.validarRespuesta(respuestaJugador);
             jugador.sumarPuntos(puntajePregunta);
         }

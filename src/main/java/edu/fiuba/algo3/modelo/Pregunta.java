@@ -2,5 +2,5 @@ package edu.fiuba.algo3.modelo;
 
 
 public interface Pregunta {
-    int validarRespuesta(String respuestaJugador);
+    int validarRespuesta(Respuesta respuestaJugador);
 }
