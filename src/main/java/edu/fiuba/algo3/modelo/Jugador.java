@@ -8,8 +8,8 @@ public class Jugador {
         nombre = nombreJugador;
     }
 
-    public String responder(String respuesta) {
-        return respuesta;
+    public void responder(Pregunta pregunta, Respuesta respuestaJugador) {
+        pregunta.validarRespuesta(respuestaJugador);
     }
 
     public void sumarPuntos(int puntaje) {
