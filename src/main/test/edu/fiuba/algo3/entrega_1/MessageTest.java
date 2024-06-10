@@ -259,7 +259,7 @@ public class MessageTest {
 
         // Simular respuestas de los jugadores (jugador1 responde incorrectamente, jugador2 correctamente)}
         Respuesta respuestaJugador1 = new RespuestaMultipleChoice(new ArrayList<>(Arrays.asList("A","B","C")));
-        Respuesta respuestaJugador2 = new RespuestaMultipleChoice(new ArrayList<>(Arrays.asList("A","D")));
+        Respuesta respuestaJugador2 = new RespuestaMultipleChoice(new ArrayList<>(Arrays.asList("A","B")));
 
         flujoDeJuego.agregarRespuesta(respuestaJugador1);
         flujoDeJuego.agregarRespuesta(respuestaJugador2);
@@ -268,6 +268,6 @@ public class MessageTest {
 
         // Verificar puntajes
         assertEquals(-1, jugador1.getPuntaje()); // Jugador que respondió incorrectamente obtiene -1 puntos
-        assertEquals(-1, jugador2.getPuntaje()); // Jugador que respondió incorrectamente obtiene -1 puntos
+        assertEquals(1, jugador2.getPuntaje()); // Jugador que respondió correctamente obtiene 1 puntos
     }
 }
