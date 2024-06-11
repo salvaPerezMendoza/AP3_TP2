@@ -1,6 +1,6 @@
 package edu.fiuba.algo3.modelo;
 
-public class PreguntaVFClasicoConPenalidad implements Pregunta{
+public class PreguntaVFClasicoConPenalidad implements Pregunta, Penalidad{
     private String enunciado;
     private Respuesta respuesta;
     private Multiplicador multiplicador;
@@ -31,4 +31,5 @@ public class PreguntaVFClasicoConPenalidad implements Pregunta{
         }
         return puntaje;
     }
+
 }
