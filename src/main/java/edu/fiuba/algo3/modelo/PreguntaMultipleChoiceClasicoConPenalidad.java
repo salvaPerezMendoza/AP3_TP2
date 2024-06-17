@@ -3,7 +3,7 @@ package edu.fiuba.algo3.modelo;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
-public class PreguntaMultipleChoiceClasicoConPenalidad implements Pregunta, Penalidad{
+public class PreguntaMultipleChoiceClasicoConPenalidad implements Pregunta, Penalidad {
     private String enunciado;
     private Respuesta respuestas;
     private ArrayList<String> opciones;

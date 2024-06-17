@@ -6,12 +6,12 @@ public class Flujo {
     private ArrayList<Jugador> jugadores;
     private Pregunta preguntaActual;
     private ArrayList<Respuesta> respuestasPreguntaActual;
-    private ArrayList<Multiplicador> multiplicadores; // Nueva lista para los multiplicadores
+    private ArrayList<Multiplicador> multiplicadores;
 
     public Flujo() {
         this.jugadores = new ArrayList<>();
         this.respuestasPreguntaActual = new ArrayList<>();
-        this.multiplicadores = new ArrayList<>(); // Inicializa la lista de multiplicadores
+        this.multiplicadores = new ArrayList<>();
     }
 
     public void setPreguntaActual(Pregunta preguntaActual) {
@@ -20,7 +20,7 @@ public class Flujo {
 
     public void agregarJugador(Jugador jugador) {
         this.jugadores.add(jugador);
-        this.multiplicadores.add(null); // Inicialmente, ningún multiplicador aplicado
+        this.multiplicadores.add(null);
     }
 
     public void agregarRespuesta(Respuesta respuestaJugador) {
@@ -33,15 +33,22 @@ public class Flujo {
 
     public void devolverPuntajes() {
         int puntajePregunta;
+
         for (int i = 0; i < jugadores.size(); i++) {
             Jugador jugador = jugadores.get(i);
             Respuesta respuestaJugador = respuestasPreguntaActual.get(i);
             puntajePregunta = preguntaActual.validarRespuesta(respuestaJugador);
 
-            // Aplica el multiplicador si existe
-            Multiplicador multiplicador = multiplicadores.get(i);
-            if (multiplicador != null) {
-                puntajePregunta = multiplicador.aplicarMultiplicador(puntajePregunta);
+            if (preguntaActual instanceof Penalidad) {
+                puntajePregunta = ((Penalidad) preguntaActual).aplicarMultiplicador(puntajePregunta);
+            }
+
+            int finalPuntajePregunta = puntajePregunta;
+            boolean afectadoPorAnulador = jugadores.stream()
+                    .anyMatch(j -> j.haUsadoAnulador() && j != jugador && finalPuntajePregunta > 0);
+
+            if (afectadoPorAnulador) {
+                puntajePregunta = 0;
             }
 
             jugador.sumarPuntos(puntajePregunta);
@@ -52,4 +59,5 @@ public class Flujo {
             multiplicadores.set(i, null);
         }
     }
+
 }
