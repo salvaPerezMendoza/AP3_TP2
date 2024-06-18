@@ -1,6 +1,8 @@
 package edu.fiuba.algo3.modelo;
 
 
+import java.util.ArrayList;
+
 public class PreguntaVFClasico implements Pregunta {
     private String enunciado;
     private Respuesta respuesta;
@@ -12,11 +14,17 @@ public class PreguntaVFClasico implements Pregunta {
 
 
     @Override
-    public int validarRespuesta(Respuesta respuestaJugador) {
-        if (respuesta.validarRespuesta(respuestaJugador)){
-            return 1;
+    public void validarRespuesta(Respuesta respuestaJugador) {
+        if(respuesta.validarRespuesta(respuestaJugador)){
+            respuesta.getJugador().sumarPuntos(1);
         }
-        return 0;
+    }
+
+    @Override
+    public void validarRespuestas(ArrayList<Respuesta> respuestas) {
+        for(Respuesta respuestaJugador: respuestas){
+            validarRespuesta(respuestaJugador);
+        }
     }
 
 }

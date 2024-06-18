@@ -5,11 +5,20 @@ import java.util.HashSet;
 
 public class RespuestaMultipleChoice implements Respuesta{
     private ArrayList opciones;
+    private Jugador jugador;
+
+    public RespuestaMultipleChoice(ArrayList opciones, Jugador jugador) {
+        this.opciones = opciones;
+        this.jugador = jugador;
+    }
 
     public RespuestaMultipleChoice(ArrayList opciones) {
         this.opciones = opciones;
     }
 
+    public void agregarOpcion(Opcion opcion){
+        opciones.add(opcion);
+    }
     public ArrayList getOpciones() {
         return opciones;
     }
@@ -21,5 +30,10 @@ public class RespuestaMultipleChoice implements Respuesta{
             return true;
         }
         return false;
+    }
+
+    @Override
+    public Jugador getJugador() {
+        return jugador;
     }
 }

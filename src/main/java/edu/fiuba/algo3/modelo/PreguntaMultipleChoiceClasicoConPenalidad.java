@@ -1,26 +1,33 @@
 package edu.fiuba.algo3.modelo;
 
 import java.util.ArrayList;
-import java.util.stream.Collectors;
 
 public class PreguntaMultipleChoiceClasicoConPenalidad implements Pregunta, Penalidad {
     private String enunciado;
     private Respuesta respuestas;
-    private ArrayList<String> opciones;
+    private ArrayList<Opcion> opciones;
     private Multiplicador multiplicador;
 
-    public PreguntaMultipleChoiceClasicoConPenalidad(Respuesta respuestas, String enunciado, ArrayList<String> opciones) {
+    public PreguntaMultipleChoiceClasicoConPenalidad(Respuesta respuestas, String enunciado, ArrayList<Opcion> opciones) {
         this.respuestas = respuestas;
         this.enunciado = enunciado;
         this.opciones = opciones;
         this.multiplicador = null;
     }
     @Override
-    public int validarRespuesta(Respuesta respuestaJugador) {
+    public void validarRespuesta(Respuesta respuestaJugador) {
         if(respuestas.validarRespuesta(respuestaJugador)){
-            return 1;
+            respuestaJugador.getJugador().sumarPuntos(1);
+        }else {
+            respuestaJugador.getJugador().sumarPuntos(-1);
         }
-        return -1;
+    }
+
+    @Override
+    public void validarRespuestas(ArrayList<Respuesta> respuestas) {
+        for (Respuesta respuesta : respuestas) {
+            validarRespuesta(respuesta);
+        }
     }
 
     @Override
