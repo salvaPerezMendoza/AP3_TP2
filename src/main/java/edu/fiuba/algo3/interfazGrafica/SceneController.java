@@ -22,7 +22,7 @@ public class SceneController {
 
     public void switchToJugarScene() {
         JugarScene jugarScene = new JugarScene(this);
-        Scene jScene = jugarScene.getScene();
+        Scene jScene = jugarScene.getScene(flujo);
         primaryStage.setScene(jScene);
     }
 
