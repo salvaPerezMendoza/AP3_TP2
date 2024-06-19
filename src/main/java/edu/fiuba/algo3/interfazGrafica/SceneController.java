@@ -26,7 +26,8 @@ public class SceneController {
         primaryStage.setScene(jScene);
     }
 
-    public void switchToReglasScene() {
+    public void switchToReglasScene(Flujo flujo) {
+        this.flujo = flujo;
         ReglasScene reglasScene = new ReglasScene(this);
         Scene rScene = reglasScene.getScene();
         primaryStage.setScene(rScene);

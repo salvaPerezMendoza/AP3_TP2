@@ -2,6 +2,7 @@ package edu.fiuba.algo3.interfazGrafica;
 
 import edu.fiuba.algo3.modelo.Flujo;
 import edu.fiuba.algo3.modelo.Jugador;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -56,18 +57,24 @@ public class MenuScene {
         playButton.setStyle("-fx-font-size: 18px; -fx-background-color: #4CAF50; -fx-text-fill: white;");
 
         Button rulesButton = new Button("Reglas");
-        rulesButton.setOnAction(e -> sceneController.switchToReglasScene());
+        rulesButton.setOnAction(e -> sceneController.switchToReglasScene(flujo));
         rulesButton.setStyle("-fx-font-size: 18px; -fx-background-color: #2196F3; -fx-text-fill: white;");
 
         Button addPlayerButton = new Button("Agregar Jugador");
         addPlayerButton.setOnAction(e -> sceneController.switchToAñadirJugadorScene(flujo));
         addPlayerButton.setStyle("-fx-font-size: 18px; -fx-background-color: #f0ad4e; -fx-text-fill: white;");
 
+        Button exitButton = new Button("Salir");
+        exitButton.setOnAction(e -> Platform.exit());
+        exitButton.setStyle("-fx-font-size: 18px; -fx-background-color: #f44336; -fx-text-fill: white;");
+
+
         playButton.setMaxWidth(Double.MAX_VALUE);
         rulesButton.setMaxWidth(Double.MAX_VALUE);
         addPlayerButton.setMaxWidth(Double.MAX_VALUE);
+        exitButton.setMaxWidth(Double.MAX_VALUE);
 
-        VBox buttonsBox = new VBox(playButton, rulesButton, addPlayerButton);
+        VBox buttonsBox = new VBox(playButton, rulesButton, addPlayerButton, exitButton);
         buttonsBox.setPadding(new Insets(20));
         buttonsBox.setSpacing(20);
 
@@ -78,7 +85,7 @@ public class MenuScene {
         root.setRight(buttonsBox);
         BorderPane.setMargin(titleLabel, new Insets(20, 20, 0, 20));
         BorderPane.setMargin(participantsBox, new Insets(20));
-        BorderPane.setMargin(buttonsBox, new Insets(20));
+        BorderPane.setMargin(buttonsBox, new Insets(90));
 
         Scene scene = new Scene(root, 1000, 650);
         scene.getStylesheets().add(getClass().getResource("/styles.css").toExternalForm());
