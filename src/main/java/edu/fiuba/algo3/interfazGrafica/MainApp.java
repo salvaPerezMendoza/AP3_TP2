@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.interfazGrafica;
 
+import edu.fiuba.algo3.modelo.Flujo;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -8,10 +9,11 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        Flujo flujo = new Flujo();
         SceneController sceneController = new SceneController(primaryStage);
 
         // Crear la primera escena
-        MenuScene menuScene = new MenuScene(sceneController);
+        MenuScene menuScene = new MenuScene(sceneController, flujo);
         Scene scene1 = menuScene.getScene();
 
         // Mostrar la primera escena

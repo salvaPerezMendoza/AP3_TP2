@@ -23,6 +23,10 @@ public class Flujo {
         this.multiplicadores.add(null);
     }
 
+    public ArrayList<Jugador> devolverJugadores(){
+        return jugadores;
+    }
+
     public void agregarRespuesta(Respuesta respuestaJugador) {
         respuestasPreguntaActual.add(respuestaJugador);
     }

@@ -10,6 +10,10 @@ public class Jugador {
         this.anuladorUsado = false;
     }
 
+    public String getNombre() {
+        return nombre;
+    }
+
     public void responder(Pregunta pregunta, Respuesta respuestaJugador) {
         pregunta.validarRespuesta(respuestaJugador);
     }
