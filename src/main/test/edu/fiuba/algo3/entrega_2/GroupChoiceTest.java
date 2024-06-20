@@ -1,9 +1,5 @@
 package edu.fiuba.algo3.entrega_2;
 
-import edu.fiuba.algo3.modelo.Grupo;
-import edu.fiuba.algo3.modelo.PreguntaGroupChoice;
-import edu.fiuba.algo3.modelo.Respuesta;
-import edu.fiuba.algo3.modelo.RespuestaGroupChoice;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

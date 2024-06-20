@@ -1,15 +1,7 @@
 package edu.fiuba.algo3.entrega_2;
 
-import edu.fiuba.algo3.modelo.Jugador;
-
-import edu.fiuba.algo3.modelo.PreguntaOrderedChoice;
-import edu.fiuba.algo3.modelo.RespuestaOrderedChoice;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
-
-import static java.util.Arrays.asList;
 
 
 public class OrderedChoiceTest {

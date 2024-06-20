@@ -11,22 +11,11 @@ public class Jugador {
     }
 
     public void responder(Pregunta pregunta, Respuesta respuestaJugador) {
-        pregunta.validarRespuesta(respuestaJugador);
+        pregunta.agregarRespuesta(respuestaJugador);
     }
 
     public void sumarPuntos(int puntaje) {
         puntajeTotal += puntaje;
     }
-
-    public int getPuntaje() {
-        return puntajeTotal;
-    }
-
-    public boolean haUsadoAnulador() {
-        return anuladorUsado;
-    }
-
-    public void usarAnulador() {
-        this.anuladorUsado = true;
-    }
+    
 }
