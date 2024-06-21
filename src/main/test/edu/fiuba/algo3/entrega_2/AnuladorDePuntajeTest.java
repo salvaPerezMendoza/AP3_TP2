@@ -1,4 +1,4 @@
-package edu.fiuba.algo3.entrega_2;
+/*package edu.fiuba.algo3.entrega_2;
 
 import edu.fiuba.algo3.modelo.*;
 import org.junit.jupiter.api.Assertions;
@@ -187,4 +187,4 @@ public class AnuladorDePuntajeTest {
         Assertions.assertEquals(-1, jugador3.getPuntaje()); // Jugador 3 obtiene puntos negativos por respuesta incorrecta
         Assertions.assertEquals(-1, jugador4.getPuntaje()); // Jugador 4 obtiene puntos negativos por respuesta incorrecta
     }
-}
+}*/

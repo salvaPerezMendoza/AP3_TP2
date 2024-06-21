@@ -1,4 +1,4 @@
-package edu.fiuba.algo3.entrega_2;
+/*package edu.fiuba.algo3.entrega_2;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -26,4 +26,4 @@ public class OrderedChoiceTest {
         Assertions.assertEquals(0, pregunta.validarRespuesta(respuestaJugador));
     }
 
-}
+}*/

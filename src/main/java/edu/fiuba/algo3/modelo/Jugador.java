@@ -17,5 +17,9 @@ public class Jugador {
     public void sumarPuntos(int puntaje) {
         puntajeTotal += puntaje;
     }
+
+    public int getPuntajeTotal(){
+        return puntajeTotal;
+    }
     
 }

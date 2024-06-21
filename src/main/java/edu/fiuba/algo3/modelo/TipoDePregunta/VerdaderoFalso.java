@@ -1,16 +1,21 @@
 package edu.fiuba.algo3.modelo.TipoDePregunta;
 
 import edu.fiuba.algo3.modelo.Opcion.Opcion;
+import edu.fiuba.algo3.modelo.Opcion.OpcionSimple;
 import edu.fiuba.algo3.modelo.Respuesta;
 import edu.fiuba.algo3.modelo.RespuestaCorregida;
 
 import java.util.ArrayList;
 
 public class VerdaderoFalso implements TipoDePregunta {
+    ArrayList<Opcion> opciones;
     Opcion opcionCorrecta;
 
-    public VerdaderoFalso(Opcion opcion){
-        this.opcionCorrecta = opcion;
+    public VerdaderoFalso(Opcion opcionCorrecta){
+        this.opciones = new ArrayList<>();
+        this.opciones.add(new OpcionSimple("V"));
+        this.opciones.add(new OpcionSimple("F"));
+        this.opcionCorrecta = opcionCorrecta;
     }
 
     @Override

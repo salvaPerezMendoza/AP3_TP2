@@ -12,10 +12,11 @@ public class Pregunta {
     private Penalidad penalidad;
     private ArrayList<Respuesta> respuestasJugadores;
 
-    public Pregunta(TipoDePregunta tipo, Penalidad penalidad, String enunciado, ArrayList<Opcion> respuestaCorrecta){
+    public Pregunta(TipoDePregunta tipo, Penalidad penalidad, String enunciado){
         this.tipo = tipo;
         this.penalidad = penalidad;
         this.enunciado = enunciado;
+        this.respuestasJugadores = new ArrayList<>();
     }
 
     public void agregarRespuesta(Respuesta respuestaJugador){
@@ -27,7 +28,7 @@ public class Pregunta {
         respuestaCorregida.asignarPuntaje(penalidad);
     }
 
-    public void validarRespuestas(ArrayList<Respuesta> respuestasJugadores){
+    public void validarRespuestas(){
         for(Respuesta respuesta : respuestasJugadores){
             validarRespuesta(respuesta);
         }

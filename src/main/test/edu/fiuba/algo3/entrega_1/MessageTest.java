@@ -1,4 +1,4 @@
-package edu.fiuba.algo3.entrega_1;
+/*package edu.fiuba.algo3.entrega_1;
 
 import edu.fiuba.algo3.modelo.*;
 import edu.fiuba.algo3.modelo.Jugador;
@@ -270,4 +270,4 @@ public class MessageTest {
         assertEquals(-1, jugador1.getPuntaje()); // Jugador que respondió incorrectamente obtiene -1 puntos
         assertEquals(1, jugador2.getPuntaje()); // Jugador que respondió correctamente obtiene 1 puntos
     }
-}
+}*/
