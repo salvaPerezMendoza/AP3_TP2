@@ -42,18 +42,13 @@ public class Pregunta {
         }
     }
     public void aplicarMultiplicadorX2(Jugador jugador){
-        if (!jugador.equals(this.respuestasJugadores.get(0).getJugador())){
+        if (jugador.equals(this.respuestasJugadores.get(0).getJugador())){
             this.bonificador = new MultiplicadorX2Decorador(this.bonificador);
         }
     }
-//    public void aplicarMultiplicadorX2(){
-//        this.bonificador = new MultiplicadorX2Decorador(this.bonificador);
-//    }
+
     public void aplicarAnulador(Jugador jugador){
-        //Si el nombre del jugador que aplico el anulador es diferente al nombre del jugador de esta pregunta
-        // Entonces se le aplica el anulador
         if (!jugador.equals(this.respuestasJugadores.get(0).getJugador())){
-            //Agrego el bonificador de anular puntaje para
             this.bonificador = new AnuladorPuntajeDecorador(this.bonificador);
         }
     }

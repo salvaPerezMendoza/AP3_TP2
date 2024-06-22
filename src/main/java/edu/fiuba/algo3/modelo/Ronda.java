@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.modelo;
 
+import edu.fiuba.algo3.excepciones.JugadorNoTieneMasBonificadorError;
 import edu.fiuba.algo3.modelo.bonificador.AnuladorPuntajeDecorador;
 import edu.fiuba.algo3.modelo.bonificador.Bonificador;
 import edu.fiuba.algo3.modelo.bonificador.BonificadorConcreto;
@@ -19,17 +20,49 @@ public class Ronda {
     public void agregarPreguntas(Pregunta pregunta) {
         preguntas.add(pregunta);
     }
+
     public void agregarJugador(Jugador jugador) {
         jugadores.add(jugador);
     }
+
     public void usarAnulador(Jugador jugadorQueUsoAnulador) {
-        for (Pregunta pregunta : preguntas) {
-            pregunta.aplicarAnulador(jugadorQueUsoAnulador);
+        try {
+            if (jugadorQueUsoAnulador.usarAnulador()) {
+                for (Pregunta pregunta : preguntas) {
+                    pregunta.aplicarAnulador(jugadorQueUsoAnulador);
+                }
+            }
+            // Si no se lanza la excepcion, continua con la ejecucion normalmente
+        } catch (JugadorNoTieneMasBonificadorError e) {
+            System.out.println("Error: " + e.getMessage());
         }
     }
-    public void usarExclusividad(){
-        this.seUsoExclusividad = true;
+
+    public void usarMultiplicadorX2(Jugador jugadorQueUsoMultiplicador) {
+        try {
+            if (jugadorQueUsoMultiplicador.usarMultiplicadorX2()) {
+                for (Pregunta pregunta : preguntas) {
+                    pregunta.aplicarMultiplicadorX2(jugadorQueUsoMultiplicador);
+                }
+            }
+            // Si no se lanza la excepcion, continua con la ejecuciin normalmente
+        } catch (JugadorNoTieneMasBonificadorError e) {
+            System.out.println("Error: " + e.getMessage());
+        }
     }
+
+    public void usarExclusividad(Jugador jugadorQueUsoExclusividad){
+        try {
+            if (jugadorQueUsoExclusividad.usarExclusividad()) {
+                this.seUsoExclusividad = true;
+            }
+            // Si no se lanza la excepcion, continua con la ejecuciin normalmente
+        } catch (JugadorNoTieneMasBonificadorError e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
+
     private void aplicarExclusividad() {
         int cantidadIncorrectas = 0;
         for (Pregunta pregunta : preguntas) {
