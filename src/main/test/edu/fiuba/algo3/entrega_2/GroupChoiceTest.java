@@ -43,4 +43,6 @@ public class GroupChoiceTest {
 
         Assertions.assertEquals(0, pregunta.validarRespuesta(respuestaJugador));
     }
-}*/
+}
+
+ */

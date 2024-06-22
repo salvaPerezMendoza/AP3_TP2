@@ -11,7 +11,11 @@ public class SinPenalidad implements Penalidad {
             jugador.sumarPuntos(0);
         }
         else {
-            jugador.sumarPuntos(bonificador.modificarPuntaje(1));
+            if(bonificador != null) {
+                jugador.sumarPuntos(bonificador.modificarPuntaje(1));
+            }else{
+                jugador.sumarPuntos(1);
+            }
         }
     }
 }

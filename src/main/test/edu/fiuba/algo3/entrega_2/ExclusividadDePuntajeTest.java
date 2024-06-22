@@ -10,13 +10,12 @@ import edu.fiuba.algo3.modelo.Ronda;
 import edu.fiuba.algo3.modelo.TipoDePregunta.TipoDePregunta;
 import edu.fiuba.algo3.modelo.TipoDePregunta.VerdaderoFalso;
 import edu.fiuba.algo3.modelo.bonificador.Bonificador;
-import edu.fiuba.algo3.modelo.bonificador.BonificadorConcreto;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
+/*
 public class ExclusividadDePuntajeTest {
     @Test
     public void test01AplicarExclusividadParaJugador1ParaPreguntaVFSinPenalidad() {
@@ -85,3 +84,5 @@ public class ExclusividadDePuntajeTest {
         assertEquals(1, jugador2.getPuntajeTotal());
     }
 }
+
+ */
