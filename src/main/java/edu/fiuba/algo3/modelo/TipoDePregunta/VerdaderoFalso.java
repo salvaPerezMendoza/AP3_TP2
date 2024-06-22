@@ -8,13 +8,11 @@ import edu.fiuba.algo3.modelo.RespuestaCorregida;
 import java.util.ArrayList;
 
 public class VerdaderoFalso implements TipoDePregunta {
-    ArrayList<Opcion> opciones;
+    ArrayList<OpcionSimple> opciones;
     Opcion opcionCorrecta;
 
-    public VerdaderoFalso(Opcion opcionCorrecta){
-        this.opciones = new ArrayList<>();
-        this.opciones.add(new OpcionSimple("V"));
-        this.opciones.add(new OpcionSimple("F"));
+    public VerdaderoFalso(ArrayList<OpcionSimple> opciones, Opcion opcionCorrecta){
+        this.opciones = opciones;
         this.opcionCorrecta = opcionCorrecta;
     }
 

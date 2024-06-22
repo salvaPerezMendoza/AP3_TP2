@@ -8,10 +8,10 @@ import edu.fiuba.algo3.modelo.RespuestaCorregida;
 import java.util.ArrayList;
 
 public class MultipleChoice implements TipoDePregunta {
-     ArrayList<Opcion> opciones;
-     ArrayList<Opcion> opcionesCorrectas;
+     ArrayList<OpcionSimple> opciones;
+     ArrayList<OpcionSimple> opcionesCorrectas;
 
-     public MultipleChoice(ArrayList<Opcion> opciones, ArrayList<Opcion> opcionesCorrectas){
+     public MultipleChoice(ArrayList<OpcionSimple> opciones, ArrayList<OpcionSimple> opcionesCorrectas){
           this.opciones = opciones;
           this.opcionesCorrectas = opcionesCorrectas;
      }

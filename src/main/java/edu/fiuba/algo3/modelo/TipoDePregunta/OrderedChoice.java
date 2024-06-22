@@ -8,10 +8,10 @@ import edu.fiuba.algo3.modelo.RespuestaCorregida;
 import java.util.ArrayList;
 
 public class OrderedChoice implements TipoDePregunta {
-    ArrayList<Opcion> opciones;
+    ArrayList<OpcionSimple> opciones;
     ArrayList<OpcionSimple> opcionCorrecta;
 
-    public OrderedChoice(ArrayList<Opcion> opciones, ArrayList<OpcionSimple> opcionCorrecta){
+    public OrderedChoice(ArrayList<OpcionSimple> opciones, ArrayList<OpcionSimple> opcionCorrecta){
         this.opciones = opciones;
         this.opcionCorrecta = opcionCorrecta;
     }

@@ -3,15 +3,16 @@ package edu.fiuba.algo3.modelo.TipoDePregunta;
 import edu.fiuba.algo3.modelo.*;
 import edu.fiuba.algo3.modelo.Opcion.Opcion;
 import edu.fiuba.algo3.modelo.Opcion.OpcionGrupo;
+import edu.fiuba.algo3.modelo.Opcion.OpcionSimple;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 
 public class GroupChoice implements TipoDePregunta {
-    ArrayList<Opcion> opciones;
+    ArrayList<OpcionSimple> opciones;
     ArrayList<OpcionGrupo> opcionesCorrectas;
 
-    public GroupChoice(ArrayList<Opcion> opciones, ArrayList<OpcionGrupo> opcionesCorrectas){
+    public GroupChoice(ArrayList<OpcionSimple> opciones, ArrayList<OpcionGrupo> opcionesCorrectas){
         this.opciones = opciones;
         this.opcionesCorrectas = opcionesCorrectas;
     }
@@ -32,9 +33,9 @@ public class GroupChoice implements TipoDePregunta {
     public RespuestaCorregida corregirRespuesta(Respuesta respuestaJugador) {
         int cantidadCorrectas = 0;
         int cantidadIncorrectas = 0;
-        ArrayList<Opcion> opcionesJugador = respuestaJugador.getOpciones();
-        OpcionGrupo grupoA = (OpcionGrupo) opcionesJugador.get(0);
-        OpcionGrupo grupoB = (OpcionGrupo) opcionesJugador.get(1);
+        ArrayList<Opcion> gruposJugador = respuestaJugador.getOpciones();
+        OpcionGrupo grupoA = (OpcionGrupo) gruposJugador.get(0);
+        OpcionGrupo grupoB = (OpcionGrupo) gruposJugador.get(1);
         OpcionGrupo grupoACorrecto = (OpcionGrupo) getGrupo(grupoA.getNombre());
         OpcionGrupo grupoBCorrecto = (OpcionGrupo) getGrupo(grupoB.getNombre());
 
