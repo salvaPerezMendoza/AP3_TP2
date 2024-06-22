@@ -156,7 +156,7 @@ public class MultiplicadoresTest {
         TipoDePregunta consigna = new OrderedChoice(opciones, opcionesCorrectas);
         Penalidad penalidad = new SinPenalidad();
 
-        Bonificador bonificador = new AnuladorPuntajeDecorador(new BonificadorConcreto());
+        Bonificador bonificador = new MultiplicadorX2Decorador(new BonificadorConcreto());
 
         Pregunta pregunta = new Pregunta(consigna, penalidad, "Ordenar los presidentes por anio en orden descendiente", bonificador);
         Respuesta respuesta = new Respuesta(jugador1);
