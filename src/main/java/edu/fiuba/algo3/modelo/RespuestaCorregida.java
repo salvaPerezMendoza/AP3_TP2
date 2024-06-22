@@ -16,4 +16,7 @@ public class RespuestaCorregida {
     public void asignarPuntaje(Penalidad penalidad, Bonificador bonificador) {
         penalidad.asignarPuntajeJugador(jugador, cantidadCorrectas, cantidadIncorrectas, bonificador);
     }
+    public int getRespuestasInorrectas(){
+        return this.cantidadIncorrectas;
+    }
 }

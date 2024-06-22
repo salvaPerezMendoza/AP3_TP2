@@ -4,9 +4,11 @@ import edu.fiuba.algo3.modelo.*;
 import edu.fiuba.algo3.modelo.Opcion.Opcion;
 import edu.fiuba.algo3.modelo.Opcion.OpcionGrupo;
 import edu.fiuba.algo3.modelo.Opcion.OpcionSimple;
+import edu.fiuba.algo3.modelo.Penalidad.ConPenalidad;
 import edu.fiuba.algo3.modelo.Penalidad.Penalidad;
 import edu.fiuba.algo3.modelo.Penalidad.SinPenalidad;
 import edu.fiuba.algo3.modelo.TipoDePregunta.*;
+import edu.fiuba.algo3.modelo.bonificador.AnuladorPuntajeDecorador;
 import edu.fiuba.algo3.modelo.bonificador.Bonificador;
 import java.util.HashSet;
 import edu.fiuba.algo3.modelo.bonificador.BonificadorConcreto;
@@ -28,12 +30,9 @@ public class MultiplicadoresTest {
 
         TipoDePregunta consigna = new VerdaderoFalso(new OpcionSimple("V"));
         Penalidad penalidad = new SinPenalidad();
-        Bonificador bonificadorBase = new BonificadorConcreto();
+        Bonificador bonificador = new MultiplicadorX2Decorador(new BonificadorConcreto());
 
-        // Creamos un decorador MultiplicadorX2Decorador que envuelve a BonificadorConcreto
-        Bonificador bonificadorDecorado = new MultiplicadorX2Decorador(bonificadorBase);
-
-        Pregunta pregunta = new Pregunta(consigna, penalidad, "Messi es el mejor jugador de la historia?", bonificadorDecorado);
+        Pregunta pregunta = new Pregunta(consigna, penalidad, "Messi es el mejor jugador de la historia?", bonificador);
         Respuesta respuesta = new Respuesta(jugador1);
 
         respuesta.agregarOpcion(new OpcionSimple("V"));
@@ -45,7 +44,7 @@ public class MultiplicadoresTest {
         assertEquals(2, jugador1.getPuntajeTotal());
     }
     @Test
-    public void test01AplicarDosMultiplicadoresX2RespuestaCorrectaVF() {
+    public void test02AplicarDosMultiplicadoresX2RespuestaCorrectaVF() {
         Jugador jugador1 = new Jugador("Bob");
 
         TipoDePregunta consigna = new VerdaderoFalso(new OpcionSimple("V"));
@@ -63,10 +62,51 @@ public class MultiplicadoresTest {
 
         assertEquals(4, jugador1.getPuntajeTotal());
     }
+    @Test
+    public void test03AplicarMultiplicadoresX2RespuestaCorrectaVFConPenalidad() {
+        Jugador jugador1 = new Jugador("Bob");
+
+        TipoDePregunta consigna = new VerdaderoFalso(new OpcionSimple("V"));
+        Penalidad penalidad = new ConPenalidad();
+        Bonificador bonificador = new MultiplicadorX2Decorador(new BonificadorConcreto());
+
+        Pregunta pregunta = new Pregunta(consigna, penalidad, "Messi es el mejor jugador de la historia?", bonificador);
+        Respuesta respuesta = new Respuesta(jugador1);
+
+        respuesta.agregarOpcion(new OpcionSimple("V"));
+
+        jugador1.responder(pregunta, respuesta);
+
+        pregunta.validarRespuestas();
+
+        assertEquals(2, jugador1.getPuntajeTotal());
+    }
+
+    @Test
+    public void test04AplicarMultiplicadoresX2RespuestaIncorrectaVFConPenalidad() {
+        Jugador jugador1 = new Jugador("Bob");
+
+        TipoDePregunta consigna = new VerdaderoFalso(new OpcionSimple("V"));
+        Penalidad penalidad = new ConPenalidad();
+        Bonificador bonificador = new MultiplicadorX2Decorador(new BonificadorConcreto());
+
+        Pregunta pregunta = new Pregunta(consigna, penalidad, "Messi es el mejor jugador de la historia?", bonificador);
+        Respuesta respuesta = new Respuesta(jugador1);
+
+        respuesta.agregarOpcion(new OpcionSimple("F"));
+
+        jugador1.responder(pregunta, respuesta);
+
+        pregunta.validarRespuestas();
+
+        assertEquals(-2, jugador1.getPuntajeTotal());
+    }
+
+
 
 
     @Test
-    public void test02JugadorRespondeMultipleChoiceCorrectamenteYRecibePuntos() {
+    public void test05JugadorRespondeMultipleChoiceCorrectamenteYRecibePuntos() {
         Jugador jugador1 = new Jugador("Bob");
         ArrayList<Opcion> opciones = new ArrayList<>();
         opciones.add(new OpcionSimple("Neymar"));
@@ -78,13 +118,12 @@ public class MultiplicadoresTest {
         opcionesCorrectas.add(new OpcionSimple("Neymar"));
         opcionesCorrectas.add(new OpcionSimple("Lewandowski"));
 
-        Bonificador bonificadorBase = new BonificadorConcreto();
-        Bonificador bonificadorDecorado = new MultiplicadorX2Decorador(bonificadorBase);
+        Bonificador bonificador = new MultiplicadorX2Decorador(new BonificadorConcreto());
 
         TipoDePregunta consigna = new MultipleChoice(opciones, opcionesCorrectas);
         Penalidad penalidad = new SinPenalidad();
 
-        Pregunta pregunta = new Pregunta(consigna, penalidad, "Cual/es de estos jugadores nunca ganaron un Balon de Oro?", bonificadorDecorado);
+        Pregunta pregunta = new Pregunta(consigna, penalidad, "Cual/es de estos jugadores nunca ganaron un Balon de Oro?", bonificador);
         Respuesta respuesta = new Respuesta(jugador1);
 
         respuesta.agregarOpcion(new OpcionSimple("Neymar"));
@@ -117,10 +156,9 @@ public class MultiplicadoresTest {
         TipoDePregunta consigna = new OrderedChoice(opciones, opcionesCorrectas);
         Penalidad penalidad = new SinPenalidad();
 
-        Bonificador bonificadorBase = new BonificadorConcreto();
-        Bonificador bonificadorDecorado = new MultiplicadorX2Decorador(bonificadorBase);
+        Bonificador bonificador = new AnuladorPuntajeDecorador(new BonificadorConcreto());
 
-        Pregunta pregunta = new Pregunta(consigna, penalidad, "Ordenar los presidentes por anio en orden descendiente", bonificadorDecorado);
+        Pregunta pregunta = new Pregunta(consigna, penalidad, "Ordenar los presidentes por anio en orden descendiente", bonificador);
         Respuesta respuesta = new Respuesta(jugador1);
 
         respuesta.agregarOpcion(new OpcionSimple("Alberto"));
@@ -134,6 +172,45 @@ public class MultiplicadoresTest {
         pregunta.validarRespuestas();
 
         assertEquals(2, jugador1.getPuntajeTotal());
+    }
+    @Test
+    public void test03JugadorRespondeOrderedChoiceIncorrectamenteConMultiplicadorX2ConPenalidad(){
+        Jugador jugador1 = new Jugador("Bob");
+        ArrayList<Opcion> opciones = new ArrayList<>();
+        opciones.add(new OpcionSimple("Macri"));
+        opciones.add(new OpcionSimple("Cristina"));
+        opciones.add(new OpcionSimple("Alberto"));
+        opciones.add(new OpcionSimple("Duhalde"));
+        opciones.add(new OpcionSimple("Nestor"));
+
+
+        ArrayList<OpcionSimple> opcionesCorrectas = new ArrayList<>();
+        opcionesCorrectas.add(new OpcionSimple("Alberto"));
+        opcionesCorrectas.add(new OpcionSimple("Macri"));
+        opcionesCorrectas.add(new OpcionSimple("Cristina"));
+        opcionesCorrectas.add(new OpcionSimple("Nestor"));
+        opcionesCorrectas.add(new OpcionSimple("Duhalde"));
+
+        TipoDePregunta consigna = new OrderedChoice(opciones, opcionesCorrectas);
+        Penalidad penalidad = new ConPenalidad();
+
+        Bonificador bonificadorBase = new BonificadorConcreto();
+        Bonificador bonificadorDecorado = new MultiplicadorX2Decorador(bonificadorBase);
+
+        Pregunta pregunta = new Pregunta(consigna, penalidad, "Ordenar los presidentes por anio en orden descendiente", bonificadorDecorado);
+        Respuesta respuesta = new Respuesta(jugador1);
+
+        respuesta.agregarOpcion(new OpcionSimple("Alberto"));
+        respuesta.agregarOpcion(new OpcionSimple("Nestor"));
+        respuesta.agregarOpcion(new OpcionSimple("Cristina"));
+        respuesta.agregarOpcion(new OpcionSimple("Macri"));
+        respuesta.agregarOpcion(new OpcionSimple("Duhalde"));
+
+        jugador1.responder(pregunta, respuesta);
+
+        pregunta.validarRespuestas();
+
+        assertEquals(-2, jugador1.getPuntajeTotal());
     }
 
     @Test
