@@ -36,4 +36,22 @@ public class OpcionGrupo implements Opcion {
         }
         return valoresComparada.equals(valoresGrupo);
     }
+
+    @Override
+    public String getTexto() {
+        StringBuilder texto = new StringBuilder(nombre + ": ");
+        for (OpcionSimple opcion : opciones) {
+            texto.append(opcion.getTexto()).append(", ");
+        }
+        // Eliminar la última coma y espacio
+        if (texto.length() > 0) {
+            texto.setLength(texto.length() - 2);
+        }
+        return texto.toString();
+    }
+
+    @Override
+    public String getName() {
+        return nombre;
+    }
 }
