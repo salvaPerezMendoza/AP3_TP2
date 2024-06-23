@@ -1,29 +1,32 @@
 package edu.fiuba.algo3;
 
+import edu.fiuba.algo3.interfazGrafica.MenuScene;
+import edu.fiuba.algo3.interfazGrafica.SceneController;
+import edu.fiuba.algo3.modelo.Flujo;
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
-/**
- * JavaFX App
- */
 public class App extends Application {
 
     @Override
-    public void start(Stage stage) {
-        var javaVersion = SystemInfo.javaVersion();
-        var javafxVersion = SystemInfo.javafxVersion();
+    public void start(Stage primaryStage) {
+        Flujo flujo = new Flujo();
+        SceneController sceneController = new SceneController(primaryStage);
 
-        var label = new Label("Hello, JavaFX " + javafxVersion + ", running on Java " + javaVersion + ".");
-        var scene = new Scene(new StackPane(label), 640, 480);
-        stage.setScene(scene);
-        stage.show();
+        // Crear la primera escena
+        MenuScene menuScene = new MenuScene(sceneController, flujo);
+        Scene scene1 = menuScene.getScene();
+
+        // Mostrar la primera escena
+        primaryStage.setScene(scene1);
+        primaryStage.setTitle("AlgoHoot");
+        primaryStage.show();
+
+
     }
 
     public static void main(String[] args) {
-        launch();
+        launch(args);
     }
-
 }
