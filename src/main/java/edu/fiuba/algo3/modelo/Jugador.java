@@ -14,6 +14,10 @@ public class Jugador {
         pregunta.agregarRespuesta(respuestaJugador);
     }
 
+    public String getNombre() {
+        return nombre;
+    }
+
     public void sumarPuntos(int puntaje) {
         puntajeTotal += puntaje;
     }

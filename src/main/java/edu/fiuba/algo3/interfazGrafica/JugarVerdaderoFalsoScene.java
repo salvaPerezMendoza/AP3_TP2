@@ -16,20 +16,28 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
+import java.util.ArrayList;
+
 public class JugarVerdaderoFalsoScene {
 
     private SceneController sceneController;
+    private Flujo flujo;
 
-    public JugarVerdaderoFalsoScene(SceneController sceneController) {
+    public JugarVerdaderoFalsoScene(SceneController sceneController, Flujo flujo) {
         this.sceneController = sceneController;
+        this.flujo = flujo;
     }
 
-    public Scene getScene(Flujo flujo) {
-        // Obtener la pregunta actual (en este ejemplo se crea una pregunta ficticia)
-        Pregunta preguntaActual = new Pregunta(new VerdaderoFalso(new OpcionSimple("V")), null, "¿El cielo es azul?");
+    public Scene getScene() {
+        // Crear pregunta ficticia para el ejemplo
+        ArrayList<OpcionSimple> opciones = new ArrayList<>();
+        opciones.add(new OpcionSimple("Verdadero", 1));
+        opciones.add(new OpcionSimple("Falso", 2));
+        VerdaderoFalso verdaderoFalso = new VerdaderoFalso(opciones, opciones.get(0));
+        Pregunta pregunta = new Pregunta(verdaderoFalso, null, "El cielo es azul.");
 
         // Crear la etiqueta de la pregunta
-        Label preguntaLabel = new Label(preguntaActual.getEnunciado());
+        Label preguntaLabel = new Label(pregunta.getEnunciado());
         preguntaLabel.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #333;");
         preguntaLabel.setPadding(new Insets(20));
 
@@ -58,17 +66,17 @@ public class JugarVerdaderoFalsoScene {
                 Respuesta respuesta = new Respuesta(jugadorActual);
 
                 if (respuestaSeleccionada.equals("Verdadero")) {
-                    respuesta.agregarOpcion(new OpcionSimple("V"));
+                    respuesta.agregarOpcion(new OpcionSimple("Verdadero", 1));
                 } else {
-                    respuesta.agregarOpcion(new OpcionSimple("F"));
+                    respuesta.agregarOpcion(new OpcionSimple("Falso", 2));
                 }
 
-                jugadorActual.responder(preguntaActual, respuesta);
-                preguntaActual.validarRespuestas();
+                jugadorActual.responder(pregunta, respuesta);
+                pregunta.validarRespuestas();
 
                 // Cambiar al siguiente turno
                 flujo.siguienteTurno();
-                sceneController.switchToTurnoScene();
+                sceneController.switchToTurnosScene();
             }
         });
         enviarButton.setStyle("-fx-font-size: 18px; -fx-background-color: #4CAF50; -fx-text-fill: white;");
@@ -96,4 +104,3 @@ public class JugarVerdaderoFalsoScene {
         return scene;
     }
 }
-

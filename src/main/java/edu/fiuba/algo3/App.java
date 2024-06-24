@@ -12,10 +12,10 @@ public class App extends Application {
     @Override
     public void start(Stage primaryStage) {
         Flujo flujo = new Flujo();
-        SceneController sceneController = new SceneController(primaryStage);
+        SceneController sceneController = new SceneController(primaryStage, flujo);
 
         // Crear la primera escena
-        MenuScene menuScene = new MenuScene(sceneController, flujo);
+        MenuScene menuScene = new MenuScene(sceneController);
         Scene scene1 = menuScene.getScene();
 
         // Mostrar la primera escena

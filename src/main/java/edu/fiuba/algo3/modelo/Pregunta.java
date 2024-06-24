@@ -23,6 +23,10 @@ public class Pregunta {
         respuestasJugadores.add(respuestaJugador);
     }
 
+    public String getEnunciado(){
+        return enunciado;
+    }
+
     private void validarRespuesta(Respuesta respuesta){
         RespuestaCorregida respuestaCorregida = tipo.corregirRespuesta(respuesta);
         respuestaCorregida.asignarPuntaje(penalidad);

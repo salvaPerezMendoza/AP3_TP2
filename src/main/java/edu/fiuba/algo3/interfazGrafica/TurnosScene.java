@@ -1,14 +1,13 @@
 package edu.fiuba.algo3.interfazGrafica;
 
 import edu.fiuba.algo3.modelo.Flujo;
-import edu.fiuba.algo3.modelo.Jugador;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.layout.BorderPane;
 
 public class TurnosScene {
 
@@ -21,18 +20,15 @@ public class TurnosScene {
     }
 
     public Scene getScene() {
-        Jugador jugadorActual = flujo.getJugadorActual();
-
-        // Crear etiqueta para mostrar el nombre del jugador actual
-        Label turnoLabel = new Label("Turno de: " + jugadorActual.getNombre());
+        // Crear la etiqueta para el turno del jugador actual
+        Label turnoLabel = new Label("Turno de: " + flujo.getJugadorActual().getNombre());
         turnoLabel.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #333;");
         turnoLabel.setPadding(new Insets(20));
 
-        // Botón para continuar
+        // Botón para continuar a la pregunta
         Button continuarButton = new Button("Continuar");
-        continuarButton.setOnAction(e -> sceneController.switchToJugarGroupChociceScene());
+        continuarButton.setOnAction(e -> sceneController.switchToJugarVerdaderoFalsoScene());
         continuarButton.setStyle("-fx-font-size: 18px; -fx-background-color: #4CAF50; -fx-text-fill: white;");
-        continuarButton.setMaxWidth(Double.MAX_VALUE);
 
         VBox layout = new VBox(20, turnoLabel, continuarButton);
         layout.setPadding(new Insets(20));

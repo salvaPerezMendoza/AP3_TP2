@@ -1,6 +1,9 @@
 package edu.fiuba.algo3.interfazGrafica;
 
 import edu.fiuba.algo3.modelo.Flujo;
+import edu.fiuba.algo3.modelo.Jugador;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -8,8 +11,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 
 public class AñadirJugadorScene {
 
@@ -37,14 +38,14 @@ public class AñadirJugadorScene {
         addButton.setOnAction(e -> {
             String playerName = nameInput.getText();
             if (!playerName.isEmpty()) {
-                sceneController.addPlayer(playerName);
+                flujo.agregarJugador(new Jugador(playerName));
                 sceneController.switchToMenuScene();
             }
         });
         addButton.setStyle("-fx-font-size: 18px; -fx-background-color: #4CAF50; -fx-text-fill: white;");
 
         // Botón para volver al menú
-        Button backButton = new Button("Volver");
+        Button backButton = new Button("Volver al Menú");
         backButton.setOnAction(e -> sceneController.switchToMenuScene());
         backButton.setStyle("-fx-font-size: 18px; -fx-background-color: #f0ad4e; -fx-text-fill: white;");
 
