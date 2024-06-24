@@ -38,7 +38,6 @@ public class Jugador {
         }
     }
 
-
     public void usarExclusividad(Ronda ronda){
         if (usosExclusividad < MAX_USOS_EXCLUSIVIDAD) {
             this.usosExclusividad++;
