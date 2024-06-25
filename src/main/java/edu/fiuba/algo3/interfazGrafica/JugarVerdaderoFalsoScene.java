@@ -34,7 +34,7 @@ public class JugarVerdaderoFalsoScene {
         opciones.add(new OpcionSimple("Verdadero", 1));
         opciones.add(new OpcionSimple("Falso", 2));
         VerdaderoFalso verdaderoFalso = new VerdaderoFalso(opciones, opciones.get(0));
-        Pregunta pregunta = new Pregunta(verdaderoFalso, null, "El cielo es azul.");
+        Pregunta pregunta = flujo.getPreguntaActual();
 
         // Crear la etiqueta de la pregunta
         Label preguntaLabel = new Label(pregunta.getEnunciado());

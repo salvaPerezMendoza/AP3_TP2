@@ -12,9 +12,11 @@ import javafx.scene.layout.BorderPane;
 public class MenuScene {
 
     private SceneController sceneController;
+    private ListView<String> participantes;
 
-    public MenuScene(SceneController sceneController) {
+    public MenuScene(SceneController sceneController, ListView<String> participantes) {
         this.sceneController = sceneController;
+        this.participantes = participantes;
     }
 
     public Scene getScene() {
@@ -25,10 +27,9 @@ public class MenuScene {
         Label participantsLabel = new Label("Participantes");
         participantsLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;");
 
-        ListView<String> participantsList = new ListView<>();
-        participantsList.getItems().addAll("Jugador 1", "Jugador 2");
+        participantes.getItems().addAll(sceneController.getFlujo().getJugadoresNombres());
 
-        VBox participantsBox = new VBox(participantsLabel, participantsList);
+        VBox participantsBox = new VBox(participantsLabel, participantes);
         participantsBox.setPadding(new Insets(20));
         participantsBox.setSpacing(10);
 

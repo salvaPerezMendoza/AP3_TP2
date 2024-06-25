@@ -13,14 +13,16 @@ public class Pregunta {
     private Penalidad penalidad;
     private ArrayList<Respuesta> respuestasJugador;
     private Bonificador bonificador;
+    private String tema;
 
 
-    public Pregunta(TipoDePregunta tipo, Penalidad penalidad, String enunciado){
+    public Pregunta(TipoDePregunta tipo, Penalidad penalidad, String enunciado,String tema){
         this.tipo = tipo;
         this.penalidad = penalidad;
         this.enunciado = enunciado;
         this.respuestasJugador = new ArrayList<>();
         this.bonificador = new BonificadorConcreto();
+        this.tema = tema;
     }
 
     public void agregarRespuesta(Respuesta respuestaJugador){
@@ -71,5 +73,9 @@ public class Pregunta {
     }
     public String getEnunciado(){
         return this.enunciado;
+    }
+
+    public String getTema() {
+        return tema;
     }
 }

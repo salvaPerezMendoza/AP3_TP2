@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.interfazGrafica;
 
 import edu.fiuba.algo3.modelo.Flujo;
+import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 
 public class SceneController {
@@ -12,8 +13,13 @@ public class SceneController {
         this.flujo = flujo;
     }
 
+    public Flujo getFlujo() {
+        return flujo;
+    }
+
     public void switchToMenuScene() {
-        MenuScene menuScene = new MenuScene(this);
+        ListView<String> participantes = new ListView<>();
+        MenuScene menuScene = new MenuScene(this, participantes);
         primaryStage.setScene(menuScene.getScene());
     }
 
