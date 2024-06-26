@@ -30,8 +30,8 @@ public class TestMultiplicadores {
         TipoDePregunta consigna = new VerdaderoFalso(opciones, new OpcionSimple("Verdadero", 1));
         Penalidad penalidad = new SinPenalidad();
 
-        Pregunta pregunta1 = new Pregunta(consigna, penalidad, "Messi es el mejor jugador de la historia?");
-        Pregunta pregunta2 = new Pregunta(consigna, penalidad, "Messi es el GOAT?");
+        Pregunta pregunta1 = new Pregunta(consigna, penalidad, "Messi es el mejor jugador de la historia?","deporte");
+        Pregunta pregunta2 = new Pregunta(consigna, penalidad, "Messi es el GOAT?","deporte");
 
         Respuesta respuestaJugador1 = new Respuesta(jugador1);
         respuestaJugador1.agregarOpcion(new OpcionSimple("Verdadero", 1));
@@ -68,8 +68,8 @@ public class TestMultiplicadores {
         TipoDePregunta consigna = new VerdaderoFalso(opciones, new OpcionSimple("Verdadero", 1));
         Penalidad penalidad = new SinPenalidad();
 
-        Pregunta pregunta1 = new Pregunta(consigna, penalidad, "Messi es el mejor jugador de la historia?");
-        Pregunta pregunta2 = new Pregunta(consigna, penalidad, "Messi es el GOAT?");
+        Pregunta pregunta1 = new Pregunta(consigna, penalidad, "Messi es el mejor jugador de la historia?","deporte");
+        Pregunta pregunta2 = new Pregunta(consigna, penalidad, "Messi es el GOAT?","deporte");
 
         Respuesta respuestaJugador1 = new Respuesta(jugador1);
         respuestaJugador1.agregarOpcion(new OpcionSimple("Verdadero", 1));

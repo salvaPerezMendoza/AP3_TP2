@@ -8,13 +8,12 @@ import java.util.HashMap;
 public class Ronda {
     private ArrayList<Pregunta> preguntas;
     private ArrayList<Jugador> jugadores;
-    private HashMap<Jugador, ArrayList<String>> bonificadores; //Se usa un hashmap para manterner la referencia al jugador
-    private int contadorExclusividad;
+    private HashMap<Jugador, ArrayList<Bonificador>> bonificadores; //Se usa un hashmap para mantener la refernecia al jugador
+
     public Ronda() {
         this.preguntas = new ArrayList<>();
         this.jugadores = new ArrayList<>();
         this.bonificadores = new HashMap<>();
-        this.contadorExclusividad = 0;
     }
 
     public void agregarPreguntas(Pregunta pregunta) {
@@ -25,56 +24,40 @@ public class Ronda {
         jugadores.add(jugador);
     }
 
-    public void incrementarContadorExclusividad() {
-        this.contadorExclusividad++;
-    }
-    private void aplicarExclusividad() {
-        for (int i = 0; i < contadorExclusividad; i++) {
-            int cantidadIncorrectas = 0;
-            for (Pregunta pregunta : preguntas) {
-                if (!pregunta.ningunaIncorrecta()) {
-                    cantidadIncorrectas++;
-                }
-            }
-            // Si un solo jugador respondio bien se le aplica un "multiplicadorX2 exclusivo"
-            if (jugadores.size() - cantidadIncorrectas == 1) {
-                for (Jugador jugador : jugadores) {
-                    for (Pregunta pregunta : preguntas) {
-                        pregunta.agregarBonificador(jugador, "MultiplicadorX2");
-                    }
-                }
-            }
-        }
-    }
-    private void aplicarBonificadores(){
-        for (HashMap.Entry<Jugador, ArrayList<String>> entry : bonificadores.entrySet()) {
-            Jugador jugador = entry.getKey();
-            ArrayList<String> bonificadores = entry.getValue();
-            for (String bonificador : bonificadores) {
-                for (Pregunta pregunta: preguntas) {
-                    pregunta.agregarBonificador(jugador, bonificador);
-                }
-            }
-        }
-    }
-    public void agregarBonificador(Jugador jugador,String bonificador){
+    public ArrayList<Jugador> getJugadores(){return this.jugadores;}
+
+    public ArrayList<Pregunta> getPreguntas(){return this.preguntas;}
+
+    public void agregarBonificador(Jugador jugador,Bonificador bonificador){
         // Verificar si el jugador ya tiene una lista de bonificadores
         if (!bonificadores.containsKey(jugador)) {
             // Si no, crear una nueva lista de bonificadores
-            bonificadores.put(jugador, new ArrayList<String>());
+            bonificadores.put(jugador, new ArrayList<Bonificador>());
         }
         // Agregar el bonificador a la lista del jugador
         bonificadores.get(jugador).add(bonificador);
     }
+
     public void terminarRonda() {
         //Aplico bonificadores a cada jugador al terminar la ronda
         this.aplicarBonificadores();
-        //Aplico exclusividad si es que la hay
-        this.aplicarExclusividad();
+
         // Asigno los puntajes correspondientes
         for (Pregunta pregunta : preguntas) {
             // Suponiendo que Pregunta tiene un método evaluarRespuesta que actualiza el puntaje del jugador
             pregunta.validarRespuestas();
+        }
+    }
+
+    private void aplicarBonificadores(){
+        for (HashMap.Entry<Jugador, ArrayList<Bonificador>> entry : bonificadores.entrySet()) {
+            Jugador jugador = entry.getKey();
+            ArrayList<Bonificador> bonificadores = entry.getValue();
+            for (Bonificador bonificador : bonificadores) {
+                for (Pregunta pregunta: preguntas) {
+                    pregunta.agregarBonificador(jugador, bonificador);
+                }
+            }
         }
     }
 

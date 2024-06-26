@@ -2,7 +2,7 @@ package edu.fiuba.algo3;
 
 import edu.fiuba.algo3.interfazGrafica.MenuScene;
 import edu.fiuba.algo3.interfazGrafica.SceneController;
-import edu.fiuba.algo3.modelo.CreadorDePreguntas;
+//import edu.fiuba.algo3.modelo.CreadorDePreguntas;
 import edu.fiuba.algo3.modelo.Flujo;
 import javafx.application.Application;
 import javafx.scene.Scene;

@@ -11,6 +11,7 @@ public class Flujo {
     private List<Jugador> jugadores;
     private List<Pregunta> preguntas;
     private Pregunta preguntaActual;
+    private static Ronda ronda;
     private int turnoActual;
 
     public Flujo() {
@@ -24,6 +25,21 @@ public class Flujo {
         CreadorDePreguntas creadorDePreguntas = new CreadorDePreguntas();
         preguntas = creadorDePreguntas.leerArchivo();
         preguntaActual = setearPreguntaActual();
+    }
+    public void crearRonda(){
+        Ronda ronda = obtenerRonda(); // obtengo instancia unica
+        for (Jugador jugador : jugadores) {
+            ronda.agregarJugador(jugador);
+        }
+        for (Pregunta pregunta : preguntas) {
+            ronda.agregarPreguntas(pregunta);
+        }
+    }
+    public static Ronda obtenerRonda() {
+        if (ronda == null) {
+            ronda = new Ronda();
+        }
+        return ronda;
     }
 
     private Pregunta setearPreguntaActual() {

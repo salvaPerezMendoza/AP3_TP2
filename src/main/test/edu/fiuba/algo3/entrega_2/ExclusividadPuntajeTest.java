@@ -1,12 +1,9 @@
 package edu.fiuba.algo3.entrega_2;
 
-import edu.fiuba.algo3.modelo.Jugador;
+import edu.fiuba.algo3.modelo.*;
 import edu.fiuba.algo3.modelo.Opcion.OpcionSimple;
 import edu.fiuba.algo3.modelo.Penalidad.Penalidad;
 import edu.fiuba.algo3.modelo.Penalidad.SinPenalidad;
-import edu.fiuba.algo3.modelo.Pregunta;
-import edu.fiuba.algo3.modelo.Respuesta;
-import edu.fiuba.algo3.modelo.Ronda;
 import edu.fiuba.algo3.modelo.TipoDePregunta.TipoDePregunta;
 import edu.fiuba.algo3.modelo.TipoDePregunta.VerdaderoFalso;
 import org.junit.jupiter.api.Test;
@@ -28,8 +25,8 @@ public class ExclusividadPuntajeTest {
         TipoDePregunta consigna = new VerdaderoFalso(opciones, new OpcionSimple("Verdadero", 1));
         Penalidad penalidad = new SinPenalidad();
 
-        Pregunta pregunta1 = new Pregunta(consigna, penalidad, "Messi es el mejor jugador de la historia?");
-        Pregunta pregunta2 = new Pregunta(consigna, penalidad, "Messi es el GOAT?");
+        Pregunta pregunta1 = new Pregunta(consigna, penalidad, "Messi es el mejor jugador de la historia?","deporte");
+        Pregunta pregunta2 = new Pregunta(consigna, penalidad, "Messi es el GOAT?","deporte");
         Respuesta respuestaJugador1 = new Respuesta(jugador1);
         respuestaJugador1.agregarOpcion(new OpcionSimple("Verdadero", 1));
 
@@ -39,7 +36,7 @@ public class ExclusividadPuntajeTest {
         jugador1.responder(pregunta1, respuestaJugador1);
         jugador2.responder(pregunta2, respuestaJugador2);
 
-        Ronda ronda = new Ronda();
+        Ronda ronda = Flujo.obtenerRonda();
         ronda.agregarJugador(jugador1);
         ronda.agregarJugador(jugador2);
 
@@ -64,8 +61,8 @@ public class ExclusividadPuntajeTest {
         TipoDePregunta consigna = new VerdaderoFalso(opciones, new OpcionSimple("Verdadero", 1));
         Penalidad penalidad = new SinPenalidad();
 
-        Pregunta pregunta1 = new Pregunta(consigna, penalidad, "Messi es el mejor jugador de la historia?");
-        Pregunta pregunta2 = new Pregunta(consigna, penalidad, "Messi es el GOAT?");
+        Pregunta pregunta1 = new Pregunta(consigna, penalidad, "Messi es el mejor jugador de la historia?","deporte");
+        Pregunta pregunta2 = new Pregunta(consigna, penalidad, "Messi es el GOAT?","deporte");
         Respuesta respuestaJugador1 = new Respuesta(jugador1);
         respuestaJugador1.agregarOpcion(new OpcionSimple("Verdadero", 1));
 
@@ -75,7 +72,7 @@ public class ExclusividadPuntajeTest {
         jugador1.responder(pregunta1, respuestaJugador1);
         jugador2.responder(pregunta2, respuestaJugador2);
 
-        Ronda ronda = new Ronda();
+        Ronda ronda = Flujo.obtenerRonda();
         ronda.agregarJugador(jugador1);
         ronda.agregarJugador(jugador2);
 
@@ -101,8 +98,8 @@ public class ExclusividadPuntajeTest {
         TipoDePregunta consigna = new VerdaderoFalso(opciones, new OpcionSimple("Verdadero", 1));
         Penalidad penalidad = new SinPenalidad();
 
-        Pregunta pregunta1 = new Pregunta(consigna, penalidad, "Messi es el mejor jugador de la historia?");
-        Pregunta pregunta2 = new Pregunta(consigna, penalidad, "Messi es el GOAT?");
+        Pregunta pregunta1 = new Pregunta(consigna, penalidad, "Messi es el mejor jugador de la historia?","deporte");
+        Pregunta pregunta2 = new Pregunta(consigna, penalidad, "Messi es el GOAT?","deporte");
         Respuesta respuestaJugador1 = new Respuesta(jugador1);
         respuestaJugador1.agregarOpcion(new OpcionSimple("Verdadero", 1));
 
@@ -112,7 +109,7 @@ public class ExclusividadPuntajeTest {
         jugador1.responder(pregunta1, respuestaJugador1);
         jugador2.responder(pregunta2, respuestaJugador2);
 
-        Ronda ronda = new Ronda();
+        Ronda ronda = Flujo.obtenerRonda();
         ronda.agregarJugador(jugador1);
         ronda.agregarJugador(jugador2);
 

@@ -57,20 +57,10 @@ public class Pregunta {
         return noHayIncorrecta;
     }
 
-    public void agregarBonificador(Jugador jugador, String bonificador){
-        //Si fue el jugador quien agrego el bonificador
-        if (jugador.equals(this.respuestasJugador.get(0).getJugador())) {
-            if (bonificador.equals("MultiplicadorX2")) {
-                this.bonificador = new MultiplicadorX2Decorador(this.bonificador);
-            }
-        }
-        //Si es diferente al jugador que agrego el bonificador
-        if (!jugador.equals(this.respuestasJugador.get(0).getJugador())) {
-            if (bonificador.equals("Anulador")) {
-                this.bonificador = new AnuladorPuntajeDecorador(this.bonificador);
-            }
-        }
+    public void agregarBonificador(Jugador jugadorBonificado, Bonificador bonificador) {
+        this.bonificador = BonificadorDecorador.crearDecorador(this.bonificador, bonificador,jugadorBonificado, this.respuestasJugador.get(0).getJugador());
     }
+
     public String getEnunciado(){
         return this.enunciado;
     }
