@@ -3,6 +3,7 @@ package edu.fiuba.algo3.modelo;
 import edu.fiuba.algo3.modelo.Opcion.Opcion;
 import edu.fiuba.algo3.modelo.Penalidad.Penalidad;
 import edu.fiuba.algo3.modelo.TipoDePregunta.TipoDePregunta;
+import edu.fiuba.algo3.modelo.bonificadores.*;
 
 import java.util.ArrayList;
 
@@ -10,35 +11,61 @@ public class Pregunta {
     private String enunciado;
     private TipoDePregunta tipo;
     private Penalidad penalidad;
-    private ArrayList<Respuesta> respuestasJugadores;
+    private ArrayList<Respuesta> respuestasJugador;
+    private Bonificador bonificador;
+    private String tema;
 
-    public Pregunta(TipoDePregunta tipo, Penalidad penalidad, String enunciado){
+
+    public Pregunta(TipoDePregunta tipo, Penalidad penalidad, String enunciado,String tema){
         this.tipo = tipo;
         this.penalidad = penalidad;
         this.enunciado = enunciado;
-        this.respuestasJugadores = new ArrayList<>();
+        this.respuestasJugador = new ArrayList<>();
+        this.bonificador = new BonificadorConcreto();
+        this.tema = tema;
     }
 
     public void agregarRespuesta(Respuesta respuestaJugador){
-        respuestasJugadores.add(respuestaJugador);
-    }
-
-    public String getEnunciado(){
-        return enunciado;
+        respuestasJugador.add(respuestaJugador);
     }
 
     private void validarRespuesta(Respuesta respuesta){
         RespuestaCorregida respuestaCorregida = tipo.corregirRespuesta(respuesta);
-        respuestaCorregida.asignarPuntaje(penalidad);
+        verificarSiHayAlgunaIncorrecta(respuestaCorregida);
+        respuestaCorregida.asignarPuntaje(penalidad, bonificador);
     }
 
     public void validarRespuestas(){
-        for(Respuesta respuesta : respuestasJugadores){
+        for(Respuesta respuesta : respuestasJugador){
             validarRespuesta(respuesta);
         }
     }
 
-    public TipoDePregunta getTipo(){
-        return tipo;
+    private boolean verificarSiHayAlgunaIncorrecta(RespuestaCorregida respuestaCorregida){
+        return respuestaCorregida.getRespuestasInorrectas() > 0;
+    }
+
+    public boolean ningunaIncorrecta(){
+        boolean noHayIncorrecta = true;
+        for(Respuesta respuesta : respuestasJugador){
+            RespuestaCorregida respuestaCorregida = tipo.corregirRespuesta(respuesta);
+            if (noHayIncorrecta){
+                noHayIncorrecta = verificarSiHayAlgunaIncorrecta(respuestaCorregida);
+            }
+
+        }
+        return noHayIncorrecta;
+    }
+
+    public void agregarBonificador(Jugador jugadorBonificado, Bonificador bonificador) {
+        this.bonificador = BonificadorDecorador.crearDecorador(this.bonificador, bonificador,jugadorBonificado, this.respuestasJugador.get(0).getJugador());
+    }
+
+    public String getEnunciado(){
+        return this.enunciado;
+    }
+
+    public String getTema() {
+        return tema;
     }
 }
