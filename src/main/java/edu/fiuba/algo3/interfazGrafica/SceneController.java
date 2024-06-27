@@ -3,6 +3,9 @@ package edu.fiuba.algo3.interfazGrafica;
 import edu.fiuba.algo3.interfazGrafica.PreguntasScene.*;
 import edu.fiuba.algo3.modelo.Juego;
 import edu.fiuba.algo3.modelo.Jugador;
+import edu.fiuba.algo3.modelo.Penalidad.ConPenalidad;
+import edu.fiuba.algo3.modelo.Penalidad.Penalidad;
+import edu.fiuba.algo3.modelo.Penalidad.PenalidadParcial;
 import edu.fiuba.algo3.modelo.Pregunta;
 import edu.fiuba.algo3.modelo.TipoDePregunta.GroupChoice;
 import edu.fiuba.algo3.modelo.TipoDePregunta.MultipleChoice;
@@ -10,7 +13,11 @@ import edu.fiuba.algo3.modelo.TipoDePregunta.OrderedChoice;
 import edu.fiuba.algo3.modelo.TipoDePregunta.VerdaderoFalso;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class SceneController {
@@ -102,7 +109,7 @@ public class SceneController {
             switchToMostrarPuntajesScene();
             juego.setearPreguntaActual();
         } else {
-            switchToJugarPregunta();
+            switchToTurnosScene();
         }
     }
 
@@ -122,6 +129,40 @@ public class SceneController {
     public void addPlayer(String playerName) {
         Jugador jugador = new Jugador(playerName);
         juego.agregarJugador(jugador);
+    }
+
+    public VBox MostrarBonificadores(Penalidad penalidad){
+        VBox botonesPenalidad = new VBox(10);
+        if (penalidad instanceof ConPenalidad) {
+            Button multiplicadorX2 = new Button("Multiplicador X2");
+            Button multiplicadorX3 = new Button("Multiplicador X3");
+            Button anuladorPuntaje = new Button("Anulador Puntaje");
+
+            multiplicadorX2.setStyle("-fx-font-size: 14px; -fx-background-color: #00FF00; -fx-text-fill: White;");
+            multiplicadorX3.setStyle("-fx-font-size: 14px; -fx-background-color: #FFFF00; -fx-text-fill: White;");
+            anuladorPuntaje.setStyle("-fx-font-size: 14px; -fx-background-color: #010101; -fx-text-fill: White;");
+
+            botonesPenalidad.getChildren().addAll(multiplicadorX2, multiplicadorX3, anuladorPuntaje);
+            botonesPenalidad.setAlignment(Pos.CENTER_LEFT);
+            botonesPenalidad.setPadding(new Insets(10));
+        } else if (penalidad instanceof PenalidadParcial) {
+            Button anuladorPuntaje = new Button("Anulador Puntaje");
+            anuladorPuntaje.setStyle("-fx-font-size: 14px; -fx-background-color: #010101; -fx-text-fill: White;");
+            botonesPenalidad.getChildren().add(anuladorPuntaje);
+            botonesPenalidad.setAlignment(Pos.CENTER_LEFT);
+            botonesPenalidad.setPadding(new Insets(10));
+        } else {
+            Button exclusividadPuntaje = new Button("Exclusividad Puntaje");
+            Button anuladorPuntaje = new Button("Anulador Puntaje");
+
+            exclusividadPuntaje.setStyle("-fx-font-size: 14px; -fx-background-color: #FF0000; -fx-text-fill: White;");
+            anuladorPuntaje.setStyle("-fx-font-size: 14px; -fx-background-color: #010101; -fx-text-fill: White;");
+
+            botonesPenalidad.getChildren().addAll(exclusividadPuntaje, anuladorPuntaje);
+            botonesPenalidad.setAlignment(Pos.CENTER_LEFT);
+            botonesPenalidad.setPadding(new Insets(10));
+        }
+        return botonesPenalidad;
     }
 
 }

@@ -4,6 +4,7 @@ import edu.fiuba.algo3.modelo.Juego;
 import edu.fiuba.algo3.modelo.Jugador;
 import javafx.application.Platform;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -53,7 +54,17 @@ public class MenuScene {
 
         // Botones
         Button playButton = new Button("JUGAR");
-        playButton.setOnAction(e -> sceneController.iniciarJuego());
+        playButton.setOnAction(e -> {
+            if (juego.devolverJugadores().size() < 2) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Jugadores insuficientes");
+                alert.setHeaderText(null);
+                alert.setContentText("Se requieren al menos 2 jugadores para iniciar el juego.");
+                alert.showAndWait();
+            } else {
+                sceneController.iniciarJuego();
+            }
+        });
         playButton.setStyle("-fx-font-size: 18px; -fx-background-color: #010101; -fx-text-fill: White; -fx-border-color: #010101; -fx-border-width: 10px;" );
 
         Button rulesButton = new Button("Reglas");

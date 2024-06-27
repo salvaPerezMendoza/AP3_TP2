@@ -7,18 +7,13 @@ import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.modelo.Penalidad.ConPenalidad;
 import edu.fiuba.algo3.modelo.Penalidad.Penalidad;
 import edu.fiuba.algo3.modelo.Penalidad.PenalidadParcial;
-import edu.fiuba.algo3.modelo.Penalidad.SinPenalidad;
 import edu.fiuba.algo3.modelo.Pregunta;
-import edu.fiuba.algo3.modelo.Opcion.Opcion;
 import edu.fiuba.algo3.modelo.Opcion.OpcionSimple;
 import edu.fiuba.algo3.modelo.Respuesta;
-import edu.fiuba.algo3.modelo.TipoDePregunta.MultipleChoice;
-import edu.fiuba.algo3.modelo.TipoDePregunta.TipoDePregunta;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -43,27 +38,17 @@ public class JugarMultipleChoiceScene {
         Respuesta respuesta = new Respuesta(jugador);
         ArrayList<OpcionSimple> opciones = pregunta.obtenerOpciones();
 
-        Label nombreJugadorLabel = new Label("Turno De: " + jugador.getNombre());
-        nombreJugadorLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #000;");
-        nombreJugadorLabel.setPadding(new Insets(10));
-
         // Crear la etiqueta de la pregunta
         Label preguntaLabel = new Label(pregunta.getEnunciado());
         preguntaLabel.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #333;");
         preguntaLabel.setPadding(new Insets(20));
 
-        Label penalidadAMostrar = new Label("Esta pregunta no tiene penalidad");
-        if (penalidadDeLaPregunta instanceof ConPenalidad) {
-            penalidadAMostrar = new Label("Esta pregunta no tiene penalidad");
-        } else if (penalidadDeLaPregunta instanceof PenalidadParcial) {
-            penalidadAMostrar = new Label("Esta pregunta tiene penalidad parcial");
-        }
-        penalidadAMostrar.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #000;");
-        penalidadAMostrar.setPadding(new Insets(10));
-        penalidadAMostrar.setAlignment(Pos.TOP_RIGHT);
+
+        VBox botonesPenalidad = sceneController.MostrarBonificadores(penalidadDeLaPregunta);
+        botonesPenalidad.setAlignment(Pos.CENTER_RIGHT);
+        botonesPenalidad.setPadding(new Insets(20));
 
         VBox opcionesBox = new VBox(10);
-
         for (OpcionSimple opcion : opciones) {
             OpcionMultipleChoiceBoton checkBox = new OpcionMultipleChoiceBoton(opcion);
             checkBox.setStyle("-fx-font-size: 18px; -fx-padding: 10px;");
@@ -75,7 +60,7 @@ public class JugarMultipleChoiceScene {
         // Botón para enviar la respuesta
         Button enviarButton = new Button("Enviar");
         enviarButton.setOnAction(e -> {
-            ArrayList<Opcion> opcionesSeleccionadas = new ArrayList<>();
+            ArrayList<OpcionSimple> opcionesSeleccionadas = new ArrayList<>();
             for (javafx.scene.Node node : opcionesBox.getChildren()) {
                 if (node instanceof OpcionMultipleChoiceBoton) {
                     OpcionMultipleChoiceBoton checkBox = (OpcionMultipleChoiceBoton) node;
@@ -86,27 +71,27 @@ public class JugarMultipleChoiceScene {
             }
             jugador.responder(pregunta, respuesta);
             juego.siguienteTurno();
-
             sceneController.siguienteTurno();
-
         });
-
-        enviarButton.setStyle("-fx-font-size: 18px; -fx-background-color: #010101; -fx-text-fill: White; -fx-border-color: #010101; -fx-border-width: 10px;" );
+        enviarButton.setStyle("-fx-font-size: 18px; -fx-background-color: #010101; -fx-text-fill: White; -fx-border-color: #010101; -fx-border-width: 10px;");
 
         // Botón para volver al menú
         Button backButton = new Button("Volver al Menú");
         backButton.setOnAction(e -> sceneController.switchToMenuScene());
-        backButton.setStyle("-fx-font-size: 18px; -fx-background-color: #010101; -fx-text-fill: White; -fx-border-color: #010101; -fx-border-width: 10px;" );
+        backButton.setStyle("-fx-font-size: 18px; -fx-background-color: #010101; -fx-text-fill: White; -fx-border-color: #010101; -fx-border-width: 10px;");
 
         VBox buttonBox = new VBox(10, enviarButton, backButton);
         buttonBox.setAlignment(Pos.CENTER);
         buttonBox.setPadding(new Insets(20));
 
         // Layout principal
-        HBox arriba = new HBox(530, nombreJugadorLabel, penalidadAMostrar);
-        VBox layout = new VBox(20, arriba, preguntaLabel, opcionesBox, buttonBox);
+
+        VBox izquierda = new VBox(20, preguntaLabel, opcionesBox, buttonBox);
+        izquierda.setAlignment(Pos.CENTER_LEFT);
+
+        HBox layout = new HBox(20, izquierda, botonesPenalidad);
         layout.setPadding(new Insets(20));
-        layout.setAlignment(Pos.CENTER);
+        layout.setAlignment(Pos.CENTER_LEFT);
 
         BorderPane root = new BorderPane();
         root.setCenter(layout);

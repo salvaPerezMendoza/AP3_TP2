@@ -5,6 +5,7 @@ import edu.fiuba.algo3.modelo.Juego;
 import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.modelo.Opcion.OpcionGrupo;
 import edu.fiuba.algo3.modelo.Opcion.OpcionSimple;
+import edu.fiuba.algo3.modelo.Penalidad.Penalidad;
 import edu.fiuba.algo3.modelo.Pregunta;
 import edu.fiuba.algo3.modelo.Respuesta;
 import javafx.collections.FXCollections;
@@ -12,7 +13,10 @@ import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -37,10 +41,7 @@ public class JugarGroupChoiceScene {
         Pregunta pregunta = juego.getPreguntaActual();
         ArrayList<OpcionSimple> opciones = pregunta.obtenerOpciones();
         Respuesta respuesta = new Respuesta(jugador);
-
-        Label nombreJugadorLabel = new Label("Turno De: " + jugador.getNombre());
-        nombreJugadorLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #000;");
-        nombreJugadorLabel.setPadding(new Insets(10));
+        Penalidad penalidadDeLaPregunta = pregunta.getPenalidad();
 
         Text preguntaText = new Text(pregunta.getEnunciado());
         TextFlow titleLabel = new TextFlow(preguntaText);
@@ -48,9 +49,7 @@ public class JugarGroupChoiceScene {
         titleLabel.setPadding(new Insets(20));
         titleLabel.setMaxWidth(600);
 
-
-        ObservableList<OpcionSimple> opcionesObservableList = FXCollections.observableArrayList();
-        opcionesObservableList.addAll(opciones);
+        ObservableList<OpcionSimple> opcionesObservableList = FXCollections.observableArrayList(opciones);
 
         ListView<OpcionSimple> opcionesListView = new ListView<>(opcionesObservableList);
         opcionesListView.setCellFactory(param -> new ListCell<OpcionSimple>() {
@@ -97,7 +96,8 @@ public class JugarGroupChoiceScene {
         grupoBListView.setPrefHeight(200);
 
         Button agregarAGrupoAButton = new Button("Agregar a Deportes Grupales");
-        agregarAGrupoAButton.setStyle("-fx-font-size: 15px; -fx-background-color: #010101; -fx-text-fill: White;" );
+        agregarAGrupoAButton.setStyle("-fx-font-size: 15px; -fx-background-color: #010101; -fx-text-fill: White;");
+        agregarAGrupoAButton.setMaxWidth(Double.MAX_VALUE);
 
         agregarAGrupoAButton.setOnAction(e -> {
             OpcionSimple seleccionada = opcionesListView.getSelectionModel().getSelectedItem();
@@ -108,7 +108,8 @@ public class JugarGroupChoiceScene {
         });
 
         Button agregarAGrupoBButton = new Button("Agregar a Deportes Individuales");
-        agregarAGrupoBButton.setStyle("-fx-font-size: 15px; -fx-background-color: #010101; -fx-text-fill: White;" );
+        agregarAGrupoBButton.setStyle("-fx-font-size: 15px; -fx-background-color: #010101; -fx-text-fill: White;");
+        agregarAGrupoBButton.setMaxWidth(Double.MAX_VALUE);
 
         agregarAGrupoBButton.setOnAction(e -> {
             OpcionSimple seleccionada = opcionesListView.getSelectionModel().getSelectedItem();
@@ -117,9 +118,6 @@ public class JugarGroupChoiceScene {
                 opcionesObservableList.remove(seleccionada);
             }
         });
-
-        agregarAGrupoAButton.setMaxWidth(Double.MAX_VALUE);
-        agregarAGrupoBButton.setMaxWidth(Double.MAX_VALUE);
 
         Button enviarButton = new Button("Enviar");
         enviarButton.setOnAction(e -> {
@@ -135,29 +133,35 @@ public class JugarGroupChoiceScene {
             sceneController.siguienteTurno();
         });
 
-        enviarButton.setStyle("-fx-font-size: 18px; -fx-background-color: #010101; -fx-text-fill: White; -fx-border-color: #010101; -fx-border-width: 10px;" );
+        enviarButton.setStyle("-fx-font-size: 18px; -fx-background-color: #010101; -fx-text-fill: White; -fx-border-color: #010101; -fx-border-width: 10px;");
+
+        VBox botonesPenalidad = sceneController.MostrarBonificadores(penalidadDeLaPregunta);
+        botonesPenalidad.setAlignment(Pos.CENTER_RIGHT);
+        botonesPenalidad.setPadding(new Insets(20));
 
         HBox agregarAGruposBox = new HBox(10, agregarAGrupoAButton, agregarAGrupoBButton);
         agregarAGruposBox.setAlignment(Pos.CENTER);
 
-        HBox opcionesBox = new HBox(20, opcionesListView);
+        VBox opcionesBox = new VBox(10, new Label("Opciones"), opcionesListView, agregarAGruposBox);
         opcionesBox.setPadding(new Insets(20));
-        opcionesBox.setAlignment(Pos.CENTER);
+        opcionesBox.setAlignment(Pos.CENTER_LEFT);
 
-        HBox gruposBox = new HBox(50, grupoAListView, grupoBListView);
+        VBox gruposBox = new VBox(10, new Label("Deportes Grupales"), grupoAListView, new Label("Deportes Individuales"), grupoBListView);
         gruposBox.setPadding(new Insets(20));
-        gruposBox.setAlignment(Pos.CENTER);
+        gruposBox.setAlignment(Pos.CENTER_LEFT);
 
-        VBox buttonBox = new VBox(20, enviarButton);
+        VBox buttonBox = new VBox(10, enviarButton);
         buttonBox.setAlignment(Pos.CENTER);
         buttonBox.setPadding(new Insets(20));
 
-        VBox layout = new VBox(20, nombreJugadorLabel, titleLabel, opcionesBox, agregarAGruposBox, gruposBox, buttonBox);
+        HBox layout = new HBox(20, opcionesBox, gruposBox, botonesPenalidad);
         layout.setPadding(new Insets(20));
-        layout.setAlignment(Pos.CENTER);
+        layout.setAlignment(Pos.CENTER_LEFT);
 
         BorderPane root = new BorderPane();
+        root.setTop(titleLabel);
         root.setCenter(layout);
+        root.setBottom(buttonBox);
 
         return new Scene(root, 1000, 650);
     }
