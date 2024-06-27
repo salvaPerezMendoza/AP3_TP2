@@ -30,6 +30,11 @@ public class GroupChoice implements TipoDePregunta {
     }
 
     @Override
+    public ArrayList<OpcionSimple> obtenerOpciones() {
+        return opciones;
+    }
+
+    @Override
     public RespuestaCorregida corregirRespuesta(Respuesta respuestaJugador) {
         int cantidadCorrectas = 0;
         int cantidadIncorrectas = 0;

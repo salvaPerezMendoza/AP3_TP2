@@ -30,40 +30,20 @@ public class JugarOrderChoiceScene {
 
     private SceneController sceneController;
     private Juego juego;
-    private Pregunta pregunta;
 
     public JugarOrderChoiceScene(SceneController sceneController, Juego juego) {
         this.sceneController = sceneController;
         this.juego = juego;
-        this.pregunta = getPregunta(); // Instanciar la pregunta aquí mismo
-    }
-
-    private Pregunta getPregunta() {
-        // Crear opciones
-        ArrayList<OpcionSimple> opciones = new ArrayList<>();
-        opciones.add(new OpcionSimple("Televisor de tubo CRT", 1));
-        opciones.add(new OpcionSimple("Microondas", 2));
-        opciones.add(new OpcionSimple("Imanes del delivery", 3));
-        opciones.add(new OpcionSimple("Heladera", 4));
-
-        // Crear opciones correctas (ordenadas de mayor a menor radiación)
-        ArrayList<OpcionSimple> opcionesCorrectas = new ArrayList<>();
-        opcionesCorrectas.add(new OpcionSimple("Microondas", 2));
-        opcionesCorrectas.add(new OpcionSimple("Televisor de tubo CRT", 1));
-        opcionesCorrectas.add(new OpcionSimple("Heladera", 4));
-        opcionesCorrectas.add(new OpcionSimple("Imanes del delivery", 3));
-
-        // Crear el tipo de pregunta
-        TipoDePregunta orderedChoice = new OrderedChoice(opciones, opcionesCorrectas);
-        Penalidad sinPenalidad = new SinPenalidad();
-
-        String enunciado = "Ordene de MAYOR A MENOR los siguientes objetos hogareños según su nivel de radiación electromagnética emitido (el máximo recomendado es 100 microTeslas)";
-
-        // Crear la pregunta
-        return new Pregunta(orderedChoice, sinPenalidad, enunciado, "Ciencia");
     }
 
     public Scene getScene() {
+        Jugador jugador = juego.getJugadorActual();
+        Pregunta pregunta = juego.getPreguntaActual();
+        ArrayList<OpcionSimple> opciones = pregunta.obtenerOpciones();
+
+        Label nombreJugadorLabel = new Label(jugador.getNombre());
+        nombreJugadorLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #000;");
+        nombreJugadorLabel.setPadding(new Insets(10));
         // Crear la etiqueta de la pregunta
         Label preguntaLabel = new Label(pregunta.getEnunciado());
         preguntaLabel.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #333;");
@@ -121,7 +101,7 @@ public class JugarOrderChoiceScene {
 
             // Cambiar la escena del proximo turno
 
-            sceneController.siguientePregunta();
+            sceneController.siguienteTurno();
         });
 
         enviarButton.setStyle("-fx-font-size: 18px; -fx-background-color: #4CAF50; -fx-text-fill: white;");

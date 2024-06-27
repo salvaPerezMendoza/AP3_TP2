@@ -28,7 +28,7 @@ public class SceneController {
 
     //Escenas de preguntas
     public void switchToJugarVerdaderoFalsoScene(int ID) {
-        EscenaDePregunta jugarScene = new JugarVerdaderoFalsoScene(this, juego,ID);
+        EscenaDePregunta jugarScene = new JugarVerdaderoFalsoScene(this, juego);
         Scene jScene = jugarScene.getScene();
         primaryStage.setScene(jScene);
     }
@@ -53,16 +53,16 @@ public class SceneController {
 
     public void switchToJugarPregunta(){
         if(juego.getPreguntaActual().getTipo() instanceof VerdaderoFalso){
-            switchToJugarVerdaderoFalsoScene(2);
+            switchToJugarVerdaderoFalsoScene(3);
         }
         if(juego.getPreguntaActual().getTipo() instanceof GroupChoice){
-            switchToJugarGroupChociceScene(2);
+            switchToJugarGroupChociceScene(3);
         }
         if(juego.getPreguntaActual().getTipo() instanceof MultipleChoice){
-            switchToJugarMultipleChoiceScene(2);
+            switchToJugarMultipleChoiceScene(3);
         }
         if(juego.getPreguntaActual().getTipo() instanceof OrderedChoice){
-            switchToJugarOrderChoiceScene(2);
+            switchToJugarOrderChoiceScene(3);
         }
     }
 
@@ -94,12 +94,13 @@ public class SceneController {
 
 
     // la idea seria, mandar una pregunta y que respondan los cuatro
-    public void siguientePregunta(){
+    public void siguienteTurno(){
         Pregunta preguntaActual = juego.getPreguntaActual();
         if(preguntaActual.respondieronTodos(juego.devolverJugadores().size())){
             //juego.getJugadorActual().responder();
             preguntaActual.validarRespuestas();
             switchToMostrarPuntajesScene();
+            juego.setearPreguntaActual();
         } else {
             switchToJugarPregunta();
         }

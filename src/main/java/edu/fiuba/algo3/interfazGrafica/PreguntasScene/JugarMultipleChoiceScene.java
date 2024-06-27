@@ -1,12 +1,15 @@
 package edu.fiuba.algo3.interfazGrafica.PreguntasScene;
 
 import edu.fiuba.algo3.interfazGrafica.SceneController;
+import edu.fiuba.algo3.interfazGrafica.componentes.OpcionMultipleChoiceBoton;
 import edu.fiuba.algo3.modelo.Juego;
+import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.modelo.Penalidad.Penalidad;
 import edu.fiuba.algo3.modelo.Penalidad.SinPenalidad;
 import edu.fiuba.algo3.modelo.Pregunta;
 import edu.fiuba.algo3.modelo.Opcion.Opcion;
 import edu.fiuba.algo3.modelo.Opcion.OpcionSimple;
+import edu.fiuba.algo3.modelo.Respuesta;
 import edu.fiuba.algo3.modelo.TipoDePregunta.MultipleChoice;
 import edu.fiuba.algo3.modelo.TipoDePregunta.TipoDePregunta;
 import javafx.geometry.Insets;
@@ -24,39 +27,22 @@ public class JugarMultipleChoiceScene {
 
     private SceneController sceneController;
     private Juego juego;
-    private Pregunta pregunta;
 
     public JugarMultipleChoiceScene(SceneController sceneController, Juego juego) {
         this.sceneController = sceneController;
         this.juego = juego;
-        this.pregunta = getPregunta(); //esta pregunta me deveria llegar por parametro
-    }
-
-    //Esto es lo que se envia por parametro
-    public Pregunta getPregunta() {
-        // Crear opciones
-        ArrayList<OpcionSimple> opciones = new ArrayList<>();
-        opciones.add(new OpcionSimple("Neymar", 1));
-        opciones.add(new OpcionSimple("Messi", 2));
-        opciones.add(new OpcionSimple("Cristiano Ronaldo", 3));
-        opciones.add(new OpcionSimple("Lewandowski", 4));
-
-        // Crear opciones correctas
-        ArrayList<OpcionSimple> opcionesCorrectas = new ArrayList<>();
-        opcionesCorrectas.add(new OpcionSimple("Neymar", 1));
-        opcionesCorrectas.add(new OpcionSimple("Lewandowski", 4));
-
-        // Crear el tipo de pregunta
-        TipoDePregunta multipleChoice = new MultipleChoice(opciones, opcionesCorrectas);
-        Penalidad sinPenalidad = new SinPenalidad();
-
-        // Crear la pregunta
-        Pregunta pregunta = new Pregunta(multipleChoice, sinPenalidad, "¿Cuáles de estos jugadores nunca ganaron un Balón de Oro?", "Deporte");
-
-        return pregunta;
     }
 
     public Scene getScene() {
+        Jugador jugador = juego.getJugadorActual();
+        Pregunta pregunta = juego.getPreguntaActual();
+        Respuesta respuesta = new Respuesta(jugador);
+        ArrayList<OpcionSimple> opciones = pregunta.obtenerOpciones();
+
+        Label nombreJugadorLabel = new Label(jugador.getNombre());
+        nombreJugadorLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #000;");
+        nombreJugadorLabel.setPadding(new Insets(10));
+
         // Crear la etiqueta de la pregunta
         Label preguntaLabel = new Label(pregunta.getEnunciado());
         preguntaLabel.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #333;");
@@ -65,16 +51,10 @@ public class JugarMultipleChoiceScene {
         // Crear las casillas de verificación
         VBox opcionesBox = new VBox(10);
 
-        // Todas estas opciones se las deveria poder pedir a pregunta
-        ArrayList<OpcionSimple> opciones = new ArrayList<>();
-        opciones.add(new OpcionSimple("Neymar", 1));
-        opciones.add(new OpcionSimple("Messi", 2));
-        opciones.add(new OpcionSimple("Cristiano Ronaldo", 3));
-        opciones.add(new OpcionSimple("Lewandowski", 4));
         //Todas estas opciones se las deveria poder pedir a pregunta
 
-        for (Opcion opcion : opciones) {
-            CheckBox checkBox = new CheckBox(opcion.getTexto());
+        for (OpcionSimple opcion : opciones) {
+            OpcionMultipleChoiceBoton checkBox = new OpcionMultipleChoiceBoton(opcion);
             checkBox.setStyle("-fx-font-size: 18px; -fx-padding: 10px;");
             opcionesBox.getChildren().add(checkBox);
         }
@@ -86,24 +66,20 @@ public class JugarMultipleChoiceScene {
         enviarButton.setOnAction(e -> {
             ArrayList<Opcion> opcionesSeleccionadas = new ArrayList<>();
             for (javafx.scene.Node node : opcionesBox.getChildren()) {
-                if (node instanceof CheckBox) {
-                    CheckBox checkBox = (CheckBox) node;
+                if (node instanceof OpcionMultipleChoiceBoton) {
+                    OpcionMultipleChoiceBoton checkBox = (OpcionMultipleChoiceBoton) node;
                     if (checkBox.isSelected()) {
-                        String texto = checkBox.getText();
-                        for (Opcion opcion : opciones) {
-                            if (opcion.getTexto().equals(texto)) {
-                                opcionesSeleccionadas.add(opcion);
-                                break;
-                            }
-                        }
+                        respuesta.agregarOpcion(checkBox.getOpcion());
                     }
                 }
             }
-            // Aquí puedes procesar las opciones seleccionadas
-            // Por ejemplo, podrías validar la respuesta y cambiar de escena
-            procesarRespuesta(opcionesSeleccionadas);
-            sceneController.siguientePregunta();
+            jugador.responder(pregunta, respuesta);
+            juego.siguienteTurno();
+
+            sceneController.siguienteTurno();
+
         });
+
         enviarButton.setStyle("-fx-font-size: 18px; -fx-background-color: #4CAF50; -fx-text-fill: white;");
 
         // Botón para volver al menú
@@ -116,7 +92,7 @@ public class JugarMultipleChoiceScene {
         buttonBox.setPadding(new Insets(20));
 
         // Layout principal
-        VBox layout = new VBox(20, preguntaLabel, opcionesBox, buttonBox);
+        VBox layout = new VBox(20, nombreJugadorLabel, preguntaLabel, opcionesBox, buttonBox);
         layout.setPadding(new Insets(20));
         layout.setAlignment(Pos.CENTER);
 
@@ -127,12 +103,5 @@ public class JugarMultipleChoiceScene {
         scene.getStylesheets().add(getClass().getResource("/styles.css").toExternalForm());
 
         return scene;
-    }
-
-    private void procesarRespuesta(ArrayList<Opcion> opcionesSeleccionadas) {
-        // Procesa las opciones seleccionadas
-        // Puedes validar la respuesta y cambiar de escena aquí
-        System.out.println("Opciones seleccionadas: " + opcionesSeleccionadas);
-        // Aquí podrías cambiar a la escena de resultados o a la siguiente pregunta
     }
 }

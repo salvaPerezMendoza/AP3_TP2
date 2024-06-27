@@ -35,7 +35,7 @@ public class Juego {
     public void crearPreguntas() throws IOException, ParseException {
         CreadorDePreguntas creadorDePreguntas = new CreadorDePreguntas();
         preguntas = creadorDePreguntas.leerArchivo();
-        preguntaActual = setearPreguntaActual();
+        setearPreguntaActual();
     }
 
     public void crearRonda(){
@@ -55,11 +55,17 @@ public class Juego {
         return ronda;
     }
 
-    private Pregunta setearPreguntaActual() {
+    public void setearPreguntaActual() {
+        Pregunta preguntaNueva;
         if(preguntaActual == null) {
-            return preguntas.get(0);
+            preguntaNueva = preguntas.get(2);
         }
-        return preguntas.stream().filter(pregunta -> !pregunta.getTema().equals(preguntaActual.getTema())).findFirst().get();
+        else {
+            preguntaNueva = preguntas.stream().filter(pregunta -> !pregunta.getTema().equals(preguntaActual.getTema())).findFirst().get();
+            System.out.println(preguntaNueva);
+        }
+        preguntas.remove(preguntaActual);
+        preguntaActual = preguntaNueva;
     }
 
     public Pregunta getPreguntaActual() {

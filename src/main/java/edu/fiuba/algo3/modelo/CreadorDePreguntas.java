@@ -80,7 +80,7 @@ public class CreadorDePreguntas {
         String nombreGrupoA = (String) preguntaJSON.get("Grupo A");
         String nombreGrupoB = (String) preguntaJSON.get("Grupo B");
         String respuestaCorrecta = (String) preguntaJSON.get("Respuesta");
-        String tema = (String) preguntaJSON.get("TEMA");
+        String tema = (String) preguntaJSON.get("Tema");
         ArrayList<OpcionSimple> opciones = obtenerOpciones(preguntaJSON);
         String respuestaCorrectaGrupoA = respuestaCorrecta.split(";")[0];
         String respuestaCorrectaGrupoB = respuestaCorrecta.split(";")[1];
@@ -100,7 +100,7 @@ public class CreadorDePreguntas {
         String enunciado = (String) preguntaJSON.get("Pregunta");
         ArrayList<OpcionSimple> opciones = obtenerOpciones(preguntaJSON);
         String respuesta = (String) preguntaJSON.get("Respuesta");
-        String tema = (String) preguntaJSON.get("TEMA");
+        String tema = (String) preguntaJSON.get("Tema");
         OpcionSimple opcionCorrecta = obtenerOpcionPorId(opciones, Integer.parseInt(respuesta));
         VerdaderoFalso verdaderoFalso = new VerdaderoFalso(opciones, opcionCorrecta);
         String[] tipo = ((String) preguntaJSON.get("Tipo")).split(" ");
@@ -114,7 +114,7 @@ public class CreadorDePreguntas {
         String enunciado = (String) preguntaJSON.get("Pregunta");
         ArrayList<OpcionSimple> opciones = obtenerOpciones(preguntaJSON);
         String respuesta = (String) preguntaJSON.get("Respuesta");
-        String tema = (String) preguntaJSON.get("TEMA");
+        String tema = (String) preguntaJSON.get("Tema");
         ArrayList<OpcionSimple> opcionesCorrectas = obtenerOpcionesCorrectas(opciones, respuesta);
         TipoDePregunta multipleChoice = new MultipleChoice(opciones, opcionesCorrectas);
         String penalidad = ((String) preguntaJSON.get("Tipo")).split(" ")[2];
@@ -131,7 +131,7 @@ public class CreadorDePreguntas {
         String enunciado = (String) preguntaJSON.get("Pregunta");
         ArrayList<OpcionSimple> opciones = obtenerOpciones(preguntaJSON);
         String respuesta = (String) preguntaJSON.get("Respuesta");
-        String tema = (String) preguntaJSON.get("TEMA");
+        String tema = (String) preguntaJSON.get("Tema");
         ArrayList<OpcionSimple> opcionesCorrectas = obtenerOpcionesCorrectas(opciones, respuesta);
         TipoDePregunta orderedChoice = new OrderedChoice(opciones, opcionesCorrectas);
         return new Pregunta(orderedChoice, new SinPenalidad(), enunciado,tema);

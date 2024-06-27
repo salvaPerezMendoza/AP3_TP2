@@ -28,7 +28,7 @@ public class JugarGroupChoiceScene implements EscenaDePregunta {
         // Aquí agregarías los componentes específicos para Group Choice
 
         Button backButton = new Button("Continuar");
-        backButton.setOnAction(e -> sceneController.siguientePregunta());
+        backButton.setOnAction(e -> sceneController.siguienteTurno());
         backButton.setStyle("-fx-font-size: 18px; -fx-background-color: #f0ad4e; -fx-text-fill: white;");
 
         VBox layout = new VBox(20, titleLabel, backButton);

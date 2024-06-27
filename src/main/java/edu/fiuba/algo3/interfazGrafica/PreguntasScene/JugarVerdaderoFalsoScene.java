@@ -1,16 +1,14 @@
 package edu.fiuba.algo3.interfazGrafica.PreguntasScene;
 
 import edu.fiuba.algo3.interfazGrafica.SceneController;
+import edu.fiuba.algo3.interfazGrafica.componentes.OpcionVFBoton;
 import edu.fiuba.algo3.modelo.*;
 import edu.fiuba.algo3.modelo.Opcion.OpcionSimple;
-import edu.fiuba.algo3.modelo.TipoDePregunta.TipoDePregunta;
-import edu.fiuba.algo3.modelo.TipoDePregunta.VerdaderoFalso;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
@@ -21,28 +19,21 @@ public class JugarVerdaderoFalsoScene implements EscenaDePregunta {
 
     private SceneController sceneController;
     private Juego juego;
-    int ID;
 
-    public JugarVerdaderoFalsoScene(SceneController sceneController, Juego juego, int ID) {
+    public JugarVerdaderoFalsoScene(SceneController sceneController, Juego juego) {
         this.sceneController = sceneController;
         this.juego = juego;
-        this.ID = ID;
     }
 
     @Override
     public Scene getScene() {
+        Jugador jugador = juego.getJugadorActual();
+        Pregunta pregunta = juego.getPreguntaActual();
+        ArrayList<OpcionSimple> opciones = pregunta.obtenerOpciones();
 
-        //esto se no se crea aca, sino que directamente le deveria llegar pregunta
-            ArrayList<OpcionSimple> opciones = new ArrayList<>();
-            opciones.add(new OpcionSimple("Verdadero",1));
-            opciones.add(new OpcionSimple("Falso",2));
-            OpcionSimple opcionIncorrecta = new OpcionSimple("Verdadero", 1);
-            OpcionSimple opcionCorrecta = new OpcionSimple("Falso", 2);
-            TipoDePregunta tipoDePregunta = new VerdaderoFalso(opciones, opcionCorrecta);
-            String enunciado = "Messi juega al Volley";
-            String tema = "Deporte";
-            Pregunta pregunta = new Pregunta(tipoDePregunta, null, enunciado, tema);
-        // llega la pregunta
+        Label nombreJugadorLabel = new Label(jugador.getNombre());
+        nombreJugadorLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #000;");
+        nombreJugadorLabel.setPadding(new Insets(10));
 
         // //INTERFAZ -> Crear la etiqueta de la pregunta
         Label preguntaLabel = new Label(pregunta.getEnunciado());
@@ -52,16 +43,11 @@ public class JugarVerdaderoFalsoScene implements EscenaDePregunta {
         // Crear las opciones de respuesta
         ToggleGroup respuestasGroup = new ToggleGroup();
 
-            RadioButton opcionVerdadero = new RadioButton("Verdadero");
-            opcionVerdadero.setToggleGroup(respuestasGroup);
-            opcionVerdadero.setStyle("-fx-font-size: 18px; -fx-padding: 10px;");
-
-            RadioButton opcionFalso = new RadioButton("Falso");
-            opcionFalso.setToggleGroup(respuestasGroup);
-            opcionFalso.setStyle("-fx-font-size: 18px; -fx-padding: 10px;");
+        OpcionVFBoton opcion0 = new OpcionVFBoton(respuestasGroup, opciones.get(0));
+        OpcionVFBoton opcion1 = new OpcionVFBoton(respuestasGroup, opciones.get(1));
 
         //INTERFAZ -> se guardan las opciones
-        VBox respuestasBox = new VBox(10, opcionVerdadero, opcionFalso);
+        VBox respuestasBox = new VBox(10, opcion0, opcion1);
         respuestasBox.setPadding(new Insets(20));
         respuestasBox.setAlignment(Pos.CENTER_LEFT);
 
@@ -70,30 +56,20 @@ public class JugarVerdaderoFalsoScene implements EscenaDePregunta {
         Button enviarButton = new Button("Enviar");
         enviarButton.setOnAction(e -> {
 
-            // selectedRadioButton = opcion selecionada
-            RadioButton selectedRadioButton = (RadioButton) respuestasGroup.getSelectedToggle();
+        // selectedRadioButton = opcion selecionada
+        OpcionVFBoton selectedRadioButton = (OpcionVFBoton) respuestasGroup.getSelectedToggle();
 
-            if (selectedRadioButton != null) {
-                // respuestaSeleccionada = texto en la opcion
-                String respuestaSeleccionada = selectedRadioButton.getText();
+        if (selectedRadioButton != null) {
+            // respuestaSeleccionada = texto en la opcion
+            Respuesta respuesta = new Respuesta(jugador);
+            respuesta.agregarOpcion(selectedRadioButton.getOpcion());
 
-                // IMPORTANTE el jugador actual me deveria llegar por parametro, no lo tengo que pedir
-                Jugador jugadorActual = juego.getJugadorActual();
-                Respuesta respuesta = new Respuesta(jugadorActual);
+            // le agrego la respuesta a la lista respuestasJugadores
+            jugador.responder(pregunta, respuesta);
+            juego.siguienteTurno();
 
-                if (respuestaSeleccionada.equals("Verdadero")) {
-                    respuesta.agregarOpcion(new OpcionSimple("Verdadero", 1));
-                } else {
-                    respuesta.agregarOpcion(new OpcionSimple("Falso", 2));
-                }
-
-                // le agrego la respuesta a la lista respuestasJugadores
-                jugadorActual.responder(pregunta, respuesta);
-
-                // Cambiar al siguiente turno
-                System.out.println("Opciones seleccionadas: " + respuestaSeleccionada);
-                sceneController.siguientePregunta();
-            }
+            sceneController.siguienteTurno();
+        }
         });
 
 
@@ -110,7 +86,7 @@ public class JugarVerdaderoFalsoScene implements EscenaDePregunta {
         buttonBox.setPadding(new Insets(20));
 
         // Layout principal
-        VBox layout = new VBox(20, preguntaLabel, respuestasBox, buttonBox);
+        VBox layout = new VBox(20, nombreJugadorLabel, preguntaLabel, respuestasBox, buttonBox);
         layout.setPadding(new Insets(20));
         layout.setAlignment(Pos.CENTER);
 

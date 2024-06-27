@@ -1,6 +1,6 @@
 package edu.fiuba.algo3.modelo;
 
-import edu.fiuba.algo3.modelo.Opcion.Opcion;
+import edu.fiuba.algo3.modelo.Opcion.OpcionSimple;
 import edu.fiuba.algo3.modelo.Penalidad.Penalidad;
 import edu.fiuba.algo3.modelo.TipoDePregunta.TipoDePregunta;
 import edu.fiuba.algo3.modelo.bonificadores.*;
@@ -23,6 +23,10 @@ public class Pregunta {
         this.respuestasJugador = new ArrayList<>();
         this.bonificador = new BonificadorConcreto();
         this.tema = tema;
+    }
+
+    public ArrayList<OpcionSimple> obtenerOpciones(){
+        return tipo.obtenerOpciones();
     }
 
     public void agregarRespuesta(Respuesta respuestaJugador){
