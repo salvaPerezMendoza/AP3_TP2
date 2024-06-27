@@ -36,7 +36,7 @@ public class ExclusividadPuntajeTest {
         jugador1.responder(pregunta1, respuestaJugador1);
         jugador2.responder(pregunta2, respuestaJugador2);
 
-        Ronda ronda = Flujo.obtenerRonda();
+        Ronda ronda = Juego.obtenerRonda();
         ronda.agregarJugador(jugador1);
         ronda.agregarJugador(jugador2);
 
@@ -72,7 +72,7 @@ public class ExclusividadPuntajeTest {
         jugador1.responder(pregunta1, respuestaJugador1);
         jugador2.responder(pregunta2, respuestaJugador2);
 
-        Ronda ronda = Flujo.obtenerRonda();
+        Ronda ronda = Juego.obtenerRonda();
         ronda.agregarJugador(jugador1);
         ronda.agregarJugador(jugador2);
 
@@ -109,7 +109,7 @@ public class ExclusividadPuntajeTest {
         jugador1.responder(pregunta1, respuestaJugador1);
         jugador2.responder(pregunta2, respuestaJugador2);
 
-        Ronda ronda = Flujo.obtenerRonda();
+        Ronda ronda = Juego.obtenerRonda();
         ronda.agregarJugador(jugador1);
         ronda.agregarJugador(jugador2);
 

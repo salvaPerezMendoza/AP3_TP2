@@ -1,7 +1,7 @@
 package edu.fiuba.algo3.interfazGrafica.PreguntasScene;
 
 import edu.fiuba.algo3.interfazGrafica.SceneController;
-import edu.fiuba.algo3.modelo.Flujo;
+import edu.fiuba.algo3.modelo.Juego;
 import edu.fiuba.algo3.modelo.Penalidad.Penalidad;
 import edu.fiuba.algo3.modelo.Penalidad.SinPenalidad;
 import edu.fiuba.algo3.modelo.Pregunta;
@@ -23,12 +23,12 @@ import java.util.ArrayList;
 public class JugarMultipleChoiceScene {
 
     private SceneController sceneController;
-    private Flujo flujo;
+    private Juego juego;
     private Pregunta pregunta;
 
-    public JugarMultipleChoiceScene(SceneController sceneController, Flujo flujo) {
+    public JugarMultipleChoiceScene(SceneController sceneController, Juego juego) {
         this.sceneController = sceneController;
-        this.flujo = flujo;
+        this.juego = juego;
         this.pregunta = getPregunta(); //esta pregunta me deveria llegar por parametro
     }
 
@@ -51,7 +51,7 @@ public class JugarMultipleChoiceScene {
         Penalidad sinPenalidad = new SinPenalidad();
 
         // Crear la pregunta
-        Pregunta pregunta = new Pregunta(multipleChoice, sinPenalidad, "¿Cuáles de estos jugadores nunca ganaron un Balón de Oro?");
+        Pregunta pregunta = new Pregunta(multipleChoice, sinPenalidad, "¿Cuáles de estos jugadores nunca ganaron un Balón de Oro?", "Deporte");
 
         return pregunta;
     }

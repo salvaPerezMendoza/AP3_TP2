@@ -1,6 +1,6 @@
 package edu.fiuba.algo3.interfazGrafica;
 
-import edu.fiuba.algo3.modelo.Flujo;
+import edu.fiuba.algo3.modelo.Juego;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -19,7 +19,7 @@ public class AñadirJugadorScene {
         this.sceneController = sceneController;
     }
 
-    public Scene getScene(Flujo flujo) {
+    public Scene getScene(Juego juego) {
         // Título
         Label titleLabel = new Label("Añadir Jugador");
         titleLabel.setStyle("-fx-font-size: 36px; -fx-font-weight: bold; -fx-text-fill: #333;");

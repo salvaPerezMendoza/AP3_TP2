@@ -1,6 +1,6 @@
 package edu.fiuba.algo3.interfazGrafica;
 
-import edu.fiuba.algo3.modelo.Flujo;
+import edu.fiuba.algo3.modelo.Juego;
 import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.modelo.TipoDePregunta.*;
 import javafx.geometry.Insets;
@@ -14,15 +14,15 @@ import javafx.scene.layout.VBox;
 public class TurnosScene {
 
     private SceneController sceneController;
-    private Flujo flujo;
+    private Juego juego;
 
-    public TurnosScene(SceneController sceneController, Flujo flujo) {
+    public TurnosScene(SceneController sceneController, Juego juego) {
         this.sceneController = sceneController;
-        this.flujo = flujo;
+        this.juego = juego;
     }
 
     public Scene getScene() {
-        Jugador jugadorActual = flujo.getJugadorActual();
+        Jugador jugadorActual = juego.getJugadorActual();
 
         // Crear etiqueta para mostrar el nombre del jugador actual
         Label turnoLabel = new Label("Turno de: " + jugadorActual.getNombre());
@@ -31,7 +31,7 @@ public class TurnosScene {
 
         // Botón para continuar
         Button continuarButton = new Button("Continuar");
-        continuarButton.setOnAction(e -> preguntaToca());
+        continuarButton.setOnAction(e -> sceneController.switchToJugarPregunta());
 
         continuarButton.setStyle("-fx-font-size: 18px; -fx-background-color: #4CAF50; -fx-text-fill: white;");
         continuarButton.setMaxWidth(Double.MAX_VALUE);
@@ -47,23 +47,5 @@ public class TurnosScene {
         scene.getStylesheets().add(getClass().getResource("/styles.css").toExternalForm());
 
         return scene;
-    }
-
-    public void preguntaToca() {
-
-        TipoDePregunta tipo = flujo.queTipoDePreguntaToca();
-        int ID = flujo.getIDDePregunta();
-
-            if (tipo instanceof VerdaderoFalso) {
-                sceneController.switchToJugarVerdaderoFalsoScene(ID);
-            } else if (tipo instanceof GroupChoice) {
-                sceneController.switchToJugarGroupChociceScene(ID);
-            } else if (tipo instanceof MultipleChoice) {
-                sceneController.switchToJugarMultipleChoiceScene(ID);
-            } else if (tipo instanceof OrderedChoice) {
-                sceneController.switchToJugarOrderChoiceScene(ID);
-            }
-
-
     }
 }

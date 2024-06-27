@@ -1,7 +1,7 @@
 package edu.fiuba.algo3.interfazGrafica.PreguntasScene;
 
 import edu.fiuba.algo3.interfazGrafica.SceneController;
-import edu.fiuba.algo3.modelo.Flujo;
+import edu.fiuba.algo3.modelo.Juego;
 import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.modelo.Opcion.Opcion;
 import edu.fiuba.algo3.modelo.Opcion.OpcionSimple;
@@ -29,12 +29,12 @@ import java.util.ArrayList;
 public class JugarOrderChoiceScene {
 
     private SceneController sceneController;
-    private Flujo flujo;
+    private Juego juego;
     private Pregunta pregunta;
 
-    public JugarOrderChoiceScene(SceneController sceneController, Flujo flujo) {
+    public JugarOrderChoiceScene(SceneController sceneController, Juego juego) {
         this.sceneController = sceneController;
-        this.flujo = flujo;
+        this.juego = juego;
         this.pregunta = getPregunta(); // Instanciar la pregunta aquí mismo
     }
 
@@ -57,8 +57,10 @@ public class JugarOrderChoiceScene {
         TipoDePregunta orderedChoice = new OrderedChoice(opciones, opcionesCorrectas);
         Penalidad sinPenalidad = new SinPenalidad();
 
+        String enunciado = "Ordene de MAYOR A MENOR los siguientes objetos hogareños según su nivel de radiación electromagnética emitido (el máximo recomendado es 100 microTeslas)";
+
         // Crear la pregunta
-        return new Pregunta(orderedChoice, sinPenalidad, "Ordene de MAYOR A MENOR los siguientes objetos hogareños según su nivel de radiación electromagnética emitido (el máximo recomendado es 100 microTeslas)");
+        return new Pregunta(orderedChoice, sinPenalidad, enunciado, "Ciencia");
     }
 
     public Scene getScene() {
@@ -107,7 +109,7 @@ public class JugarOrderChoiceScene {
         Button enviarButton = new Button("Enviar");
         enviarButton.setOnAction(e -> {
             ArrayList<Opcion> opcionesSeleccionadas = new ArrayList<>(opcionesListView.getItems());
-            Jugador jugadorActual = flujo.getJugadorActual();
+            Jugador jugadorActual = juego.getJugadorActual();
             Respuesta respuesta = new Respuesta(jugadorActual);
 
             for (Opcion opcion : opcionesSeleccionadas) {

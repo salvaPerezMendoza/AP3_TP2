@@ -68,4 +68,12 @@ public class Pregunta {
     public String getTema() {
         return tema;
     }
+
+    public TipoDePregunta getTipo() {
+        return tipo;
+    }
+
+    public boolean respondieronTodos(int cantidadJugadores){
+        return respuestasJugador.size() == cantidadJugadores;
+    }
 }

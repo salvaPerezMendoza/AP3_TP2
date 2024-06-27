@@ -1,6 +1,6 @@
 package edu.fiuba.algo3.modelo.bonificadores;
 
-import edu.fiuba.algo3.modelo.Flujo;
+import edu.fiuba.algo3.modelo.Juego;
 import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.modelo.Pregunta;
 import edu.fiuba.algo3.modelo.Ronda;
@@ -15,7 +15,7 @@ public class ExclusividadPuntajeDecorador extends BonificadorDecorador{
     public int modificarPuntaje(int puntaje){
         // Llamamos al método del decorador envuelto primero
         int nuevoPuntaje = super.modificarPuntaje(puntaje);
-        Ronda ronda = Flujo.obtenerRonda(); // Obtener la instancia actual de Ronda
+        Ronda ronda = Juego.obtenerRonda(); // Obtener la instancia actual de Ronda
 
 
             ArrayList<Pregunta> preguntas = ronda.getPreguntas();

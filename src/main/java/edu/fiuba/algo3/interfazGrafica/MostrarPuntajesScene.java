@@ -1,6 +1,6 @@
 package edu.fiuba.algo3.interfazGrafica;
 
-import edu.fiuba.algo3.modelo.Flujo;
+import edu.fiuba.algo3.modelo.Juego;
 import edu.fiuba.algo3.modelo.Jugador;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -15,11 +15,11 @@ import java.util.List;
 public class MostrarPuntajesScene {
 
     private SceneController sceneController;
-    private Flujo flujo;
+    private Juego juego;
 
-    public MostrarPuntajesScene(SceneController sceneController, Flujo flujo) {
+    public MostrarPuntajesScene(SceneController sceneController, Juego juego) {
         this.sceneController = sceneController;
-        this.flujo = flujo;
+        this.juego = juego;
     }
 
     public Scene getScene() {
@@ -34,7 +34,7 @@ public class MostrarPuntajesScene {
         layout.getChildren().add(tituloLabel);
 
         // Obtener la lista de jugadores y mostrar sus puntajes
-        List<Jugador> jugadores = flujo.devolverJugadores();
+        List<Jugador> jugadores = juego.devolverJugadores();
         for (Jugador jugador : jugadores) {
             Label puntajeLabel = new Label(jugador.getNombre() + ": " + jugador.getPuntajeTotal() + " puntos");
             puntajeLabel.setStyle("-fx-font-size: 18px; -fx-padding: 10px;");
@@ -46,7 +46,7 @@ public class MostrarPuntajesScene {
         continuarButton.setOnAction(e -> sceneController.switchToTurnosScene());
         continuarButton.setStyle("-fx-font-size: 18px; -fx-background-color: #f0ad4e; -fx-text-fill: white;");
 
-       layout.getChildren().add(continuarButton);
+        layout.getChildren().add(continuarButton);
 
         // Crear la escena y agregar el layout principal
         BorderPane root = new BorderPane();

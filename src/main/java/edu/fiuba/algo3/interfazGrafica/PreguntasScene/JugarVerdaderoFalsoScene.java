@@ -20,12 +20,12 @@ import java.util.ArrayList;
 public class JugarVerdaderoFalsoScene implements EscenaDePregunta {
 
     private SceneController sceneController;
-    private Flujo flujo;
+    private Juego juego;
     int ID;
 
-    public JugarVerdaderoFalsoScene(SceneController sceneController, Flujo flujo, int ID) {
+    public JugarVerdaderoFalsoScene(SceneController sceneController, Juego juego, int ID) {
         this.sceneController = sceneController;
-        this.flujo = flujo;
+        this.juego = juego;
         this.ID = ID;
     }
 
@@ -40,7 +40,8 @@ public class JugarVerdaderoFalsoScene implements EscenaDePregunta {
             OpcionSimple opcionCorrecta = new OpcionSimple("Falso", 2);
             TipoDePregunta tipoDePregunta = new VerdaderoFalso(opciones, opcionCorrecta);
             String enunciado = "Messi juega al Volley";
-            Pregunta pregunta = new Pregunta(tipoDePregunta, null, enunciado);
+            String tema = "Deporte";
+            Pregunta pregunta = new Pregunta(tipoDePregunta, null, enunciado, tema);
         // llega la pregunta
 
         // //INTERFAZ -> Crear la etiqueta de la pregunta
@@ -77,7 +78,7 @@ public class JugarVerdaderoFalsoScene implements EscenaDePregunta {
                 String respuestaSeleccionada = selectedRadioButton.getText();
 
                 // IMPORTANTE el jugador actual me deveria llegar por parametro, no lo tengo que pedir
-                Jugador jugadorActual = flujo.getJugadorActual();
+                Jugador jugadorActual = juego.getJugadorActual();
                 Respuesta respuesta = new Respuesta(jugadorActual);
 
                 if (respuestaSeleccionada.equals("Verdadero")) {

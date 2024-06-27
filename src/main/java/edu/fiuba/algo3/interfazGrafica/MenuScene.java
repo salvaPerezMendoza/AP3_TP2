@@ -1,6 +1,6 @@
 package edu.fiuba.algo3.interfazGrafica;
 
-import edu.fiuba.algo3.modelo.Flujo;
+import edu.fiuba.algo3.modelo.Juego;
 import edu.fiuba.algo3.modelo.Jugador;
 import javafx.application.Platform;
 import javafx.scene.Scene;
@@ -16,12 +16,12 @@ import java.util.List;
 
 public class MenuScene {
 
-    private Flujo flujo;
+    private Juego juego;
     private SceneController sceneController;
 
-    public MenuScene(SceneController sceneController, Flujo flujo) {
+    public MenuScene(SceneController sceneController, Juego juego) {
         this.sceneController = sceneController;
-        this.flujo = flujo;
+        this.juego = juego;
     }
 
     public Scene getScene() {
@@ -34,7 +34,7 @@ public class MenuScene {
         participantsLabel.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #333;");
 
         List<Jugador> jugadores = new ArrayList<>();
-        jugadores = flujo.devolverJugadores();
+        jugadores = juego.devolverJugadores();
 
         List<String> nombres = new ArrayList<>();
         for (Jugador jugador : jugadores) {
@@ -53,15 +53,15 @@ public class MenuScene {
 
         // Botones
         Button playButton = new Button("JUGAR");
-        playButton.setOnAction(e -> sceneController.siguientePregunta());
+        playButton.setOnAction(e -> sceneController.iniciarJuego());
         playButton.setStyle("-fx-font-size: 18px; -fx-background-color: #4CAF50; -fx-text-fill: white;");
 
         Button rulesButton = new Button("Reglas");
-        rulesButton.setOnAction(e -> sceneController.switchToReglasScene(flujo));
+        rulesButton.setOnAction(e -> sceneController.switchToReglasScene(juego));
         rulesButton.setStyle("-fx-font-size: 18px; -fx-background-color: #2196F3; -fx-text-fill: white;");
 
         Button addPlayerButton = new Button("Agregar Jugador");
-        addPlayerButton.setOnAction(e -> sceneController.switchToAñadirJugadorScene(flujo));
+        addPlayerButton.setOnAction(e -> sceneController.switchToAñadirJugadorScene(juego));
         addPlayerButton.setStyle("-fx-font-size: 18px; -fx-background-color: #f0ad4e; -fx-text-fill: white;");
 
         Button exitButton = new Button("Salir");

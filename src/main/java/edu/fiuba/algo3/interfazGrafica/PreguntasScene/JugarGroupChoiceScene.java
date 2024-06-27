@@ -1,7 +1,7 @@
 package edu.fiuba.algo3.interfazGrafica.PreguntasScene;
 
 import edu.fiuba.algo3.interfazGrafica.SceneController;
-import edu.fiuba.algo3.modelo.Flujo;
+import edu.fiuba.algo3.modelo.Juego;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -13,14 +13,14 @@ import javafx.scene.layout.VBox;
 public class JugarGroupChoiceScene implements EscenaDePregunta {
 
     private SceneController sceneController;
-    private Flujo flujo;
+    private Juego juego;
 
-    public JugarGroupChoiceScene(SceneController sceneController, Flujo flujo, int ID) {
+    public JugarGroupChoiceScene(SceneController sceneController, Juego juego, int ID) {
         this.sceneController = sceneController;
     }
     @Override
     public Scene getScene() {
-        this.flujo = flujo;
+        this.juego = juego;
 
         Label titleLabel = new Label("Jugar Group Choice");
         titleLabel.setStyle("-fx-font-size: 24px; -fx-font-weight: bold;");

@@ -15,7 +15,7 @@ import java.util.List;
 public class TestGeneral {
 
     private CreadorDePreguntas creadorDePreguntas;
-    private Flujo flujo;
+    private Juego juego;
     private Jugador jugador1;
     private Jugador jugador2;
     private Jugador jugador3;
@@ -25,13 +25,13 @@ public class TestGeneral {
     @BeforeEach
     public void setUp() throws IOException, ParseException {
         // Agrego Jugadores
-        flujo = new Flujo();
+        juego = new Juego();
         jugador1 = new Jugador("Jugador1");
         jugador2 = new Jugador("Jugador2");
         jugador3 = new Jugador("Jugador3");
-        flujo.agregarJugador(jugador1);
-        flujo.agregarJugador(jugador2);
-        flujo.agregarJugador(jugador3);
+        juego.agregarJugador(jugador1);
+        juego.agregarJugador(jugador2);
+        juego.agregarJugador(jugador3);
 
     }
 
