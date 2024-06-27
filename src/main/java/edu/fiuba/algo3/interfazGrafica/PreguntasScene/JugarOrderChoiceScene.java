@@ -42,7 +42,7 @@ public class JugarOrderChoiceScene {
         ArrayList<OpcionSimple> opciones = pregunta.obtenerOpciones();
         Respuesta respuesta = new Respuesta(jugador);
 
-        Label nombreJugadorLabel = new Label(jugador.getNombre());
+        Label nombreJugadorLabel = new Label("Turno De: " + jugador.getNombre());
         nombreJugadorLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #000;");
         nombreJugadorLabel.setPadding(new Insets(10));
 

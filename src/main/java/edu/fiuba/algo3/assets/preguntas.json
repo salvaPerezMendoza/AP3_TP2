@@ -28,7 +28,7 @@
 {
   "ID": 3,
   "Tema": "CIENCIAS",
-  "Tipo": "Verdadero Falso",
+  "Tipo": "Verdadero Falso ",
   "Pregunta": "El punto de ebullición del agua a 3300m del mar es 100 grados centígrados",
   "Respuesta": "2",
   "Opcion 1": "Verdadero",

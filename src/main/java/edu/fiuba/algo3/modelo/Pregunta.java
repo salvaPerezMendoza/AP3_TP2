@@ -16,7 +16,7 @@ public class Pregunta {
     private String tema;
 
 
-    public Pregunta(TipoDePregunta tipo, Penalidad penalidad, String enunciado,String tema){
+    public Pregunta(TipoDePregunta tipo, Penalidad penalidad, String enunciado, String tema){
         this.tipo = tipo;
         this.penalidad = penalidad;
         this.enunciado = enunciado;
@@ -72,6 +72,8 @@ public class Pregunta {
     public String getTema() {
         return tema;
     }
+
+    public Penalidad getPenalidad(){ return penalidad;}
 
     public TipoDePregunta getTipo() {
         return tipo;

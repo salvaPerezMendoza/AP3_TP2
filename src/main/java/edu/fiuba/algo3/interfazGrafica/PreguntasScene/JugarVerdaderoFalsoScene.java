@@ -4,6 +4,9 @@ import edu.fiuba.algo3.interfazGrafica.SceneController;
 import edu.fiuba.algo3.interfazGrafica.componentes.OpcionVFBoton;
 import edu.fiuba.algo3.modelo.*;
 import edu.fiuba.algo3.modelo.Opcion.OpcionSimple;
+import edu.fiuba.algo3.modelo.Penalidad.ConPenalidad;
+import edu.fiuba.algo3.modelo.Penalidad.Penalidad;
+import edu.fiuba.algo3.modelo.Penalidad.PenalidadParcial;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -11,6 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
@@ -29,16 +33,28 @@ public class JugarVerdaderoFalsoScene implements EscenaDePregunta {
     public Scene getScene() {
         Jugador jugador = juego.getJugadorActual();
         Pregunta pregunta = juego.getPreguntaActual();
+        Penalidad penalidadDeLaPregunta = pregunta.getPenalidad();
         ArrayList<OpcionSimple> opciones = pregunta.obtenerOpciones();
 
-        Label nombreJugadorLabel = new Label(jugador.getNombre());
+        Label nombreJugadorLabel = new Label("Turno De: " + jugador.getNombre());
         nombreJugadorLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #000;");
         nombreJugadorLabel.setPadding(new Insets(10));
 
-        // //INTERFAZ -> Crear la etiqueta de la pregunta
         Label preguntaLabel = new Label(pregunta.getEnunciado());
         preguntaLabel.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #333;");
         preguntaLabel.setPadding(new Insets(20));
+
+        Label penalidadAMostrar ;
+        if (penalidadDeLaPregunta instanceof ConPenalidad) {
+            penalidadAMostrar = new Label("Esta pregunta tiene penalidad");
+        } else if (penalidadDeLaPregunta instanceof PenalidadParcial) {
+            penalidadAMostrar = new Label("Esta pregunta tiene penalidad parcial");
+        } else {
+            penalidadAMostrar = new Label("Esta pregunta no tiene penalidad");
+        }
+
+        penalidadAMostrar.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #000;");
+        nombreJugadorLabel.setPadding(new Insets(10));
 
         // Crear las opciones de respuesta
         ToggleGroup respuestasGroup = new ToggleGroup();
@@ -87,7 +103,8 @@ public class JugarVerdaderoFalsoScene implements EscenaDePregunta {
         buttonBox.setPadding(new Insets(20));
 
         // Layout principal
-        VBox layout = new VBox(20, nombreJugadorLabel, preguntaLabel, respuestasBox, buttonBox);
+        HBox arriba = new HBox(530, nombreJugadorLabel, penalidadAMostrar);
+        VBox layout = new VBox(20, arriba, preguntaLabel, respuestasBox, buttonBox);
         layout.setPadding(new Insets(20));
         layout.setAlignment(Pos.CENTER);
 
