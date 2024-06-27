@@ -33,7 +33,7 @@ public class TurnosScene {
         Button continuarButton = new Button("Continuar");
         continuarButton.setOnAction(e -> sceneController.switchToJugarPregunta());
 
-        continuarButton.setStyle("-fx-font-size: 18px; -fx-background-color: #4CAF50; -fx-text-fill: white;");
+        continuarButton.setStyle("-fx-font-size: 18px; -fx-background-color: #010101; -fx-text-fill: White; -fx-border-color: #010101; -fx-border-width: 10px;");
         continuarButton.setMaxWidth(Double.MAX_VALUE);
 
         VBox layout = new VBox(20, turnoLabel, continuarButton);

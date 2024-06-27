@@ -16,6 +16,8 @@ import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -40,15 +42,12 @@ public class JugarGroupChoiceScene {
         nombreJugadorLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #000;");
         nombreJugadorLabel.setPadding(new Insets(10));
 
-        Label titleLabel = new Label("Jugar Group Choice");
-        titleLabel.setStyle("-fx-font-size: 24px; -fx-font-weight: bold;");
+        Text preguntaText = new Text(pregunta.getEnunciado());
+        TextFlow titleLabel = new TextFlow(preguntaText);
+        titleLabel.setStyle("-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #333;");
+        titleLabel.setPadding(new Insets(20));
+        titleLabel.setMaxWidth(600);
 
-        TextArea preguntaArea = new TextArea(pregunta.getEnunciado());
-        preguntaArea.setWrapText(true);
-        preguntaArea.setEditable(false);
-        preguntaArea.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #333;");
-        preguntaArea.setPrefHeight(100);
-        preguntaArea.setPadding(new Insets(20));
 
         ObservableList<OpcionSimple> opcionesObservableList = FXCollections.observableArrayList();
         opcionesObservableList.addAll(opciones);
@@ -66,8 +65,6 @@ public class JugarGroupChoiceScene {
             }
         });
         opcionesListView.setPrefHeight(200);
-
-        Button backButton = new Button("Continuar");
 
         ObservableList<OpcionSimple> grupoAList = FXCollections.observableArrayList();
         ListView<OpcionSimple> grupoAListView = new ListView<>(grupoAList);
@@ -100,6 +97,8 @@ public class JugarGroupChoiceScene {
         grupoBListView.setPrefHeight(200);
 
         Button agregarAGrupoAButton = new Button("Agregar a Deportes Grupales");
+        agregarAGrupoAButton.setStyle("-fx-font-size: 15px; -fx-background-color: #010101; -fx-text-fill: White;" );
+
         agregarAGrupoAButton.setOnAction(e -> {
             OpcionSimple seleccionada = opcionesListView.getSelectionModel().getSelectedItem();
             if (seleccionada != null) {
@@ -109,6 +108,8 @@ public class JugarGroupChoiceScene {
         });
 
         Button agregarAGrupoBButton = new Button("Agregar a Deportes Individuales");
+        agregarAGrupoBButton.setStyle("-fx-font-size: 15px; -fx-background-color: #010101; -fx-text-fill: White;" );
+
         agregarAGrupoBButton.setOnAction(e -> {
             OpcionSimple seleccionada = opcionesListView.getSelectionModel().getSelectedItem();
             if (seleccionada != null) {
@@ -116,6 +117,9 @@ public class JugarGroupChoiceScene {
                 opcionesObservableList.remove(seleccionada);
             }
         });
+
+        agregarAGrupoAButton.setMaxWidth(Double.MAX_VALUE);
+        agregarAGrupoBButton.setMaxWidth(Double.MAX_VALUE);
 
         Button enviarButton = new Button("Enviar");
         enviarButton.setOnAction(e -> {
@@ -131,21 +135,24 @@ public class JugarGroupChoiceScene {
             sceneController.siguienteTurno();
         });
 
-        enviarButton.setStyle("-fx-font-size: 18px; -fx-background-color: #4CAF50; -fx-text-fill: white;");
+        enviarButton.setStyle("-fx-font-size: 18px; -fx-background-color: #010101; -fx-text-fill: White; -fx-border-color: #010101; -fx-border-width: 10px;" );
 
-        VBox opcionesBox = new VBox(10, opcionesListView, agregarAGrupoAButton, agregarAGrupoBButton);
+        HBox agregarAGruposBox = new HBox(10, agregarAGrupoAButton, agregarAGrupoBButton);
+        agregarAGruposBox.setAlignment(Pos.CENTER);
+
+        HBox opcionesBox = new HBox(20, opcionesListView);
         opcionesBox.setPadding(new Insets(20));
-        opcionesBox.setAlignment(Pos.CENTER_LEFT);
+        opcionesBox.setAlignment(Pos.CENTER);
 
-        HBox gruposBox = new HBox(20, grupoAListView, grupoBListView);
+        HBox gruposBox = new HBox(50, grupoAListView, grupoBListView);
         gruposBox.setPadding(new Insets(20));
         gruposBox.setAlignment(Pos.CENTER);
 
-        VBox buttonBox = new VBox(10, enviarButton, backButton);
+        VBox buttonBox = new VBox(20, enviarButton);
         buttonBox.setAlignment(Pos.CENTER);
         buttonBox.setPadding(new Insets(20));
 
-        VBox layout = new VBox(20, nombreJugadorLabel, titleLabel, preguntaArea, opcionesBox, gruposBox, buttonBox);
+        VBox layout = new VBox(20, nombreJugadorLabel, titleLabel, opcionesBox, agregarAGruposBox, gruposBox, buttonBox);
         layout.setPadding(new Insets(20));
         layout.setAlignment(Pos.CENTER);
 

@@ -80,12 +80,12 @@ public class JugarMultipleChoiceScene {
 
         });
 
-        enviarButton.setStyle("-fx-font-size: 18px; -fx-background-color: #4CAF50; -fx-text-fill: white;");
+        enviarButton.setStyle("-fx-font-size: 18px; -fx-background-color: #010101; -fx-text-fill: White; -fx-border-color: #010101; -fx-border-width: 10px;" );
 
         // Botón para volver al menú
         Button backButton = new Button("Volver al Menú");
         backButton.setOnAction(e -> sceneController.switchToMenuScene());
-        backButton.setStyle("-fx-font-size: 18px; -fx-background-color: #f0ad4e; -fx-text-fill: white;");
+        backButton.setStyle("-fx-font-size: 18px; -fx-background-color: #010101; -fx-text-fill: White; -fx-border-color: #010101; -fx-border-width: 10px;" );
 
         VBox buttonBox = new VBox(10, enviarButton, backButton);
         buttonBox.setAlignment(Pos.CENTER);

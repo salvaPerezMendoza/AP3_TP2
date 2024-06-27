@@ -30,7 +30,7 @@ public class MostrarPuntajesScene {
 
         // Crear la etiqueta del título
         Label tituloLabel = new Label("Puntajes de Jugadores");
-        tituloLabel.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #333;");
+        tituloLabel.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #010101;");
         layout.getChildren().add(tituloLabel);
 
         // Obtener la lista de jugadores y mostrar sus puntajes
@@ -44,7 +44,7 @@ public class MostrarPuntajesScene {
         // Botón para volver al menú
         Button continuarButton = new Button("Continuar");
         continuarButton.setOnAction(e -> sceneController.switchToTurnosScene());
-        continuarButton.setStyle("-fx-font-size: 18px; -fx-background-color: #f0ad4e; -fx-text-fill: white;");
+        continuarButton.setStyle("-fx-font-size: 18px; -fx-background-color: #010101; -fx-text-fill: White; -fx-border-color: #010101; -fx-border-width: 10px;");
 
         layout.getChildren().add(continuarButton);
 

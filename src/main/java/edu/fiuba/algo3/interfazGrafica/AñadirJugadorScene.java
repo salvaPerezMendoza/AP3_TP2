@@ -22,11 +22,11 @@ public class AñadirJugadorScene {
     public Scene getScene(Juego juego) {
         // Título
         Label titleLabel = new Label("Añadir Jugador");
-        titleLabel.setStyle("-fx-font-size: 36px; -fx-font-weight: bold; -fx-text-fill: #333;");
+        titleLabel.setStyle("-fx-font-size: 36px; -fx-font-weight: bold; -fx-text-fill: #010101;");
 
         // Etiqueta y campo de texto para el nombre del jugador
         Label instructionLabel = new Label("Ingrese el nombre del nuevo jugador:");
-        instructionLabel.setStyle("-fx-font-size: 18px; -fx-text-fill: #333;");
+        instructionLabel.setStyle("-fx-font-size: 18px; -fx-text-fill: #010101;");
 
         TextField nameInput = new TextField();
         nameInput.setPromptText("Nombre del jugador");
@@ -41,12 +41,12 @@ public class AñadirJugadorScene {
                 sceneController.switchToMenuScene();
             }
         });
-        addButton.setStyle("-fx-font-size: 18px; -fx-background-color: #4CAF50; -fx-text-fill: white;");
+        addButton.setStyle("-fx-font-size: 18px; -fx-background-color: #010101; -fx-text-fill: White; -fx-border-color: #010101; -fx-border-width: 10px;");
 
         // Botón para volver al menú
         Button backButton = new Button("Volver");
         backButton.setOnAction(e -> sceneController.switchToMenuScene());
-        backButton.setStyle("-fx-font-size: 18px; -fx-background-color: #f0ad4e; -fx-text-fill: white;");
+        backButton.setStyle("-fx-font-size: 18px; -fx-background-color: #010101; -fx-text-fill: White; -fx-border-color: #010101; -fx-border-width: 10px;");
 
         HBox buttonBox = new HBox(10, addButton, backButton);
         buttonBox.setAlignment(Pos.CENTER);
