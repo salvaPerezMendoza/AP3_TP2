@@ -22,26 +22,26 @@ public class SceneController {
     }
 
     //Escenas de preguntas
-    public void switchToJugarVerdaderoFalsoScene(int ID) {
-        EscenaDePregunta jugarScene = new JugarVerdaderoFalsoScene(this, flujo, ID);
+    public void switchToJugarVerdaderoFalsoScene() {
+        EscenaDePregunta jugarScene = new JugarVerdaderoFalsoScene(this, flujo);
         Scene jScene = jugarScene.getScene();
         primaryStage.setScene(jScene);
     }
 
-    public void switchToJugarGroupChociceScene(int ID) {
-        EscenaDePregunta jugarScene = new JugarGroupChoiceScene(this, flujo, ID);
+    public void switchToJugarGroupChociceScene() {
+        EscenaDePregunta jugarScene = new JugarGroupChoiceScene(this, flujo);
         Scene jScene = jugarScene.getScene();
         primaryStage.setScene(jScene);
     }
 
-    public void switchToJugarMultipleChoiceScene(int ID) {
-        JugarMultipleChoiceScene jugarScene = new JugarMultipleChoiceScene(this, flujo);
+    public void switchToJugarMultipleChoiceScene() {
+        EscenaDePregunta jugarScene = new JugarMultipleChoiceScene(this, flujo);
         Scene jScene = jugarScene.getScene();
         primaryStage.setScene(jScene);
     }
 
-    public void switchToJugarOrderChoiceScene(int ID) {
-        JugarOrderChoiceScene jugarScene = new JugarOrderChoiceScene(this, flujo);
+    public void switchToJugarOrderChoiceScene() {
+        EscenaDePregunta jugarScene = new JugarOrderChoiceScene(this, flujo);
         Scene jScene = jugarScene.getScene();
         primaryStage.setScene(jScene);
     }
@@ -65,11 +65,6 @@ public class SceneController {
         AñadirJugadorScene añadirJugadorScene = new AñadirJugadorScene(this);
         Scene ajScene = añadirJugadorScene.getScene(flujo);
         primaryStage.setScene(ajScene);
-    }
-
-    // la idea seria, mandar una pregunta y que respondan los cuatro
-    public void siguientePregunta(){
-        switchToTurnosScene();
     }
 
     // Turnos

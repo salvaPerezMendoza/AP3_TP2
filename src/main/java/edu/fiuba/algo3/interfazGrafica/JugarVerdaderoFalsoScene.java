@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.interfazGrafica;
 
+import edu.fiuba.algo3.interfazGrafica.PreguntasScene.EscenaDePregunta;
 import edu.fiuba.algo3.modelo.Flujo;
 import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.modelo.Pregunta;
@@ -18,7 +19,7 @@ import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
 
-public class JugarVerdaderoFalsoScene {
+public class JugarVerdaderoFalsoScene implements EscenaDePregunta {
 
     private SceneController sceneController;
     private Flujo flujo;

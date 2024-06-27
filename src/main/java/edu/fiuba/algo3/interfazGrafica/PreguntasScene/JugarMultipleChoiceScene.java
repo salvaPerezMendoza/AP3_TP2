@@ -20,7 +20,7 @@ import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
 
-public class JugarMultipleChoiceScene {
+public class JugarMultipleChoiceScene implements EscenaDePregunta{
 
     private SceneController sceneController;
     private Flujo flujo;
@@ -51,7 +51,9 @@ public class JugarMultipleChoiceScene {
         Penalidad sinPenalidad = new SinPenalidad();
 
         // Crear la pregunta
-        Pregunta pregunta = new Pregunta(multipleChoice, sinPenalidad, "¿Cuáles de estos jugadores nunca ganaron un Balón de Oro?");
+        String tema = "MISCELANEAS";
+        String enunciado = "¿Cuáles de estos jugadores nunca ganaron un Balón de Oro?";
+        Pregunta pregunta = new Pregunta(multipleChoice, sinPenalidad, enunciado, tema);
 
         return pregunta;
     }

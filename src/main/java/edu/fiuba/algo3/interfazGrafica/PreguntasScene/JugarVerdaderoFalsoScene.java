@@ -3,6 +3,8 @@ package edu.fiuba.algo3.interfazGrafica.PreguntasScene;
 import edu.fiuba.algo3.interfazGrafica.SceneController;
 import edu.fiuba.algo3.modelo.*;
 import edu.fiuba.algo3.modelo.Opcion.OpcionSimple;
+import edu.fiuba.algo3.modelo.Penalidad.Penalidad;
+import edu.fiuba.algo3.modelo.Penalidad.SinPenalidad;
 import edu.fiuba.algo3.modelo.TipoDePregunta.TipoDePregunta;
 import edu.fiuba.algo3.modelo.TipoDePregunta.VerdaderoFalso;
 import javafx.geometry.Insets;
@@ -40,7 +42,9 @@ public class JugarVerdaderoFalsoScene implements EscenaDePregunta {
             OpcionSimple opcionCorrecta = new OpcionSimple("Falso", 2);
             TipoDePregunta tipoDePregunta = new VerdaderoFalso(opciones, opcionCorrecta);
             String enunciado = "Messi juega al Volley";
-            Pregunta pregunta = new Pregunta(tipoDePregunta, null, enunciado);
+            Penalidad penalidad = new SinPenalidad();
+            String tema = "MISCELANEAS";
+            Pregunta pregunta = new Pregunta(tipoDePregunta, penalidad, enunciado, tema);
         // llega la pregunta
 
         // //INTERFAZ -> Crear la etiqueta de la pregunta

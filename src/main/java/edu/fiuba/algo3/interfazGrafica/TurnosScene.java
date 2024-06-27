@@ -31,7 +31,7 @@ public class TurnosScene {
 
         // Botón para continuar
         Button continuarButton = new Button("Continuar");
-        continuarButton.setOnAction(e -> preguntaToca());
+        continuarButton.setOnAction(e -> ());
 
         continuarButton.setStyle("-fx-font-size: 18px; -fx-background-color: #4CAF50; -fx-text-fill: white;");
         continuarButton.setMaxWidth(Double.MAX_VALUE);
@@ -49,21 +49,4 @@ public class TurnosScene {
         return scene;
     }
 
-    public void preguntaToca() {
-
-        TipoDePregunta tipo = flujo.queTipoDePreguntaToca();
-        int ID = flujo.getIDDePregunta();
-
-            if (tipo instanceof VerdaderoFalso) {
-                sceneController.switchToJugarVerdaderoFalsoScene(ID);
-            } else if (tipo instanceof GroupChoice) {
-                sceneController.switchToJugarGroupChociceScene(ID);
-            } else if (tipo instanceof MultipleChoice) {
-                sceneController.switchToJugarMultipleChoiceScene(ID);
-            } else if (tipo instanceof OrderedChoice) {
-                sceneController.switchToJugarOrderChoiceScene(ID);
-            }
-
-
-    }
 }

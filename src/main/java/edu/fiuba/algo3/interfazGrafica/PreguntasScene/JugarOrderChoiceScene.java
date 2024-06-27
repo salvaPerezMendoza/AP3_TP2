@@ -26,7 +26,7 @@ import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
 
-public class JugarOrderChoiceScene {
+public class JugarOrderChoiceScene implements EscenaDePregunta{
 
     private SceneController sceneController;
     private Flujo flujo;
@@ -58,7 +58,9 @@ public class JugarOrderChoiceScene {
         Penalidad sinPenalidad = new SinPenalidad();
 
         // Crear la pregunta
-        return new Pregunta(orderedChoice, sinPenalidad, "Ordene de MAYOR A MENOR los siguientes objetos hogareños según su nivel de radiación electromagnética emitido (el máximo recomendado es 100 microTeslas)");
+        String tema = "MISCELANEAS";
+        String enunciado = "Ordene de MAYOR A MENOR los siguientes objetos hogareños según su nivel de radiación electromagnética emitido (el máximo recomendado es 100 microTeslas)";
+        return new Pregunta(orderedChoice, sinPenalidad, enunciado, tema);
     }
 
     public Scene getScene() {
