@@ -40,10 +40,12 @@ public class JugarOrderChoiceScene {
         Jugador jugador = juego.getJugadorActual();
         Pregunta pregunta = juego.getPreguntaActual();
         ArrayList<OpcionSimple> opciones = pregunta.obtenerOpciones();
+        Respuesta respuesta = new Respuesta(jugador);
 
         Label nombreJugadorLabel = new Label(jugador.getNombre());
         nombreJugadorLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #000;");
         nombreJugadorLabel.setPadding(new Insets(10));
+
         // Crear la etiqueta de la pregunta
         Label preguntaLabel = new Label(pregunta.getEnunciado());
         preguntaLabel.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #333;");
@@ -52,13 +54,10 @@ public class JugarOrderChoiceScene {
         // Obtener opciones de la pregunta
         //ObservableList<OpcionSimple> opciones = FXCollections.observableArrayList(pregunta.getOpciones());
 
-        ObservableList<OpcionSimple> opciones = FXCollections.observableArrayList();
-        opciones.add(new OpcionSimple("Televisor de tubo CRT", 1));
-        opciones.add(new OpcionSimple("Microondas", 2));
-        opciones.add(new OpcionSimple("Imanes del delivery", 3));
-        opciones.add(new OpcionSimple("Heladera", 4));
+        ObservableList<OpcionSimple> opcionesObservableList = FXCollections.observableArrayList();
+        opcionesObservableList.addAll(opciones);
 
-        ListView<OpcionSimple> opcionesListView = new ListView<>(opciones);
+        ListView<OpcionSimple> opcionesListView = new ListView<>(opcionesObservableList);
         opcionesListView.setCellFactory(param -> new ListCell<OpcionSimple>() {
             @Override
             protected void updateItem(OpcionSimple item, boolean empty) {
@@ -74,8 +73,8 @@ public class JugarOrderChoiceScene {
         opcionesListView.setOnMouseClicked((MouseEvent event) -> {
             OpcionSimple selectedItem = opcionesListView.getSelectionModel().getSelectedItem();
             if (selectedItem != null) {
-                opciones.remove(selectedItem);
-                opciones.add(selectedItem);
+                opcionesObservableList.remove(selectedItem);
+                opcionesObservableList.add(selectedItem);
             }
         });
 
@@ -88,18 +87,19 @@ public class JugarOrderChoiceScene {
         // Botón para enviar y comprobar la respuesta
         Button enviarButton = new Button("Enviar");
         enviarButton.setOnAction(e -> {
-            ArrayList<Opcion> opcionesSeleccionadas = new ArrayList<>(opcionesListView.getItems());
-            Jugador jugadorActual = juego.getJugadorActual();
-            Respuesta respuesta = new Respuesta(jugadorActual);
+            ArrayList<OpcionSimple> opcionesSeleccionadas = new ArrayList<>(opcionesListView.getItems());
 
             for (Opcion opcion : opcionesSeleccionadas) {
                 respuesta.agregarOpcion(opcion);
             }
 
-            jugadorActual.responder(pregunta, respuesta);
-            System.out.println("Opciones seleccionadas: " + opcionesSeleccionadas);
+            jugador.responder(pregunta, respuesta);
+            for(OpcionSimple opcion : opcionesSeleccionadas){
 
-            // Cambiar la escena del proximo turno
+                System.out.println("Opcion: " + opcion.getTexto());
+            }
+
+            juego.siguienteTurno();
 
             sceneController.siguienteTurno();
         });
