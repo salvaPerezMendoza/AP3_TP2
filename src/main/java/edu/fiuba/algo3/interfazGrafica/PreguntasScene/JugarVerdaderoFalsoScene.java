@@ -39,6 +39,7 @@ public class JugarVerdaderoFalsoScene implements EscenaDePregunta {
         Label preguntaLabel = new Label(pregunta.getEnunciado());
         preguntaLabel.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #333;");
         preguntaLabel.setPadding(new Insets(20));
+        preguntaLabel.setWrapText(true); // Permitir que el texto se ajuste y se muestre en múltiples líneas si es necesario
 
         VBox botonesPenalidad = sceneController.MostrarBonificadores(penalidadDeLaPregunta);
         botonesPenalidad.setAlignment(Pos.CENTER_RIGHT);
@@ -58,15 +59,12 @@ public class JugarVerdaderoFalsoScene implements EscenaDePregunta {
         // Botón para enviar y comprobar la respuesta
         Button enviarButton = new Button("Enviar");
         enviarButton.setOnAction(e -> {
-            // selectedRadioButton = opcion seleccionada
             OpcionVFBoton selectedRadioButton = (OpcionVFBoton) respuestasGroup.getSelectedToggle();
 
             if (selectedRadioButton != null) {
-                // respuestaSeleccionada = texto en la opcion
                 Respuesta respuesta = new Respuesta(jugador);
                 respuesta.agregarOpcion(selectedRadioButton.getOpcion());
 
-                // le agrego la respuesta a la lista respuestasJugadores
                 jugador.responder(pregunta, respuesta);
                 juego.siguienteTurno();
                 sceneController.siguienteTurno();
@@ -99,4 +97,5 @@ public class JugarVerdaderoFalsoScene implements EscenaDePregunta {
 
         return scene;
     }
+
 }
