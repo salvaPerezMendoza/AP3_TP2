@@ -46,7 +46,6 @@ public class CreadorDePreguntas {
         for(String correcta : correctasArray){
             opcionesCorrectas.add(obtenerOpcionPorId(opciones,Integer.parseInt(correcta)));
         }
-        opcionesCorrectas.add(obtenerOpcionPorId(opciones,0));
         return opcionesCorrectas;
     }
 

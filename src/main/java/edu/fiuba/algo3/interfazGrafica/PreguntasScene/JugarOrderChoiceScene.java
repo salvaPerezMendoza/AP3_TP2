@@ -116,7 +116,7 @@ public class JugarOrderChoiceScene {
         buttonBox.setPadding(new Insets(20));
 
         // Layout principal
-        VBox layout = new VBox(20, preguntaLabel, opcionesBox, buttonBox);
+        VBox layout = new VBox(20, nombreJugadorLabel,preguntaLabel, opcionesBox, buttonBox);
         layout.setPadding(new Insets(20));
         layout.setAlignment(Pos.CENTER);
 

@@ -58,7 +58,7 @@ public class Juego {
     public void setearPreguntaActual() {
         Pregunta preguntaNueva;
         if(preguntaActual == null) {
-            preguntaNueva = preguntas.get(2);
+            preguntaNueva = preguntas.get(17);
         }
         else {
             preguntaNueva = preguntas.stream().filter(pregunta -> !pregunta.getTema().equals(preguntaActual.getTema())).findFirst().get();

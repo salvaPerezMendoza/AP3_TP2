@@ -34,7 +34,7 @@ public class SceneController {
     }
 
     public void switchToJugarGroupChociceScene(int ID) {
-        EscenaDePregunta jugarScene = new JugarGroupChoiceScene(this, juego, ID);
+        JugarGroupChoiceScene jugarScene = new JugarGroupChoiceScene(this, juego);
         Scene jScene = jugarScene.getScene();
         primaryStage.setScene(jScene);
     }
