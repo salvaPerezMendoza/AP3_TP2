@@ -138,9 +138,12 @@ public class SceneController {
             Button multiplicadorX3 = new Button("Multiplicador X3");
             Button anuladorPuntaje = new Button("Anulador Puntaje");
 
-            multiplicadorX2.setStyle("-fx-font-size: 14px; -fx-background-color: #00FF00; -fx-text-fill: White;");
-            multiplicadorX3.setStyle("-fx-font-size: 14px; -fx-background-color: #FFFF00; -fx-text-fill: White;");
+            multiplicadorX2.setStyle("-fx-font-size: 14px; -fx-background-color: #010101; -fx-text-fill: White;");
+            multiplicadorX2.setWrapText(true);
+            multiplicadorX3.setStyle("-fx-font-size: 14px; -fx-background-color: #010101; -fx-text-fill: White;");
+            multiplicadorX3.setWrapText(true);
             anuladorPuntaje.setStyle("-fx-font-size: 14px; -fx-background-color: #010101; -fx-text-fill: White;");
+            anuladorPuntaje.setWrapText(true);
 
             botonesPenalidad.getChildren().addAll(multiplicadorX2, multiplicadorX3, anuladorPuntaje);
             botonesPenalidad.setAlignment(Pos.CENTER_LEFT);
@@ -151,11 +154,14 @@ public class SceneController {
             botonesPenalidad.getChildren().add(anuladorPuntaje);
             botonesPenalidad.setAlignment(Pos.CENTER_LEFT);
             botonesPenalidad.setPadding(new Insets(10));
+            anuladorPuntaje.setWrapText(true);
         } else {
-            Button exclusividadPuntaje = new Button("Exclusividad Puntaje");
-            Button anuladorPuntaje = new Button("Anulador Puntaje");
+            Button exclusividadPuntaje = new Button("Usar Exclusividad ");
+            Button anuladorPuntaje = new Button("Usar Anulador ");
+            exclusividadPuntaje.setWrapText(true);
+            anuladorPuntaje.setWrapText(true);
 
-            exclusividadPuntaje.setStyle("-fx-font-size: 14px; -fx-background-color: #FF0000; -fx-text-fill: White;");
+            exclusividadPuntaje.setStyle("-fx-font-size: 14px; -fx-background-color: #010101; -fx-text-fill: White;");
             anuladorPuntaje.setStyle("-fx-font-size: 14px; -fx-background-color: #010101; -fx-text-fill: White;");
 
             botonesPenalidad.getChildren().addAll(exclusividadPuntaje, anuladorPuntaje);

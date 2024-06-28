@@ -95,9 +95,10 @@ public class JugarGroupChoiceScene {
         });
         grupoBListView.setPrefHeight(200);
 
-        Button agregarAGrupoAButton = new Button("Agregar a Deportes Grupales");
+        Button agregarAGrupoAButton = new Button("Agregar a: Deportes Grupales");
         agregarAGrupoAButton.setStyle("-fx-font-size: 15px; -fx-background-color: #010101; -fx-text-fill: White;");
         agregarAGrupoAButton.setMaxWidth(Double.MAX_VALUE);
+        agregarAGrupoAButton.setWrapText(true);
 
         agregarAGrupoAButton.setOnAction(e -> {
             OpcionSimple seleccionada = opcionesListView.getSelectionModel().getSelectedItem();
@@ -107,9 +108,10 @@ public class JugarGroupChoiceScene {
             }
         });
 
-        Button agregarAGrupoBButton = new Button("Agregar a Deportes Individuales");
+        Button agregarAGrupoBButton = new Button("Agregar a: Deportes Individuales");
         agregarAGrupoBButton.setStyle("-fx-font-size: 15px; -fx-background-color: #010101; -fx-text-fill: White;");
         agregarAGrupoBButton.setMaxWidth(Double.MAX_VALUE);
+        agregarAGrupoBButton.setWrapText(true);
 
         agregarAGrupoBButton.setOnAction(e -> {
             OpcionSimple seleccionada = opcionesListView.getSelectionModel().getSelectedItem();
