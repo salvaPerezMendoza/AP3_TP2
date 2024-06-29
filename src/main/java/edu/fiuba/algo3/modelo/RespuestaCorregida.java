@@ -15,7 +15,7 @@ public class RespuestaCorregida {
     }
 
     public boolean esCorrecta(){
-        return cantidadIncorrectas > 0;
+        return cantidadIncorrectas == 0;
     }
 
     public RespuestaPuntuada asignarPuntaje(Penalidad penalidad) {

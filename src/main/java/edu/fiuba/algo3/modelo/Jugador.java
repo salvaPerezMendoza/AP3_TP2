@@ -33,6 +33,7 @@ public class Jugador {
 
     public void usarBonificador(BonificadorDecorador bonificador, Pregunta pregunta) {
         pregunta.agregarBonificador(bonificador);
+        bonificadores.remove(bonificador);
     }
 
     public void responder(Pregunta pregunta, Respuesta respuestaJugador) {

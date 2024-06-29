@@ -103,7 +103,7 @@ public class CreadorDePreguntas {
         OpcionSimple opcionCorrecta = obtenerOpcionPorId(opciones, Integer.parseInt(respuesta));
         VerdaderoFalso verdaderoFalso = new VerdaderoFalso(opciones, opcionCorrecta);
         String[] tipo = ((String) preguntaJSON.get("Tipo")).split(" ");
-        if(tipo.length == 3){
+        if(tipo[2].equals("Penalidad")){
             return new Pregunta(verdaderoFalso, new ConPenalidad(), enunciado,tema);
         }
         return new Pregunta(verdaderoFalso, new SinPenalidad(), enunciado,tema);

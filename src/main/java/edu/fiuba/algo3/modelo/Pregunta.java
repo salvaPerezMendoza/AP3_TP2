@@ -42,7 +42,9 @@ public class Pregunta {
     }
 
     private RespuestaPuntuada puntuarRespuesta(RespuestaCorregida respuesta){
-        return respuesta.asignarPuntaje(penalidad);
+        RespuestaPuntuada respuestaPuntuada = respuesta.asignarPuntaje(penalidad);
+        respuestaPuntuada.setCantidadRespuestasCorrectas(cantidadRespuestasCorrectas);
+        return respuestaPuntuada;
     }
 
     private RespuestaPuntuada aplicarBonificadores(RespuestaPuntuada respuesta){

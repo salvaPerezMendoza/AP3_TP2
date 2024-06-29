@@ -22,7 +22,9 @@ public class MultiplicadorDecorador extends BonificadorDecorador{
     @Override
     public RespuestaPuntuada modificarPuntaje(RespuestaPuntuada respuestaPuntuada){
         RespuestaPuntuada respuesta = super.modificarPuntaje(respuestaPuntuada);
-        respuesta.setPuntos(respuesta.getPuntos() * factor);
+        if(respuestaPuntuada.getJugador().equals(jugador)){
+            respuesta.setPuntos(respuesta.getPuntos() * factor);
+        }
         return respuesta;
     }
 

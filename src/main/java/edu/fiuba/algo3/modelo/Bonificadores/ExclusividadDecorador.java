@@ -16,6 +16,7 @@ public class ExclusividadDecorador extends BonificadorDecorador {
         return nombreBonificador;
     }
 
+    @Override
     public RespuestaPuntuada modificarPuntaje(RespuestaPuntuada respuestaPuntuada){
         // Llamamos al método del decorador envuelto primero
         RespuestaPuntuada respuesta = super.modificarPuntaje(respuestaPuntuada);

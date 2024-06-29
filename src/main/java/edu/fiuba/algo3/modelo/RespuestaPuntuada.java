@@ -17,6 +17,10 @@ public class RespuestaPuntuada {
         this.cantidadRespuestasCorrectas = cantidadRespuestasCorrectas;
     }
 
+    public void setCantidadRespuestasCorrectas(int cantidadRespuestasCorrectas) {
+        this.cantidadRespuestasCorrectas = cantidadRespuestasCorrectas;
+    }
+
     public Jugador getJugador() {
         return jugador;
     }

@@ -19,7 +19,7 @@ public class AnuladorDecorador extends BonificadorDecorador{
 
     public RespuestaPuntuada modificarPuntaje(RespuestaPuntuada respuestaPuntuada) {
         RespuestaPuntuada respuesta = super.modificarPuntaje(respuestaPuntuada);
-        if(!jugador.equals(respuesta.getJugador())){
+        if(!jugador.equals(respuesta.getJugador()) && respuesta.esCorrecta()){
             respuesta.setPuntos(0);
         }
         return respuesta;
