@@ -44,7 +44,7 @@ public class JugarMultipleChoiceScene {
         preguntaLabel.setPadding(new Insets(20));
 
 
-        VBox botonesPenalidad = sceneController.MostrarBonificadores(penalidadDeLaPregunta);
+        VBox botonesPenalidad = sceneController.MostrarBonificadores(pregunta,jugador);
         botonesPenalidad.setAlignment(Pos.CENTER_RIGHT);
         botonesPenalidad.setPadding(new Insets(20));
 

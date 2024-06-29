@@ -1,4 +1,4 @@
-package edu.fiuba.algo3.modelo.excepciones;
+package edu.fiuba.algo3.modelo.Excepciones;
 
 public class JugadorNoTieneMasBonificadorError extends Exception {
     //extends Exception se usa para excepciones comprobadas que se pueden controlar

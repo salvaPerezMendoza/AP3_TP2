@@ -3,7 +3,7 @@ package edu.fiuba.algo3.modelo;
 import edu.fiuba.algo3.modelo.Opcion.OpcionSimple;
 import edu.fiuba.algo3.modelo.Penalidad.Penalidad;
 import edu.fiuba.algo3.modelo.TipoDePregunta.TipoDePregunta;
-import edu.fiuba.algo3.modelo.bonificadores.*;
+import edu.fiuba.algo3.modelo.Bonificadores.*;
 
 import java.util.ArrayList;
 
@@ -14,6 +14,7 @@ public class Pregunta {
     private ArrayList<Respuesta> respuestasJugador;
     private Bonificador bonificador;
     private String tema;
+    private int cantidadRespuestasCorrectas;
 
 
     public Pregunta(TipoDePregunta tipo, Penalidad penalidad, String enunciado, String tema){
@@ -23,6 +24,7 @@ public class Pregunta {
         this.respuestasJugador = new ArrayList<>();
         this.bonificador = new BonificadorConcreto();
         this.tema = tema;
+        this.cantidadRespuestasCorrectas = 0;
     }
 
     public ArrayList<OpcionSimple> obtenerOpciones(){
@@ -33,36 +35,39 @@ public class Pregunta {
         respuestasJugador.add(respuestaJugador);
     }
 
-    private void validarRespuesta(Respuesta respuesta){
+    private RespuestaCorregida corregirRespuesta(Respuesta respuesta){
         RespuestaCorregida respuestaCorregida = tipo.corregirRespuesta(respuesta);
-        verificarSiHayAlgunaIncorrecta(respuestaCorregida);
-        respuestaCorregida.asignarPuntaje(penalidad, bonificador);
+        if (respuestaCorregida.esCorrecta()) { this.cantidadRespuestasCorrectas += 1; }
+        return respuestaCorregida;
+    }
+
+    private RespuestaPuntuada puntuarRespuesta(RespuestaCorregida respuesta){
+        return respuesta.asignarPuntaje(penalidad);
+    }
+
+    private RespuestaPuntuada aplicarBonificadores(RespuestaPuntuada respuesta){
+        return bonificador.modificarPuntaje(respuesta);
+    }
+
+    private void puntuarJugadores(ArrayList<RespuestaCorregida> respuestasCorregidas){
+        for(RespuestaCorregida respuestaCorregida : respuestasCorregidas){
+            RespuestaPuntuada respuestaPuntuada = puntuarRespuesta(respuestaCorregida);
+            respuestaPuntuada = aplicarBonificadores(respuestaPuntuada);
+            respuestaPuntuada.asignarPuntos();
+        }
     }
 
     public void validarRespuestas(){
+        ArrayList<RespuestaCorregida> respuestasCorregidas = new ArrayList<>();
         for(Respuesta respuesta : respuestasJugador){
-            validarRespuesta(respuesta);
+            RespuestaCorregida respuestaCorregida = corregirRespuesta(respuesta);
+            respuestasCorregidas.add(respuestaCorregida);
         }
+        puntuarJugadores(respuestasCorregidas);
     }
 
-    private boolean verificarSiHayAlgunaIncorrecta(RespuestaCorregida respuestaCorregida){
-        return respuestaCorregida.getRespuestasInorrectas() > 0;
-    }
-
-    public boolean ningunaIncorrecta(){
-        boolean noHayIncorrecta = true;
-        for(Respuesta respuesta : respuestasJugador){
-            RespuestaCorregida respuestaCorregida = tipo.corregirRespuesta(respuesta);
-            if (noHayIncorrecta){
-                noHayIncorrecta = verificarSiHayAlgunaIncorrecta(respuestaCorregida);
-            }
-
-        }
-        return noHayIncorrecta;
-    }
-
-    public void agregarBonificador(Jugador jugadorBonificado, Bonificador bonificador) {
-        this.bonificador = BonificadorDecorador.crearDecorador(this.bonificador, bonificador,jugadorBonificado, this.respuestasJugador.get(0).getJugador());
+    public void agregarBonificador(BonificadorDecorador bonificador) {
+        this.bonificador = bonificador.envolverBonificador(this.bonificador);
     }
 
     public String getEnunciado(){
@@ -74,6 +79,10 @@ public class Pregunta {
     }
 
     public Penalidad getPenalidad(){ return penalidad;}
+
+    public ArrayList<BonificadorDecorador> obtenerBonificadoresDisponibles(Jugador jugador){
+        return penalidad.obtenerBonificadoresDisponibles(jugador);
+    }
 
     public TipoDePregunta getTipo() {
         return tipo;

@@ -1,7 +1,6 @@
 package edu.fiuba.algo3.modelo;
 
 import edu.fiuba.algo3.modelo.Penalidad.Penalidad;
-import edu.fiuba.algo3.modelo.bonificadores.Bonificador;
 
 
 public class RespuestaCorregida {
@@ -15,10 +14,12 @@ public class RespuestaCorregida {
         this.cantidadIncorrectas = cantidadIncorrectas;
     }
 
-    public void asignarPuntaje(Penalidad penalidad, Bonificador bonificador) {
-        penalidad.asignarPuntajeJugador(jugador, cantidadCorrectas, cantidadIncorrectas,bonificador);
+    public boolean esCorrecta(){
+        return cantidadIncorrectas > 0;
     }
-    public int getRespuestasInorrectas(){
-        return this.cantidadIncorrectas;
+
+    public RespuestaPuntuada asignarPuntaje(Penalidad penalidad) {
+        return penalidad.asignarPuntajeRespuesta(jugador, cantidadCorrectas, cantidadIncorrectas);
     }
+
 }

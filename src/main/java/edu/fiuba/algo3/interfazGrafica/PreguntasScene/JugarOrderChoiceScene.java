@@ -100,7 +100,7 @@ public class JugarOrderChoiceScene {
         enviarButton.setStyle("-fx-font-size: 18px; -fx-background-color: #010101; -fx-text-fill: White; -fx-border-color: #010101; -fx-border-width: 10px;");
 
         // Mostrar las penalidades si las hay
-        VBox botonesPenalidad = sceneController.MostrarBonificadores(penalidadDeLaPregunta);
+        VBox botonesPenalidad = sceneController.MostrarBonificadores(pregunta,jugador);
         botonesPenalidad.setAlignment(Pos.CENTER_RIGHT);
         botonesPenalidad.setPadding(new Insets(20));
 

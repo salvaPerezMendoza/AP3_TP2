@@ -1,15 +1,28 @@
 package edu.fiuba.algo3.modelo.Penalidad;
 
+import edu.fiuba.algo3.modelo.Bonificadores.AnuladorDecorador;
+import edu.fiuba.algo3.modelo.Bonificadores.BonificadorConcreto;
+import edu.fiuba.algo3.modelo.Bonificadores.BonificadorDecorador;
+import edu.fiuba.algo3.modelo.Bonificadores.ExclusividadDecorador;
 import edu.fiuba.algo3.modelo.Jugador;
 
-import edu.fiuba.algo3.modelo.bonificadores.Bonificador;
+import edu.fiuba.algo3.modelo.RespuestaPuntuada;
+
+import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 
 public class PenalidadParcial implements Penalidad {
+
+    public ArrayList<BonificadorDecorador> obtenerBonificadoresDisponibles(Jugador jugador){
+        return jugador.getBonificadores().stream().filter(b -> b.getNombreBonificador().equals("Anulador")).collect(Collectors.toCollection(ArrayList::new));
+    }
+
     @Override
-    public void asignarPuntajeJugador(Jugador jugador, int cantidadCorrectas, int cantidadIncorrectas, Bonificador bonificador) {
+    public RespuestaPuntuada asignarPuntajeRespuesta(Jugador jugador, int cantidadCorrectas, int cantidadIncorrectas) {
         if(cantidadIncorrectas == 0){
-            jugador.sumarPuntos(bonificador.modificarPuntaje(cantidadCorrectas));
+            jugador.sumarPuntos(cantidadCorrectas);
         }
+        return new RespuestaPuntuada(jugador, cantidadCorrectas);
     }
 }

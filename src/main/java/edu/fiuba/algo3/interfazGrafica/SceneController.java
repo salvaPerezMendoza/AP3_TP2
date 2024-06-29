@@ -1,6 +1,8 @@
 package edu.fiuba.algo3.interfazGrafica;
 
 import edu.fiuba.algo3.interfazGrafica.PreguntasScene.*;
+import edu.fiuba.algo3.interfazGrafica.componentes.BonificadorBoton;
+import edu.fiuba.algo3.modelo.Bonificadores.BonificadorDecorador;
 import edu.fiuba.algo3.modelo.Juego;
 import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.modelo.Penalidad.ConPenalidad;
@@ -19,6 +21,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
+import java.util.ArrayList;
 
 public class SceneController {
 
@@ -131,37 +135,16 @@ public class SceneController {
         juego.agregarJugador(jugador);
     }
 
-    public VBox MostrarBonificadores(Penalidad penalidad){
+    public VBox MostrarBonificadores(Pregunta pregunta, Jugador jugador){
+        ArrayList<BonificadorDecorador> bonificadores = pregunta.obtenerBonificadoresDisponibles(jugador);
         VBox botonesPenalidad = new VBox(10);
-        if (penalidad instanceof ConPenalidad) {
-            Button multiplicadorX2 = new Button("Multiplicador X2");
-            Button multiplicadorX3 = new Button("Multiplicador X3");
-            Button anuladorPuntaje = new Button("Anulador Puntaje");
-
-            multiplicadorX2.setStyle("-fx-font-size: 14px; -fx-background-color: #00FF00; -fx-text-fill: White;");
-            multiplicadorX3.setStyle("-fx-font-size: 14px; -fx-background-color: #FFFF00; -fx-text-fill: White;");
-            anuladorPuntaje.setStyle("-fx-font-size: 14px; -fx-background-color: #010101; -fx-text-fill: White;");
-
-            botonesPenalidad.getChildren().addAll(multiplicadorX2, multiplicadorX3, anuladorPuntaje);
-            botonesPenalidad.setAlignment(Pos.CENTER_LEFT);
-            botonesPenalidad.setPadding(new Insets(10));
-        } else if (penalidad instanceof PenalidadParcial) {
-            Button anuladorPuntaje = new Button("Anulador Puntaje");
-            anuladorPuntaje.setStyle("-fx-font-size: 14px; -fx-background-color: #010101; -fx-text-fill: White;");
-            botonesPenalidad.getChildren().add(anuladorPuntaje);
-            botonesPenalidad.setAlignment(Pos.CENTER_LEFT);
-            botonesPenalidad.setPadding(new Insets(10));
-        } else {
-            Button exclusividadPuntaje = new Button("Exclusividad Puntaje");
-            Button anuladorPuntaje = new Button("Anulador Puntaje");
-
-            exclusividadPuntaje.setStyle("-fx-font-size: 14px; -fx-background-color: #FF0000; -fx-text-fill: White;");
-            anuladorPuntaje.setStyle("-fx-font-size: 14px; -fx-background-color: #010101; -fx-text-fill: White;");
-
-            botonesPenalidad.getChildren().addAll(exclusividadPuntaje, anuladorPuntaje);
-            botonesPenalidad.setAlignment(Pos.CENTER_LEFT);
-            botonesPenalidad.setPadding(new Insets(10));
+        for(BonificadorDecorador bonificador : bonificadores){
+            BonificadorBoton boton = new BonificadorBoton(bonificador, "-fx-font-size: 14px; -fx-background-color: #000000; -fx-text-fill: White;");
+            boton.setOnAction(e -> jugador.usarBonificador(bonificador, pregunta));
+            botonesPenalidad.getChildren().add(boton);
         }
+        botonesPenalidad.setAlignment(Pos.CENTER_LEFT);
+        botonesPenalidad.setPadding(new Insets(10));
         return botonesPenalidad;
     }
 

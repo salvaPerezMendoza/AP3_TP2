@@ -40,9 +40,6 @@ public class Juego {
 
     public void crearRonda(){
         Ronda ronda = obtenerRonda(); // obtengo instancia unica
-        for (Jugador jugador : jugadores) {
-            ronda.agregarJugador(jugador);
-        }
         for (Pregunta pregunta : preguntas) {
             ronda.agregarPreguntas(pregunta);
         }

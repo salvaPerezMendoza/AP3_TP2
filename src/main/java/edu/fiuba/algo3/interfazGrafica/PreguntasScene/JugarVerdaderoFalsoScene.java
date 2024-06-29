@@ -33,7 +33,6 @@ public class JugarVerdaderoFalsoScene implements EscenaDePregunta {
     public Scene getScene() {
         Jugador jugador = juego.getJugadorActual();
         Pregunta pregunta = juego.getPreguntaActual();
-        Penalidad penalidadDeLaPregunta = pregunta.getPenalidad();
         ArrayList<OpcionSimple> opciones = pregunta.obtenerOpciones();
 
         Label preguntaLabel = new Label(pregunta.getEnunciado());
@@ -41,7 +40,7 @@ public class JugarVerdaderoFalsoScene implements EscenaDePregunta {
         preguntaLabel.setPadding(new Insets(20));
         preguntaLabel.setWrapText(true); // Permitir que el texto se ajuste y se muestre en múltiples líneas si es necesario
 
-        VBox botonesPenalidad = sceneController.MostrarBonificadores(penalidadDeLaPregunta);
+        VBox botonesPenalidad = sceneController.MostrarBonificadores(pregunta, jugador);
         botonesPenalidad.setAlignment(Pos.CENTER_RIGHT);
         botonesPenalidad.setPadding(new Insets(20));
 
