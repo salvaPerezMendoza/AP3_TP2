@@ -21,7 +21,7 @@ public class ExclusividadDecorador extends BonificadorDecorador {
         // Llamamos al método del decorador envuelto primero
         RespuestaPuntuada respuesta = super.modificarPuntaje(respuestaPuntuada);
         if(respuesta.getCantidadRespuestasCorrectas() == 1 && respuesta.esCorrecta()){
-            respuesta.setPuntos(respuesta.getPuntos() * 2);
+            respuesta.multiplicarPuntaje(2);
         }
 
         return respuesta;

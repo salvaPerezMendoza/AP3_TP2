@@ -1,7 +1,7 @@
 package edu.fiuba.algo3.modelo;
 
 public class RespuestaPuntuada {
-    private Jugador jugador;
+    private final Jugador jugador;
     private int cantidadRespuestasCorrectas;
     private int puntos;
 
@@ -25,12 +25,8 @@ public class RespuestaPuntuada {
         return jugador;
     }
 
-    public int getPuntos() {
-        return puntos;
-    }
-
-    public void setPuntos(int puntos) {
-        this.puntos = puntos;
+    public void multiplicarPuntaje(int factor){
+        this.puntos = this.puntos * factor;
     }
 
     public int getCantidadRespuestasCorrectas(){
