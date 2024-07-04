@@ -25,8 +25,6 @@ public class ConPenalidad implements Penalidad {
 
     @Override
     public RespuestaPuntuada asignarPuntajeRespuesta(Jugador jugador, int cantidadCorrectas, int cantidadIncorrectas) {
-        jugador.sumarPuntos(cantidadCorrectas);
-        jugador.sumarPuntos(-cantidadIncorrectas);
-        return new RespuestaPuntuada(jugador, cantidadCorrectas + cantidadIncorrectas);
+        return new RespuestaPuntuada(jugador, cantidadCorrectas - cantidadIncorrectas);
     }
 }

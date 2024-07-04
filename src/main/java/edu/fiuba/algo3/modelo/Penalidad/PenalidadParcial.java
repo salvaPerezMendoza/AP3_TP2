@@ -21,8 +21,8 @@ public class PenalidadParcial implements Penalidad {
     @Override
     public RespuestaPuntuada asignarPuntajeRespuesta(Jugador jugador, int cantidadCorrectas, int cantidadIncorrectas) {
         if(cantidadIncorrectas == 0){
-            jugador.sumarPuntos(cantidadCorrectas);
+            return new RespuestaPuntuada(jugador, cantidadCorrectas);
         }
-        return new RespuestaPuntuada(jugador, cantidadCorrectas);
+        return new RespuestaPuntuada(jugador, 0);
     }
 }
