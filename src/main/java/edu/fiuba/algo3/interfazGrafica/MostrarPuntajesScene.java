@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.interfazGrafica;
 
+import edu.fiuba.algo3.modelo.Bonificadores.BonificadorDecorador;
 import edu.fiuba.algo3.modelo.Juego;
 import edu.fiuba.algo3.modelo.Jugador;
 import javafx.geometry.Insets;
@@ -39,6 +40,13 @@ public class MostrarPuntajesScene {
             Label puntajeLabel = new Label(jugador.getNombre() + ": " + jugador.getPuntajeTotal() + " puntos");
             puntajeLabel.setStyle("-fx-font-size: 18px; -fx-padding: 10px;");
             layout.getChildren().add(puntajeLabel);
+            BonificadorDecorador ultimoBonificador = jugador.getUltimoBonificador();
+            if (ultimoBonificador != null) {
+                Label bonificadorLabel = new Label("Bonificador aplicado: " + ultimoBonificador.getNombreBonificador());
+                bonificadorLabel.setStyle("-fx-font-size: 18px; -fx-padding: 10px;");
+                layout.getChildren().add(bonificadorLabel);
+                jugador.setUltimoBonificador(null);
+            }
         }
 
         // Botón para volver al menú

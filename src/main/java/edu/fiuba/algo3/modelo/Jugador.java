@@ -8,7 +8,7 @@ public class Jugador {
     private String nombre;
     private int puntajeTotal;
     private ArrayList<BonificadorDecorador> bonificadores = new ArrayList<>();
-
+    private BonificadorDecorador ultimoBonificador;
 
     public Jugador(String nombreJugador) {
         nombre = nombreJugador;
@@ -34,6 +34,7 @@ public class Jugador {
     public void usarBonificador(BonificadorDecorador bonificador, Pregunta pregunta) {
         pregunta.agregarBonificador(bonificador);
         bonificadores.remove(bonificador);
+        ultimoBonificador = bonificador;
     }
 
     public void responder(Pregunta pregunta, Respuesta respuestaJugador) {
@@ -44,6 +45,13 @@ public class Jugador {
         puntajeTotal += puntaje;
     }
 
+    public BonificadorDecorador getUltimoBonificador() {
+        return ultimoBonificador;
+    }
+
+    public void setUltimoBonificador(BonificadorDecorador ultimoBonificador) {
+        this.ultimoBonificador = ultimoBonificador;
+    }
 }
 
     
