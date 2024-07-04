@@ -1,6 +1,8 @@
 package edu.fiuba.algo3.interfazGrafica.PreguntasScene;
 
 import edu.fiuba.algo3.interfazGrafica.SceneController;
+import edu.fiuba.algo3.interfazGrafica.componentes.AgregarAGrupoBoton;
+import edu.fiuba.algo3.interfazGrafica.componentes.GrupoVista;
 import edu.fiuba.algo3.modelo.Juego;
 import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.modelo.Opcion.OpcionGrupo;
@@ -8,6 +10,7 @@ import edu.fiuba.algo3.modelo.Opcion.OpcionSimple;
 import edu.fiuba.algo3.modelo.Penalidad.Penalidad;
 import edu.fiuba.algo3.modelo.Pregunta;
 import edu.fiuba.algo3.modelo.Respuesta;
+import edu.fiuba.algo3.modelo.TipoDePregunta.GroupChoice;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -40,8 +43,8 @@ public class JugarGroupChoiceScene {
         Jugador jugador = juego.getJugadorActual();
         Pregunta pregunta = juego.getPreguntaActual();
         ArrayList<OpcionSimple> opciones = pregunta.obtenerOpciones();
+        GroupChoice grupos = (GroupChoice) pregunta.getTipo();
         Respuesta respuesta = new Respuesta(jugador);
-        Penalidad penalidadDeLaPregunta = pregunta.getPenalidad();
 
         Text preguntaText = new Text(pregunta.getEnunciado());
         TextFlow titleLabel = new TextFlow(preguntaText);
@@ -50,85 +53,39 @@ public class JugarGroupChoiceScene {
         titleLabel.setMaxWidth(600);
 
         ObservableList<OpcionSimple> opcionesObservableList = FXCollections.observableArrayList(opciones);
+        ObservableList<OpcionSimple> grupo1List = FXCollections.observableArrayList();
+        ObservableList<OpcionSimple> grupo2List = FXCollections.observableArrayList();
 
-        ListView<OpcionSimple> opcionesListView = new ListView<>(opcionesObservableList);
-        opcionesListView.setCellFactory(param -> new ListCell<OpcionSimple>() {
-            @Override
-            protected void updateItem(OpcionSimple item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty || item == null) {
-                    setText(null);
-                } else {
-                    setText(item.getTexto());
-                }
-            }
-        });
-        opcionesListView.setPrefHeight(200);
+        GrupoVista opcionesListView = new GrupoVista(opcionesObservableList);
+        GrupoVista grupoAListView = new GrupoVista(grupo1List);
+        GrupoVista grupoBListView = new GrupoVista(grupo2List);
 
-        ObservableList<OpcionSimple> grupoAList = FXCollections.observableArrayList();
-        ListView<OpcionSimple> grupoAListView = new ListView<>(grupoAList);
-        grupoAListView.setCellFactory(param -> new ListCell<OpcionSimple>() {
-            @Override
-            protected void updateItem(OpcionSimple item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty || item == null) {
-                    setText(null);
-                } else {
-                    setText(item.getTexto());
-                }
-            }
-        });
-        grupoAListView.setPrefHeight(200);
+        AgregarAGrupoBoton agregarAGrupo1Button = new AgregarAGrupoBoton(grupos.getNombreGrupo(0));
+        AgregarAGrupoBoton agregarAGrupo2Button = new AgregarAGrupoBoton(grupos.getNombreGrupo(1));
 
-        ObservableList<OpcionSimple> grupoBList = FXCollections.observableArrayList();
-        ListView<OpcionSimple> grupoBListView = new ListView<>(grupoBList);
-        grupoBListView.setCellFactory(param -> new ListCell<OpcionSimple>() {
-            @Override
-            protected void updateItem(OpcionSimple item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty || item == null) {
-                    setText(null);
-                } else {
-                    setText(item.getTexto());
-                }
-            }
-        });
-        grupoBListView.setPrefHeight(200);
-
-        Button agregarAGrupoAButton = new Button("Agregar a Deportes Grupales");
-        agregarAGrupoAButton.setStyle("-fx-font-size: 15px; -fx-background-color: #010101; -fx-text-fill: White;");
-        agregarAGrupoAButton.setMaxWidth(Double.MAX_VALUE);
-
-        agregarAGrupoAButton.setOnAction(e -> {
+        agregarAGrupo1Button.setOnAction(e -> {
             OpcionSimple seleccionada = opcionesListView.getSelectionModel().getSelectedItem();
             if (seleccionada != null) {
-                grupoAList.add(seleccionada);
+                grupo1List.add(seleccionada);
                 opcionesObservableList.remove(seleccionada);
             }
         });
 
-        Button agregarAGrupoBButton = new Button("Agregar a Deportes Individuales");
-        agregarAGrupoBButton.setStyle("-fx-font-size: 15px; -fx-background-color: #010101; -fx-text-fill: White;");
-        agregarAGrupoBButton.setMaxWidth(Double.MAX_VALUE);
-
-        agregarAGrupoBButton.setOnAction(e -> {
+        agregarAGrupo2Button.setOnAction(e -> {
             OpcionSimple seleccionada = opcionesListView.getSelectionModel().getSelectedItem();
             if (seleccionada != null) {
-                grupoBList.add(seleccionada);
+                grupo2List.add(seleccionada);
                 opcionesObservableList.remove(seleccionada);
             }
         });
 
         Button enviarButton = new Button("Enviar");
         enviarButton.setOnAction(e -> {
-            ArrayList<OpcionSimple> opcionesGrupoA = new ArrayList<>(grupoAList);
-            ArrayList<OpcionSimple> opcionesGrupoB = new ArrayList<>(grupoBList);
-            Jugador jugadorActual = juego.getJugadorActual();
-            OpcionGrupo grupoA = new OpcionGrupo("Deportes Grupales", new HashSet<>(opcionesGrupoA));
-            OpcionGrupo grupoB = new OpcionGrupo("Deportes Individuales", new HashSet<>(opcionesGrupoB));
+            OpcionGrupo grupoA = new OpcionGrupo(grupos.getNombreGrupo(0), new HashSet<>(grupo1List));
+            OpcionGrupo grupoB = new OpcionGrupo(grupos.getNombreGrupo(1), new HashSet<>(grupo2List));
             respuesta.agregarOpcion(grupoA);
             respuesta.agregarOpcion(grupoB);
-            jugadorActual.responder(pregunta, respuesta);
+            jugador.responder(pregunta, respuesta);
             juego.siguienteTurno();
             sceneController.siguienteTurno();
         });
@@ -139,14 +96,14 @@ public class JugarGroupChoiceScene {
         botonesPenalidad.setAlignment(Pos.CENTER_RIGHT);
         botonesPenalidad.setPadding(new Insets(20));
 
-        HBox agregarAGruposBox = new HBox(10, agregarAGrupoAButton, agregarAGrupoBButton);
+        HBox agregarAGruposBox = new HBox(10, agregarAGrupo1Button, agregarAGrupo2Button);
         agregarAGruposBox.setAlignment(Pos.CENTER);
 
         VBox opcionesBox = new VBox(10, new Label("Opciones"), opcionesListView, agregarAGruposBox);
         opcionesBox.setPadding(new Insets(20));
         opcionesBox.setAlignment(Pos.CENTER_LEFT);
 
-        VBox gruposBox = new VBox(10, new Label("Deportes Grupales"), grupoAListView, new Label("Deportes Individuales"), grupoBListView);
+        VBox gruposBox = new VBox(10, new Label(grupos.getNombreGrupo(0)), grupoAListView, new Label(grupos.getNombreGrupo(1)), grupoBListView);
         gruposBox.setPadding(new Insets(20));
         gruposBox.setAlignment(Pos.CENTER_LEFT);
 
