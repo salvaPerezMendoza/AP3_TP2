@@ -145,7 +145,7 @@ public class TestPreguntasMultipleChoice {
     }
 
     @Test
-    public void test05PreguntaMultipleChoicePacialBienRespondida(){
+    public void test05PreguntaMultipleChoiceParcialBienRespondida(){
         Jugador jugador1 = new Jugador("Bob");
         ArrayList<OpcionSimple> opciones = new ArrayList<>();
         opciones.add(new OpcionSimple("Neymar",1));
@@ -175,7 +175,7 @@ public class TestPreguntasMultipleChoice {
         assertEquals(2, jugador1.getPuntajeTotal());
     }
     @Test
-    public void test06PreguntaMultipleChoicePacialMalRespondida(){
+    public void test06PreguntaMultipleChoiceParcialMalRespondida(){
         Jugador jugador1 = new Jugador("Bob");
         ArrayList<OpcionSimple> opciones = new ArrayList<>();
         opciones.add(new OpcionSimple("Neymar",1));

@@ -40,7 +40,7 @@ public class TestPreguntasVF {
     }
 
     @Test
-    public void Test02PreguntaVFClasicomMalRespondida() {
+    public void Test02PreguntaVFClasicoMalRespondida() {
         Jugador jugador1 = new Jugador("Bob");
         ArrayList<OpcionSimple> opciones = new ArrayList<>();
         opciones.add(new OpcionSimple("Verdadero",1));

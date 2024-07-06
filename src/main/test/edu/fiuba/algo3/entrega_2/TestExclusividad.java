@@ -3,7 +3,6 @@ package edu.fiuba.algo3.entrega_2;
 import edu.fiuba.algo3.modelo.*;
 import edu.fiuba.algo3.modelo.Bonificadores.BonificadorDecorador;
 import edu.fiuba.algo3.modelo.Opcion.OpcionSimple;
-import edu.fiuba.algo3.modelo.Penalidad.ConPenalidad;
 import edu.fiuba.algo3.modelo.Penalidad.Penalidad;
 import edu.fiuba.algo3.modelo.Penalidad.SinPenalidad;
 import edu.fiuba.algo3.modelo.TipoDePregunta.TipoDePregunta;
@@ -14,7 +13,7 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ExclusividadPuntajeTest {
+public class TestExclusividad {
     @Test
     public void test01jugador1AplicaExclusividadRivalRespondeMalyX2() {
         Jugador jugador1 = new Jugador("Bob");
