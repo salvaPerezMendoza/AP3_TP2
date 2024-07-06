@@ -108,7 +108,6 @@ public class SceneController {
     public void siguienteTurno(){
         Pregunta preguntaActual = juego.getPreguntaActual();
         if(preguntaActual.respondieronTodos(juego.devolverJugadores().size())){
-            //juego.getJugadorActual().responder();
             preguntaActual.validarRespuestas();
             switchToMostrarPuntajesScene();
             juego.setearPreguntaActual();

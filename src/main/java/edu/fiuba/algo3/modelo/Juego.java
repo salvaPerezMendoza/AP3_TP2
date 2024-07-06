@@ -33,8 +33,7 @@ public class Juego {
     }
 
     public void crearPreguntas() throws IOException, ParseException {
-        CreadorDePreguntas creadorDePreguntas = new CreadorDePreguntas();
-        preguntas = creadorDePreguntas.leerArchivo();
+        preguntas = CreadorDePreguntas.leerArchivo();
         setearPreguntaActual();
     }
 
@@ -67,12 +66,6 @@ public class Juego {
 
     public Pregunta getPreguntaActual() {
         return preguntaActual;
-    }
-
-    public List<String> getJugadoresNombres() {
-        return jugadores.stream()
-                .map(Jugador::getNombre)
-                .collect(Collectors.toList());
     }
 
     public void agregarJugador(Jugador jugador) {

@@ -22,8 +22,6 @@ public class App extends Application {
         primaryStage.setScene(scene1);
         primaryStage.setTitle("AlgoHoot");
         primaryStage.show();
-
-
     }
 
     public static void main(String[] args) {
