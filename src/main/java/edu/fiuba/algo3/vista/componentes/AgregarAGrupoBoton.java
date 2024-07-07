@@ -1,6 +1,5 @@
-package edu.fiuba.algo3.interfazGrafica.componentes;
+package edu.fiuba.algo3.vista.componentes;
 
-import edu.fiuba.algo3.modelo.Opcion.OpcionGrupo;
 import javafx.scene.control.Button;
 
 public class AgregarAGrupoBoton extends Button {

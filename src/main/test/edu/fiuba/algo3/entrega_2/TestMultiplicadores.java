@@ -1,14 +1,12 @@
 package edu.fiuba.algo3.entrega_2;
 
-import edu.fiuba.algo3.modelo.Bonificadores.BonificadorDecorador;
+import edu.fiuba.algo3.modelo.Bonificador.BonificadorDecorador;
 import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.modelo.Opcion.OpcionSimple;
 import edu.fiuba.algo3.modelo.Penalidad.ConPenalidad;
 import edu.fiuba.algo3.modelo.Penalidad.Penalidad;
-import edu.fiuba.algo3.modelo.Penalidad.SinPenalidad;
 import edu.fiuba.algo3.modelo.Pregunta;
 import edu.fiuba.algo3.modelo.Respuesta;
-import edu.fiuba.algo3.modelo.Ronda;
 import edu.fiuba.algo3.modelo.TipoDePregunta.TipoDePregunta;
 import edu.fiuba.algo3.modelo.TipoDePregunta.VerdaderoFalso;
 import org.junit.jupiter.api.Test;

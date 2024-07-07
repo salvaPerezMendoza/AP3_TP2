@@ -1,7 +1,7 @@
 package edu.fiuba.algo3.entrega_2;
 
 import edu.fiuba.algo3.modelo.*;
-import edu.fiuba.algo3.modelo.Bonificadores.BonificadorDecorador;
+import edu.fiuba.algo3.modelo.Bonificador.BonificadorDecorador;
 import edu.fiuba.algo3.modelo.Opcion.OpcionSimple;
 import edu.fiuba.algo3.modelo.Penalidad.Penalidad;
 import edu.fiuba.algo3.modelo.Penalidad.SinPenalidad;

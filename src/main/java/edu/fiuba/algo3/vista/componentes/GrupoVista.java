@@ -1,7 +1,6 @@
-package edu.fiuba.algo3.interfazGrafica.componentes;
+package edu.fiuba.algo3.vista.componentes;
 
 import edu.fiuba.algo3.modelo.Opcion.OpcionSimple;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;

@@ -1,15 +1,10 @@
 package edu.fiuba.algo3.modelo.Penalidad;
 
-import edu.fiuba.algo3.modelo.Bonificadores.AnuladorDecorador;
-import edu.fiuba.algo3.modelo.Bonificadores.BonificadorConcreto;
 import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.modelo.RespuestaPuntuada;
-import edu.fiuba.algo3.modelo.Bonificadores.BonificadorDecorador;
-import edu.fiuba.algo3.modelo.Bonificadores.MultiplicadorDecorador;
+import edu.fiuba.algo3.modelo.Bonificador.BonificadorDecorador;
 
 import java.util.ArrayList;
-
-import static java.util.stream.Collectors.toList;
 
 
 public class ConPenalidad implements Penalidad {

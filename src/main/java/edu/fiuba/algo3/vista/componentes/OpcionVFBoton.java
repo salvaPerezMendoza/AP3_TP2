@@ -1,4 +1,4 @@
-package edu.fiuba.algo3.interfazGrafica.componentes;
+package edu.fiuba.algo3.vista.componentes;
 
 import edu.fiuba.algo3.modelo.Opcion.OpcionSimple;
 import javafx.scene.control.RadioButton;

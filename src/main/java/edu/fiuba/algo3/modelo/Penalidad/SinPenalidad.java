@@ -1,6 +1,6 @@
 package edu.fiuba.algo3.modelo.Penalidad;
 
-import edu.fiuba.algo3.modelo.Bonificadores.*;
+import edu.fiuba.algo3.modelo.Bonificador.*;
 import edu.fiuba.algo3.modelo.Jugador;
 
 import edu.fiuba.algo3.modelo.RespuestaPuntuada;

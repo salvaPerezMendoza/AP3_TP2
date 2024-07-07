@@ -11,7 +11,6 @@ public class Juego {
     private List<Jugador> jugadores;
     private List<Pregunta> preguntas;
     private Pregunta preguntaActual;
-    private static Ronda ronda;
     private int turnoActual;
 
     public Juego() {
@@ -24,7 +23,6 @@ public class Juego {
     public void iniciarJuego(){
         try {
             crearPreguntas();
-            crearRonda();
         } catch (IOException e) {
             throw new RuntimeException(e);
         } catch (ParseException e) {
@@ -35,20 +33,6 @@ public class Juego {
     public void crearPreguntas() throws IOException, ParseException {
         preguntas = CreadorDePreguntas.leerArchivo();
         setearPreguntaActual();
-    }
-
-    public void crearRonda(){
-        Ronda ronda = obtenerRonda(); // obtengo instancia unica
-        for (Pregunta pregunta : preguntas) {
-            ronda.agregarPreguntas(pregunta);
-        }
-    }
-
-    public static Ronda obtenerRonda() {
-        if (ronda == null) {
-            ronda = new Ronda();
-        }
-        return ronda;
     }
 
     public void setearPreguntaActual() {

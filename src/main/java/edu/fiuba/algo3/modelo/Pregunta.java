@@ -3,7 +3,7 @@ package edu.fiuba.algo3.modelo;
 import edu.fiuba.algo3.modelo.Opcion.OpcionSimple;
 import edu.fiuba.algo3.modelo.Penalidad.Penalidad;
 import edu.fiuba.algo3.modelo.TipoDePregunta.TipoDePregunta;
-import edu.fiuba.algo3.modelo.Bonificadores.*;
+import edu.fiuba.algo3.modelo.Bonificador.*;
 
 import java.util.ArrayList;
 

@@ -1,6 +1,6 @@
 package edu.fiuba.algo3.modelo;
 
-import edu.fiuba.algo3.modelo.Bonificadores.*;
+import edu.fiuba.algo3.modelo.Bonificador.*;
 
 import java.util.ArrayList;
 

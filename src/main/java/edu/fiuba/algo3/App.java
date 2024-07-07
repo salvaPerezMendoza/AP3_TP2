@@ -1,7 +1,7 @@
 package edu.fiuba.algo3;
 
-import edu.fiuba.algo3.interfazGrafica.MenuScene;
-import edu.fiuba.algo3.interfazGrafica.SceneController;
+import edu.fiuba.algo3.vista.MenuScene;
+import edu.fiuba.algo3.controlador.SceneController;
 import edu.fiuba.algo3.modelo.Juego;
 import javafx.application.Application;
 import javafx.scene.Scene;

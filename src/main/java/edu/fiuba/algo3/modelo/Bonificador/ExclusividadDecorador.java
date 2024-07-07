@@ -1,4 +1,4 @@
-package edu.fiuba.algo3.modelo.Bonificadores;
+package edu.fiuba.algo3.modelo.Bonificador;
 
 import edu.fiuba.algo3.modelo.*;
 
