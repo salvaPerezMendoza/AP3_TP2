@@ -45,11 +45,7 @@ public class JugarOrderChoiceScene {
         Label preguntaLabel = new Label(pregunta.getEnunciado());
         preguntaLabel.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #333;");
         preguntaLabel.setPadding(new Insets(20));
-        preguntaLabel.setWrapText(true); // Permite que el texto se ajuste y se muestre en múltiples líneas si es necesario
-
-        // Ajustar el tamaño preferido del Label para que se expanda según el contenido
-        preguntaLabel.setMaxWidth(Double.MAX_VALUE);
-        preguntaLabel.setMaxHeight(Double.MAX_VALUE);
+        preguntaLabel.setWrapText(true);
 
         // Crear la lista de opciones con el ListView
         ObservableList<OpcionSimple> opcionesObservableList = FXCollections.observableArrayList(opciones);
@@ -69,16 +65,29 @@ public class JugarOrderChoiceScene {
         opcionesListView.setStyle("-fx-font-size: 18px; -fx-padding: 10px;");
         opcionesListView.setPrefWidth(400);
 
-        // Configurar el comportamiento al hacer clic en la lista de opciones
-        opcionesListView.setOnMouseClicked((MouseEvent event) -> {
-            OpcionSimple selectedItem = opcionesListView.getSelectionModel().getSelectedItem();
-            if (selectedItem != null) {
-                opcionesObservableList.remove(selectedItem);
-                opcionesObservableList.add(selectedItem);
+        // Botón para mover la opción seleccionada hacia arriba
+        Button moveUpButton = new Button("Subir");
+        moveUpButton.setOnAction(e -> {
+            int selectedIndex = opcionesListView.getSelectionModel().getSelectedIndex();
+            if (selectedIndex > 0) {
+                OpcionSimple selectedItem = opcionesObservableList.remove(selectedIndex);
+                opcionesObservableList.add(selectedIndex - 1, selectedItem);
+                opcionesListView.getSelectionModel().select(selectedIndex - 1);
             }
         });
 
-        VBox opcionesBox = new VBox(10, opcionesListView);
+        // Botón para mover la opción seleccionada hacia abajo
+        Button moveDownButton = new Button("Bajar");
+        moveDownButton.setOnAction(e -> {
+            int selectedIndex = opcionesListView.getSelectionModel().getSelectedIndex();
+            if (selectedIndex < opcionesObservableList.size() - 1) {
+                OpcionSimple selectedItem = opcionesObservableList.remove(selectedIndex);
+                opcionesObservableList.add(selectedIndex + 1, selectedItem);
+                opcionesListView.getSelectionModel().select(selectedIndex + 1);
+            }
+        });
+
+        VBox opcionesBox = new VBox(10, opcionesListView, moveUpButton, moveDownButton);
         opcionesBox.setPadding(new Insets(20));
         opcionesBox.setAlignment(Pos.CENTER);
 
@@ -97,17 +106,17 @@ public class JugarOrderChoiceScene {
             sceneController.siguienteTurno();
         });
 
-        enviarButton.setStyle("-fx-font-size: 18px; -fx-background-color: #010101; -fx-text-fill: White; -fx-border-color: #010101; -fx-border-width: 10px;");
+        enviarButton.setStyle("-fx-font-size: 18px; -fx-background-color: #010101; -fx-text-fill: white; -fx-border-color: #010101; -fx-border-width: 10px;");
 
         // Mostrar las penalidades si las hay
-        VBox botonesPenalidad = sceneController.MostrarBonificadores(pregunta,jugador);
+        VBox botonesPenalidad = sceneController.MostrarBonificadores(pregunta, jugador);
         botonesPenalidad.setAlignment(Pos.CENTER_RIGHT);
         botonesPenalidad.setPadding(new Insets(20));
 
         // Botón para volver al menú principal
         Button backButton = new Button("Volver al Menú");
         backButton.setOnAction(e -> sceneController.switchToMenuScene());
-        backButton.setStyle("-fx-font-size: 18px; -fx-background-color: #010101; -fx-text-fill: White; -fx-border-color: #010101; -fx-border-width: 10px;");
+        backButton.setStyle("-fx-font-size: 18px; -fx-background-color: #010101; -fx-text-fill: white; -fx-border-color: #010101; -fx-border-width: 10px;");
 
         VBox buttonBox = new VBox(10, enviarButton, backButton);
         buttonBox.setAlignment(Pos.CENTER);
