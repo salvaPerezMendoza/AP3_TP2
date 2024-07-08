@@ -40,6 +40,9 @@ public class JugarMultipleChoiceScene {
         Label preguntaLabel = new Label(pregunta.getEnunciado());
         preguntaLabel.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #333;");
         preguntaLabel.setPadding(new Insets(20));
+        preguntaLabel.setWrapText(true);
+        VBox preguntaLabelVBox = new VBox(preguntaLabel);
+        preguntaLabelVBox.setAlignment(Pos.CENTER);
 
 
         VBox botonesPenalidad = sceneController.MostrarBonificadores(pregunta,jugador);
@@ -73,26 +76,20 @@ public class JugarMultipleChoiceScene {
         });
         enviarButton.setStyle("-fx-font-size: 18px; -fx-background-color: #010101; -fx-text-fill: White; -fx-border-color: #010101; -fx-border-width: 10px;");
 
-        // Botón para volver al menú
-        Button backButton = new Button("Volver al Menú");
-        backButton.setOnAction(e -> sceneController.switchToMenuScene());
-        backButton.setStyle("-fx-font-size: 18px; -fx-background-color: #010101; -fx-text-fill: White; -fx-border-color: #010101; -fx-border-width: 10px;");
-
-        VBox buttonBox = new VBox(10, enviarButton, backButton);
+        HBox buttonBox = new HBox(10, enviarButton);
         buttonBox.setAlignment(Pos.CENTER);
         buttonBox.setPadding(new Insets(20));
 
         // Layout principal
 
-        VBox izquierda = new VBox(20, preguntaLabel, opcionesBox, buttonBox);
-        izquierda.setAlignment(Pos.CENTER_LEFT);
-
-        HBox layout = new HBox(20, izquierda, botonesPenalidad);
+        HBox layout = new HBox(100, opcionesBox, botonesPenalidad);
         layout.setPadding(new Insets(20));
-        layout.setAlignment(Pos.CENTER_LEFT);
+        layout.setAlignment(Pos.CENTER);
 
         BorderPane root = new BorderPane();
+        root.setTop(preguntaLabelVBox);
         root.setCenter(layout);
+        root.setBottom(buttonBox);
 
         Scene scene = new Scene(root, 1000, 650);
         scene.getStylesheets().add(getClass().getResource("/styles.css").toExternalForm());

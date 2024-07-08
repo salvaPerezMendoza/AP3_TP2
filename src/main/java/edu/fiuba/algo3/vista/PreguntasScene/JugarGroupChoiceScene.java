@@ -47,7 +47,6 @@ public class JugarGroupChoiceScene {
         TextFlow titleLabel = new TextFlow(preguntaText);
         titleLabel.setStyle("-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #333;");
         titleLabel.setPadding(new Insets(20));
-        titleLabel.setMaxWidth(600);
 
         ObservableList<OpcionSimple> opcionesObservableList = FXCollections.observableArrayList(opciones);
         ObservableList<OpcionSimple> grupo1List = FXCollections.observableArrayList();
