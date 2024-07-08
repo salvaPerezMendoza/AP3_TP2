@@ -29,6 +29,18 @@ public class GroupChoice implements TipoDePregunta {
         return result;
     }
 
+    public String getNombreGrupo(int numeroGrupo) {
+        if(numeroGrupo == 0 || numeroGrupo == 1){
+            return opcionesCorrectas.get(numeroGrupo).getNombre();
+        }
+        return "";
+    }
+
+    @Override
+    public ArrayList<OpcionSimple> obtenerOpciones() {
+        return opciones;
+    }
+
     @Override
     public RespuestaCorregida corregirRespuesta(Respuesta respuestaJugador) {
         int cantidadCorrectas = 0;

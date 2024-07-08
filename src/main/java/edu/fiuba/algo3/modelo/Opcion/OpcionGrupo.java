@@ -6,6 +6,11 @@ public class OpcionGrupo implements Opcion {
     private String nombre;
     private HashSet<OpcionSimple> opciones;
 
+    public OpcionGrupo(String nombre){
+        this.nombre = nombre;
+        this.opciones = new HashSet<>();
+    }
+
     public OpcionGrupo(String nombre, HashSet<OpcionSimple> valores){
         this.nombre = nombre;
         this.opciones = valores;

@@ -13,7 +13,12 @@ public class RespuestaCorregida {
         this.cantidadIncorrectas = cantidadIncorrectas;
     }
 
-    public void asignarPuntaje(Penalidad penalidad) {
-        penalidad.asignarPuntajeJugador(jugador, cantidadCorrectas, cantidadIncorrectas);
+    public boolean esCorrecta(){
+        return cantidadIncorrectas == 0;
     }
+
+    public RespuestaPuntuada asignarPuntaje(Penalidad penalidad) {
+        return penalidad.asignarPuntajeRespuesta(jugador, cantidadCorrectas, cantidadIncorrectas);
+    }
+
 }

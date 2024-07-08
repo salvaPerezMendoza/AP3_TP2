@@ -22,7 +22,7 @@ public class CreadorDePreguntas {
     public CreadorDePreguntas(){
     }
 
-    private OpcionSimple obtenerOpcionPorId(ArrayList<OpcionSimple> opciones, int id){
+    private static OpcionSimple obtenerOpcionPorId(ArrayList<OpcionSimple> opciones, int id){
         for(OpcionSimple opcion : opciones){
             if(opcion.getId() == id){
                 return opcion;
@@ -31,7 +31,7 @@ public class CreadorDePreguntas {
         return null;
     }
 
-    private ArrayList<OpcionSimple> obtenerOpcionesCorrectas(ArrayList<OpcionSimple> opciones, String correctas){
+    private static ArrayList<OpcionSimple> obtenerOpcionesCorrectas(ArrayList<OpcionSimple> opciones, String correctas){
         ArrayList<OpcionSimple> opcionesCorrectas = new ArrayList<>();
         String[] correctasArray = correctas.split(",");
         for(String correcta : correctasArray) {
@@ -40,17 +40,16 @@ public class CreadorDePreguntas {
         return opcionesCorrectas;
     }
 
-    private HashSet<OpcionSimple> obtenerOpcionesCorrectasGrupo(ArrayList<OpcionSimple> opciones,String correctas){
+    private static HashSet<OpcionSimple> obtenerOpcionesCorrectasGrupo(ArrayList<OpcionSimple> opciones,String correctas){
         HashSet<OpcionSimple> opcionesCorrectas = new HashSet<>();
         String[] correctasArray = correctas.split(":")[1].trim().split(",");
         for(String correcta : correctasArray){
             opcionesCorrectas.add(obtenerOpcionPorId(opciones,Integer.parseInt(correcta)));
         }
-        opcionesCorrectas.add(obtenerOpcionPorId(opciones,0));
         return opcionesCorrectas;
     }
 
-    private ArrayList<OpcionSimple> obtenerOpciones(JSONObject preguntaJSON){
+    private static ArrayList<OpcionSimple> obtenerOpciones(JSONObject preguntaJSON){
         ArrayList<OpcionSimple> opciones = new ArrayList<>();
         OpcionSimple opcion1 = new OpcionSimple(String.valueOf(preguntaJSON.get("Opcion 1")), 1);
         opciones.add(opcion1);
@@ -75,11 +74,12 @@ public class CreadorDePreguntas {
         return opciones;
     }
 
-    private Pregunta crearPreguntaGroupChoice(JSONObject preguntaJSON){
+    private static Pregunta crearPreguntaGroupChoice(JSONObject preguntaJSON){
         String enunciado = (String) preguntaJSON.get("Pregunta");
         String nombreGrupoA = (String) preguntaJSON.get("Grupo A");
         String nombreGrupoB = (String) preguntaJSON.get("Grupo B");
         String respuestaCorrecta = (String) preguntaJSON.get("Respuesta");
+        String tema = (String) preguntaJSON.get("Tema");
         ArrayList<OpcionSimple> opciones = obtenerOpciones(preguntaJSON);
         String respuestaCorrectaGrupoA = respuestaCorrecta.split(";")[0];
         String respuestaCorrectaGrupoB = respuestaCorrecta.split(";")[1];
@@ -92,48 +92,51 @@ public class CreadorDePreguntas {
         gruposCorrectos.add(opcionGrupoB);
         GroupChoice groupChoice = new GroupChoice(opciones,gruposCorrectos);
         Penalidad simple = new SinPenalidad();
-        return new Pregunta(groupChoice,simple,enunciado);
+        return new Pregunta(groupChoice,simple,enunciado,tema);
     }
 
-    private Pregunta crearPreguntaVerdaderoFalso(JSONObject preguntaJSON){
+    private static Pregunta crearPreguntaVerdaderoFalso(JSONObject preguntaJSON){
         String enunciado = (String) preguntaJSON.get("Pregunta");
         ArrayList<OpcionSimple> opciones = obtenerOpciones(preguntaJSON);
         String respuesta = (String) preguntaJSON.get("Respuesta");
+        String tema = (String) preguntaJSON.get("Tema");
         OpcionSimple opcionCorrecta = obtenerOpcionPorId(opciones, Integer.parseInt(respuesta));
         VerdaderoFalso verdaderoFalso = new VerdaderoFalso(opciones, opcionCorrecta);
         String[] tipo = ((String) preguntaJSON.get("Tipo")).split(" ");
-        if(tipo.length == 3){
-            return new Pregunta(verdaderoFalso, new ConPenalidad(), enunciado);
+        if(tipo[2].equals("Penalidad")){
+            return new Pregunta(verdaderoFalso, new ConPenalidad(), enunciado,tema);
         }
-        return new Pregunta(verdaderoFalso, new SinPenalidad(), enunciado);
+        return new Pregunta(verdaderoFalso, new SinPenalidad(), enunciado,tema);
     }
 
-    private Pregunta crearPreguntaMultipleChoice(JSONObject preguntaJSON){
+    private static Pregunta crearPreguntaMultipleChoice(JSONObject preguntaJSON){
         String enunciado = (String) preguntaJSON.get("Pregunta");
         ArrayList<OpcionSimple> opciones = obtenerOpciones(preguntaJSON);
         String respuesta = (String) preguntaJSON.get("Respuesta");
+        String tema = (String) preguntaJSON.get("Tema");
         ArrayList<OpcionSimple> opcionesCorrectas = obtenerOpcionesCorrectas(opciones, respuesta);
         TipoDePregunta multipleChoice = new MultipleChoice(opciones, opcionesCorrectas);
         String penalidad = ((String) preguntaJSON.get("Tipo")).split(" ")[2];
         if (penalidad.equals("Simple")){
-            return new Pregunta(multipleChoice, new SinPenalidad(), enunciado);
+            return new Pregunta(multipleChoice, new SinPenalidad(), enunciado,tema);
         } else if (penalidad.equals("Penalidad")) {
-            return new Pregunta(multipleChoice, new ConPenalidad(), enunciado);
+            return new Pregunta(multipleChoice, new ConPenalidad(), enunciado,tema);
         } else {
-            return new Pregunta(multipleChoice, new PenalidadParcial(), enunciado);
+            return new Pregunta(multipleChoice, new PenalidadParcial(), enunciado,tema);
         }
     }
 
-    private Pregunta crearPreguntaOrderedChoice(JSONObject preguntaJSON){
+    private static Pregunta crearPreguntaOrderedChoice(JSONObject preguntaJSON){
         String enunciado = (String) preguntaJSON.get("Pregunta");
         ArrayList<OpcionSimple> opciones = obtenerOpciones(preguntaJSON);
         String respuesta = (String) preguntaJSON.get("Respuesta");
+        String tema = (String) preguntaJSON.get("Tema");
         ArrayList<OpcionSimple> opcionesCorrectas = obtenerOpcionesCorrectas(opciones, respuesta);
         TipoDePregunta orderedChoice = new OrderedChoice(opciones, opcionesCorrectas);
-        return new Pregunta(orderedChoice, new SinPenalidad(), enunciado);
+        return new Pregunta(orderedChoice, new SinPenalidad(), enunciado,tema);
     }
 
-    public ArrayList<Pregunta> leerArchivo() {
+    public static ArrayList<Pregunta> leerArchivo() throws IOException, ParseException {
         JSONParser parser = new JSONParser();
         ArrayList<Pregunta> preguntas = new ArrayList<>();
         try {
