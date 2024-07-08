@@ -5,6 +5,7 @@ import org.json.simple.parser.ParseException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 public class Juego {
@@ -36,13 +37,16 @@ public class Juego {
     }
 
     public void setearPreguntaActual() {
+        Random rand = new Random();
         Pregunta preguntaNueva;
         if(preguntaActual == null) {
             preguntaNueva = preguntas.get(0);
         }
         else {
-            preguntaNueva = preguntas.parallelStream().filter(pregunta -> !pregunta.getTema().equals(preguntaActual.getTema())).findAny().get();
-            System.out.println(preguntaNueva);
+            do {
+                int randomIndex = rand.nextInt(preguntas.size());
+                preguntaNueva = preguntas.get(randomIndex);
+            } while (preguntaNueva.getTema().equals(preguntaActual.getTema()));
         }
         preguntas.remove(preguntaActual);
         preguntaActual = preguntaNueva;

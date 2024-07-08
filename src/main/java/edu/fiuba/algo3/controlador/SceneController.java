@@ -14,6 +14,8 @@ import edu.fiuba.algo3.modelo.TipoDePregunta.VerdaderoFalso;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -130,7 +132,24 @@ public class SceneController {
         VBox botonesPenalidad = new VBox(10);
         for(BonificadorDecorador bonificador : bonificadores){
             BonificadorBoton boton = new BonificadorBoton(bonificador, "-fx-font-size: 14px; -fx-background-color: #000000; -fx-text-fill: White;");
-            boton.setOnAction(e -> jugador.usarBonificador(bonificador, pregunta));
+            boton.setOnAction(e -> {
+                // Usar bonificador
+                jugador.usarBonificador(bonificador, pregunta);
+
+                // Mostrar ventana emergente
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Bonificador Usado");
+                alert.setHeaderText(null);
+                alert.setContentText("Has usado el bonificador: " + bonificador.getNombreBonificador());
+                alert.showAndWait();
+
+                // Deshabilitar todos los botones
+                for (javafx.scene.Node node : botonesPenalidad.getChildren()) {
+                    if (node instanceof Button) {
+                        node.setDisable(true);
+                    }
+                }
+            });
             botonesPenalidad.getChildren().add(boton);
         }
         botonesPenalidad.setAlignment(Pos.CENTER_LEFT);
