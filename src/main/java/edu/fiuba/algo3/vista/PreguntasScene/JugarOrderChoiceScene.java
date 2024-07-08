@@ -66,7 +66,7 @@ public class JugarOrderChoiceScene {
         opcionesListView.setPrefWidth(400);
 
         // Botón para mover la opción seleccionada hacia arriba
-        Button moveUpButton = new Button("Subir");
+        Button moveUpButton = new Button("⬆");
         moveUpButton.setOnAction(e -> {
             int selectedIndex = opcionesListView.getSelectionModel().getSelectedIndex();
             if (selectedIndex > 0) {
@@ -75,9 +75,12 @@ public class JugarOrderChoiceScene {
                 opcionesListView.getSelectionModel().select(selectedIndex - 1);
             }
         });
+        moveUpButton.setStyle("-fx-font-size: 24px; -fx-background-color: #010101; -fx-font-weight: bold; -fx-text-fill: white;");
+        moveUpButton.setPadding(new Insets(40, 40, 40, 40));
+        moveUpButton.setWrapText(true);
 
         // Botón para mover la opción seleccionada hacia abajo
-        Button moveDownButton = new Button("Bajar");
+        Button moveDownButton = new Button("⬇");
         moveDownButton.setOnAction(e -> {
             int selectedIndex = opcionesListView.getSelectionModel().getSelectedIndex();
             if (selectedIndex < opcionesObservableList.size() - 1) {
@@ -86,6 +89,9 @@ public class JugarOrderChoiceScene {
                 opcionesListView.getSelectionModel().select(selectedIndex + 1);
             }
         });
+        moveDownButton.setStyle("-fx-font-size: 24px; -fx-background-color: #010101; -fx-font-weight: bold; -fx-text-fill: white;");
+        moveDownButton.setPadding(new Insets(40, 40, 40, 40));
+        moveDownButton.setWrapText(true);
 
         VBox opcionesBox = new VBox(10, opcionesListView, moveUpButton, moveDownButton);
         opcionesBox.setPadding(new Insets(20));
@@ -118,7 +124,7 @@ public class JugarOrderChoiceScene {
         backButton.setOnAction(e -> sceneController.switchToMenuScene());
         backButton.setStyle("-fx-font-size: 18px; -fx-background-color: #010101; -fx-text-fill: white; -fx-border-color: #010101; -fx-border-width: 10px;");
 
-        VBox buttonBox = new VBox(10, enviarButton, backButton);
+        HBox buttonBox = new HBox(10, enviarButton, backButton);
         buttonBox.setAlignment(Pos.CENTER);
         buttonBox.setPadding(new Insets(20));
 
