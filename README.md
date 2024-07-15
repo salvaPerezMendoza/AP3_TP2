@@ -18,7 +18,7 @@ Corrector: Pablo Suarez
 La versión más reciente de la aplicación puede encontrarse en la pestaña [releases](https://github.com/salvaPerezMendoza/AP3_TP2/releases/latest) y ejecutarse en Linux, Windows o Mac de esta forma:
 
 ```bash
-$ java -jar <archivo.jar>
+$ java -jar algohoot.jar
 ```
 
 ## Desarrollo
