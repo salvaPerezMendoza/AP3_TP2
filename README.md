@@ -1,17 +1,17 @@
 ![tp2](https://github.com/salvaPerezMendoza/AP3_TP2/actions/workflows/build.yml/badge.svg) [![codecov](https://codecov.io/gh/salvaPerezMendoza/AP3_TP2/branch/master/graph/badge.svg)](https://codecov.io/gh/salvaPerezMendoza/AP3_TP2)
 
-# TP2 Algoritmos 3: {nombre} 
+# TP2 Algoritmos 3: AlgoHoot
 
 Trabajo Práctico número 2 de la materia Algoritmos y Programación III de FIUBA
 
-## Grupo {N}
+## Grupo 11
 
-* **Integrante 1** - [integrante1](https://github.com/integrante1)
-* **Integrante 2** - [integrante2](https://github.com/integrante2)
-* **Integrante 3** - [integrante3](https://github.com/integrante3)
-* **Integrante 4** - [integrante4](https://github.com/integrante4)
+* **Integrante 1** - [Ignacio Latorre](https://github.com/ilatorre7)
+* **Integrante 2** - [Nicolas Cardone](https://github.com/nicolascardone)
+* **Integrante 3** - [Salvador Perez](https://github.com/salvaPerezMendoza)
+* **Integrante 4** - [Lucas Araujo](https://github.com/LucasAraujo639)
 
-Corrector: **{Corrector}**
+Corrector: Pablo Suarez
 
 ## Aplicación
 
