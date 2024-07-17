@@ -51,7 +51,7 @@ public class MenuScene {
 
         Label pointsLimitLabel = new Label("Puntaje para ganar");
         pointsLimitLabel.setStyle("-fx-text-fill: White;");
-        AtomicInteger puntosBase = new AtomicInteger(15);
+        AtomicInteger puntosBase = new AtomicInteger(10);
         Label pointsLimitInput = new Label(Integer.toString(puntosBase.get()));
         pointsLimitInput.setPadding(new Insets(10, 10, 10, 10));
         pointsLimitInput.setStyle("-fx-text-fill: White;");
@@ -69,7 +69,7 @@ public class MenuScene {
 
         Label roundsLimitLabel = new Label("Cantidad de Rondas");
         roundsLimitLabel.setStyle("-fx-text-fill: White;");
-        AtomicInteger roundsBase = new AtomicInteger(15);
+        AtomicInteger roundsBase = new AtomicInteger(10);
         Label roundsLimitInput = new Label(Integer.toString(puntosBase.get()));
         roundsLimitInput.setPadding(new Insets(10, 10, 10, 10));
         roundsLimitInput.setStyle("-fx-text-fill: White;");
