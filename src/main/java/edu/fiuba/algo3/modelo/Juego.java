@@ -47,7 +47,7 @@ public class Juego implements Observable {
     public void setearPreguntaActual() {
         Random rand = new Random();
         Pregunta preguntaNueva;
-        if (hayGanador() || ronda >= limiteRondas || preguntas.isEmpty()) {
+        if (hayGanador() || ronda > limiteRondas || preguntas.isEmpty()) {
             terminarJuego();
             return;
         }
