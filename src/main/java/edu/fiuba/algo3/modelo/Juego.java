@@ -13,17 +13,23 @@ public class Juego {
     private List<Pregunta> preguntas;
     private Pregunta preguntaActual;
     private int turnoActual;
+    private int limiteRondas;
+    private int puntajeGanador;
 
     public Juego() {
         this.jugadores = new ArrayList<>();
         this.preguntas = new ArrayList<>();
         this.preguntaActual = null;
         this.turnoActual = 0;
+        this.limiteRondas = 0;
+        this.puntajeGanador = 0;
     }
 
-    public void iniciarJuego(){
+    public void iniciarJuego(int cantidadRondas, int puntajeGanador){
         try {
             crearPreguntas();
+            limiteRondas = cantidadRondas;
+            this.puntajeGanador = puntajeGanador;
         } catch (IOException e) {
             throw new RuntimeException(e);
         } catch (ParseException e) {

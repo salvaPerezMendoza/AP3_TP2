@@ -91,8 +91,8 @@ public class SceneController {
         primaryStage.setScene(ajScene);
     }
 
-    public void iniciarJuego(){
-        juego.iniciarJuego();
+    public void iniciarJuego(int cantidadRondas, int puntajeGanador){
+        juego.iniciarJuego(cantidadRondas, puntajeGanador);
         switchToTurnosScene();
     }
 

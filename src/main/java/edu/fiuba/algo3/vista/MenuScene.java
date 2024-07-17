@@ -4,17 +4,18 @@ import edu.fiuba.algo3.controlador.SceneController;
 import edu.fiuba.algo3.modelo.Juego;
 import edu.fiuba.algo3.modelo.Jugador;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.geometry.Insets;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class MenuScene {
 
@@ -48,7 +49,43 @@ public class MenuScene {
         participantsList.setStyle("-fx-font-size: 18px; -fx-background-color: White;");
 
 
-        VBox participantsBox = new VBox(participantsLabel, participantsList);
+        Label pointsLimitLabel = new Label("Puntaje para ganar (Valor entre: 0 y 25)");
+        pointsLimitLabel.setStyle("-fx-text-fill: White;");
+        AtomicInteger puntosBase = new AtomicInteger(15);
+        Label pointsLimitInput = new Label(Integer.toString(puntosBase.get()));
+        pointsLimitInput.setPadding(new Insets(10, 10, 10, 10));
+        pointsLimitInput.setStyle("-fx-text-fill: White;");
+        Button addPoint = new Button("+");
+        Button substractPoint = new Button("-");
+        addPoint.setOnAction(e->{
+            pointsLimitInput.setText(Integer.toString(puntosBase.updateAndGet(i -> i >= 25 ? 0 : i+1)));
+        });
+        substractPoint.setOnAction(e->{
+            pointsLimitInput.setText(Integer.toString(puntosBase.updateAndGet(i -> i <= 0 ? 25 : i-1)));
+        });
+
+        HBox pointsLimitBox = new HBox(substractPoint, pointsLimitInput, addPoint);
+        VBox pointsLimit = new VBox(pointsLimitLabel, pointsLimitBox);
+
+        Label roundsLimitLabel = new Label("Cantidad de Rondas");
+        roundsLimitLabel.setStyle("-fx-text-fill: White;");
+        AtomicInteger roundsBase = new AtomicInteger(15);
+        Label roundsLimitInput = new Label(Integer.toString(puntosBase.get()));
+        roundsLimitInput.setPadding(new Insets(10, 10, 10, 10));
+        roundsLimitInput.setStyle("-fx-text-fill: White;");
+        Button addRound = new Button("+");
+        Button substractRound = new Button("-");
+        addRound.setOnAction(e->{
+            roundsLimitInput.setText(Integer.toString(roundsBase.updateAndGet(i -> i >= 25 ? 0 : i+1)));
+        });
+        substractRound.setOnAction(e->{
+            roundsLimitInput.setText(Integer.toString(roundsBase.updateAndGet(i -> i <= 0 ? 25 : i-1)));
+        });
+
+        HBox roundsLimitBox = new HBox(substractRound, roundsLimitInput, addRound);
+        VBox roundsLimit = new VBox(roundsLimitLabel, roundsLimitBox);
+
+        VBox participantsBox = new VBox(participantsLabel, participantsList, pointsLimit, roundsLimit);
         participantsBox.setPadding(new Insets(30, 40, 0, 40));
         participantsBox.setSpacing(30);
         participantsBox.setStyle("-fx-background-color: black; -fx-border-color: #010101; -fx-border-width: 3px;");
@@ -63,7 +100,7 @@ public class MenuScene {
                 alert.setContentText("Se requieren al menos 2 jugadores para iniciar el juego.");
                 alert.showAndWait();
             } else {
-                sceneController.iniciarJuego();
+                sceneController.iniciarJuego(roundsBase.get(), puntosBase.get());
             }
         });
         playButton.setStyle("-fx-font-size: 18px; -fx-background-color: #010101; -fx-text-fill: White; -fx-border-color: #010101; -fx-border-width: 10px;" );
