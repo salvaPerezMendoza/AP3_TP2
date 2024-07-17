@@ -87,6 +87,14 @@ public class JugarGroupChoiceScene {
         });
 
         enviarButton.setStyle("-fx-font-size: 18px; -fx-background-color: #010101; -fx-text-fill: White; -fx-border-color: #010101; -fx-border-width: 10px;");
+        // Boton para volver al menú
+        Button backButton = new Button("Volver al Menú");
+        backButton.setOnAction(e -> sceneController.switchToTheStartScene());
+        backButton.setStyle("-fx-font-size: 13px; -fx-background-color: #010101; -fx-text-fill: White; -fx-border-color: #010101; -fx-border-width: 5px;");
+        backButton.setPadding(new Insets(10));
+        // Posicionar el boton en la esquina superior izquierda
+        BorderPane.setAlignment(backButton, Pos.TOP_LEFT);
+        BorderPane.setMargin(backButton, new Insets(10));
 
         VBox botonesPenalidad = sceneController.MostrarBonificadores(pregunta, jugador);
         botonesPenalidad.setAlignment(Pos.CENTER_RIGHT);
@@ -115,6 +123,7 @@ public class JugarGroupChoiceScene {
         root.setTop(titleLabel);
         root.setCenter(layout);
         root.setBottom(buttonBox);
+        root.setLeft(backButton);
 
         return new Scene(root, 1000, 650);
     }

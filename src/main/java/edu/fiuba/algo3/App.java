@@ -1,5 +1,6 @@
 package edu.fiuba.algo3;
 
+import edu.fiuba.algo3.controlador.JuegoObserver;
 import edu.fiuba.algo3.vista.MenuScene;
 import edu.fiuba.algo3.controlador.SceneController;
 import edu.fiuba.algo3.modelo.Juego;
@@ -13,6 +14,8 @@ public class App extends Application {
     public void start(Stage primaryStage) {
         Juego juego = new Juego();
         SceneController sceneController = new SceneController(primaryStage);
+        JuegoObserver juegoObserver = new JuegoObserver(sceneController);
+        juego.addObserver(juegoObserver);
 
         // Crear la primera escena
         MenuScene menuScene = new MenuScene(sceneController, juego);

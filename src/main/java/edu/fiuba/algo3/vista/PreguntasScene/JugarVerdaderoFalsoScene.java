@@ -67,11 +67,14 @@ public class JugarVerdaderoFalsoScene implements EscenaDePregunta {
             }
         });
         enviarButton.setStyle("-fx-font-size: 18px; -fx-background-color: #010101; -fx-text-fill: White; -fx-border-color: #010101; -fx-border-width: 10px;");
-
-        // Botón para volver al menú
+        // Boton para volver al menú
         Button backButton = new Button("Volver al Menú");
-        backButton.setOnAction(e -> sceneController.switchToMenuScene());
-        backButton.setStyle("-fx-font-size: 18px; -fx-background-color: #010101; -fx-text-fill: White; -fx-border-color: #010101; -fx-border-width: 10px;");
+        backButton.setOnAction(e -> sceneController.switchToTheStartScene());
+        backButton.setStyle("-fx-font-size: 13px; -fx-background-color: #010101; -fx-text-fill: White; -fx-border-color: #010101; -fx-border-width: 5px;");
+        backButton.setPadding(new Insets(10));
+        // Posicionar el boton en la esquina superior izquierda
+        BorderPane.setAlignment(backButton, Pos.TOP_LEFT);
+        BorderPane.setMargin(backButton, new Insets(10));
 
         VBox buttonBox = new VBox(10, enviarButton, backButton);
         buttonBox.setAlignment(Pos.CENTER);
@@ -87,6 +90,7 @@ public class JugarVerdaderoFalsoScene implements EscenaDePregunta {
 
         BorderPane root = new BorderPane();
         root.setCenter(layout);
+        root.setLeft(backButton);
 
         Scene scene = new Scene(root, 1000, 650);
         scene.getStylesheets().add(getClass().getResource("/styles.css").toExternalForm());

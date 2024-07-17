@@ -20,6 +20,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class SceneController {
 
@@ -111,8 +112,17 @@ public class SceneController {
 
     // Turnos
     public void switchToTurnosScene() {
+        List<Jugador> jugadores = juego.devolverJugadores();
+        for(Jugador jugador: jugadores){
+            // Verificar si se cumple condicion de corte
+            if (jugador.getPuntajeTotal() >= 3) {
+                this.switchToGanadorScene();
+                return;
+            }
+        }
         TurnosScene turnosScene = new TurnosScene(this, juego);
         Scene scene = turnosScene.getScene();
+        System.out.println("EVENTO PUNTAJES ACITVADO");
         primaryStage.setScene(scene);
     }
 
@@ -122,9 +132,22 @@ public class SceneController {
         primaryStage.setScene(scene);
     }
 
+    public void switchToGanadorScene(){
+        MostrarGanadorScene mostrarGanadorScene = new MostrarGanadorScene(this, juego);
+        Scene scene = mostrarGanadorScene.getScene();
+        primaryStage.setScene(scene);
+    }
+
     public void addPlayer(String playerName) {
         Jugador jugador = new Jugador(playerName);
         juego.agregarJugador(jugador);
+    }
+
+    public void switchToTheStartScene() {
+        this.juego = new Juego();
+        MenuScene menuScene = new MenuScene(this, juego);
+        Scene mScene = menuScene.getScene();
+        primaryStage.setScene(mScene);
     }
 
     public VBox MostrarBonificadores(Pregunta pregunta, Jugador jugador){
