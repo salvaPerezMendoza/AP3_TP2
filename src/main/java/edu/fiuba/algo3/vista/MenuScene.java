@@ -49,7 +49,7 @@ public class MenuScene {
         participantsList.setStyle("-fx-font-size: 18px; -fx-background-color: White;");
 
 
-        Label pointsLimitLabel = new Label("Puntaje para ganar (Valor entre: 0 y 25)");
+        Label pointsLimitLabel = new Label("Puntaje para ganar");
         pointsLimitLabel.setStyle("-fx-text-fill: White;");
         AtomicInteger puntosBase = new AtomicInteger(15);
         Label pointsLimitInput = new Label(Integer.toString(puntosBase.get()));
@@ -58,10 +58,10 @@ public class MenuScene {
         Button addPoint = new Button("+");
         Button substractPoint = new Button("-");
         addPoint.setOnAction(e->{
-            pointsLimitInput.setText(Integer.toString(puntosBase.updateAndGet(i -> i >= 25 ? 0 : i+1)));
+            pointsLimitInput.setText(Integer.toString(puntosBase.updateAndGet(i -> i >= 25 ? 1 : i+1)));
         });
         substractPoint.setOnAction(e->{
-            pointsLimitInput.setText(Integer.toString(puntosBase.updateAndGet(i -> i <= 0 ? 25 : i-1)));
+            pointsLimitInput.setText(Integer.toString(puntosBase.updateAndGet(i -> i <= 1 ? 25 : i-1)));
         });
 
         HBox pointsLimitBox = new HBox(substractPoint, pointsLimitInput, addPoint);
@@ -76,10 +76,10 @@ public class MenuScene {
         Button addRound = new Button("+");
         Button substractRound = new Button("-");
         addRound.setOnAction(e->{
-            roundsLimitInput.setText(Integer.toString(roundsBase.updateAndGet(i -> i >= 25 ? 0 : i+1)));
+            roundsLimitInput.setText(Integer.toString(roundsBase.updateAndGet(i -> i >= 25 ? 1 : i+1)));
         });
         substractRound.setOnAction(e->{
-            roundsLimitInput.setText(Integer.toString(roundsBase.updateAndGet(i -> i <= 0 ? 25 : i-1)));
+            roundsLimitInput.setText(Integer.toString(roundsBase.updateAndGet(i -> i <= 1 ? 25 : i-1)));
         });
 
         HBox roundsLimitBox = new HBox(substractRound, roundsLimitInput, addRound);
@@ -100,7 +100,7 @@ public class MenuScene {
                 alert.setContentText("Se requieren al menos 2 jugadores para iniciar el juego.");
                 alert.showAndWait();
             } else {
-                sceneController.iniciarJuego(roundsBase.get(), puntosBase.get());
+                sceneController.iniciarJuego(Integer.parseInt(roundsLimitInput.getText()), Integer.parseInt(pointsLimitInput.getText()));
             }
         });
         playButton.setStyle("-fx-font-size: 18px; -fx-background-color: #010101; -fx-text-fill: White; -fx-border-color: #010101; -fx-border-width: 10px;" );

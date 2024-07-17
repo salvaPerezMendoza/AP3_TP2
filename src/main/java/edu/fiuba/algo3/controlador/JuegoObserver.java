@@ -10,6 +10,5 @@ public class JuegoObserver implements Observer {
     @Override
     public void update(Observable o) {
           sceneController.switchToGanadorScene();
-
     }
 }

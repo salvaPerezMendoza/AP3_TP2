@@ -11,14 +11,17 @@ public class Juego implements Observable {
     private List<Pregunta> preguntas;
     private Pregunta preguntaActual;
     private int turnoActual;
+    private int ronda;
     private int limiteRondas;
     private int puntajeGanador;
     private List<Observer> observers;
+
     public Juego() {
         this.jugadores = new ArrayList<>();
         this.preguntas = new ArrayList<>();
         this.preguntaActual = null;
         this.turnoActual = 0;
+        this.ronda = 0;
         this.limiteRondas = 0;
         this.puntajeGanador = 0;
         this.observers = new ArrayList<>();
@@ -26,9 +29,9 @@ public class Juego implements Observable {
 
     public void iniciarJuego(int cantidadRondas, int puntajeGanador){
         try {
-            crearPreguntas();
             limiteRondas = cantidadRondas;
             this.puntajeGanador = puntajeGanador;
+            crearPreguntas();
         } catch (IOException e) {
             throw new RuntimeException(e);
         } catch (ParseException e) {
@@ -44,9 +47,7 @@ public class Juego implements Observable {
     public void setearPreguntaActual() {
         Random rand = new Random();
         Pregunta preguntaNueva;
-        System.out.println("caca");
-        System.out.println(hayGanador());
-        if (hayGanador()) {
+        if (hayGanador() || ronda >= limiteRondas || preguntas.isEmpty()) {
             terminarJuego();
             return;
         }
@@ -61,6 +62,7 @@ public class Juego implements Observable {
         }
         preguntas.remove(preguntaActual);
         preguntaActual = preguntaNueva;
+        ronda += 1;
     }
 
     public Jugador devolverGanador() {
@@ -70,7 +72,6 @@ public class Juego implements Observable {
                 ganador = jugador;
             }
         }
-
         return ganador;
     }
 
@@ -96,14 +97,15 @@ public class Juego implements Observable {
 
     private boolean hayGanador() {
         for (Jugador jugador : jugadores) {
-            System.out.println("puntaje ganador");
-            System.out.println(puntajeGanador);
-            if (jugador.getPuntajeTotal() >= 3) {
+            if (jugador.getPuntajeTotal() >= puntajeGanador) {
                 return true;
             }
         }
+
+
         return false;
     }
+
     public void terminarJuego() {
         System.out.println("Termino juego");
         notifyObservers(devolverGanador());
